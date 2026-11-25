@@ -1,3 +1,25 @@
+# SECURITY.md : sécurité officielle
+
+**Référence :** `ShiivMods/GAIARPOFFI/main`.
+**État :** initialisation technique, pas de comptes, données privées, API métier ou service déployé.
+
+## Mesures et exigences de la nouvelle architecture
+- Dépôt public : secrets, fichiers d'environnement locaux, clés privilégiées et données privées exclus du Git.
+- Supabase/PostgreSQL prévu ; projet distinct obligatoire, pas de réutilisation d'une base d'un autre produit. L'authentification utilisera un fournisseur reconnu ; Supabase Auth est l'option privilégiée à valider.
+- Toutes les autorisations sensibles seront vérifiées côté serveur et, pour les tables exposées, avec RLS et privilèges minimaux. Les rôles MJ et administrateur restent séparés.
+- Pas de rôle privilégié attribuable par le client ou par des métadonnées éditables.
+- Authentification : inscription ouverte, e-mail obligatoire, vérification d'adresse proposée avant accès aux fonctionnalités de jeu ; choix d'identifiant et politique de mot de passe à formaliser. Aucun stockage artisanal de mot de passe.
+- Contrôles prévus : sessions sécurisées, déconnexion, récupération, anti-abus, anti-énumération, validation des entrées, protection CSRF, tests d'accès croisés. Les exigences historiques de MFA restent applicables.
+- Combat/progression : validations serveur, transactions et protection contre les doubles résolutions ; aucune confiance dans les calculs du client.
+- Versions de dépendances directes fixées. Le lockfile doit être généré puis versionné avant validation ; audit, compilation et tests à exécuter.
+- Aucune mise en ligne avant validation des protections et de l'environnement.
+
+Les mesures ci-dessus sont des exigences, non des garanties déjà implémentées.
+
+---
+
+> **Archive de la maquette (ShiivMods/GaiaRP).** Le texte qui suit est conservé pour les règles métier et les décisions de conception. Les mentions d'implémentation, de versions, de routes, de GitHub Pages, de Vite, de dépendances et les cases cochées décrivent uniquement l'ancien dépôt. Elles ne prouvent rien sur GAIARPOFFI. En cas de conflit technique, la section officielle ci-dessus prévaut. Les règles métier non remplacées restent applicables.
+
 # SECURITY.md — RP SF / Gaïa RP
 
 > Ce fichier décrit les risques, décisions et mesures de sécurité propres à RP SF / Gaïa RP.

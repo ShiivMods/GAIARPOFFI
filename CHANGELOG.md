@@ -1,3 +1,16 @@
+# Changelog GAIA RP officiel
+
+## 0.1.0-dev.0 (25 novembre 2026)
+- Création du socle Next.js App Router / TypeScript strict.
+- Séparation prévue de l'interface, des modules, des règles de jeu et du serveur.
+- Mise à jour des documents de cadrage et réinitialisation du suivi officiel.
+- Aucun système de jeu ni authentification implémenté.
+- Installation, lockfile, compilation et audit à valider.
+
+---
+
+> **Archive de la maquette (ShiivMods/GaiaRP).** Le texte qui suit est conservé pour les règles métier et les décisions de conception. Les mentions d'implémentation, de versions, de routes, de GitHub Pages, de Vite, de dépendances et les cases cochées décrivent uniquement l'ancien dépôt. Elles ne prouvent rien sur GAIARPOFFI. En cas de conflit technique, la section officielle ci-dessus prévaut. Les règles métier non remplacées restent applicables.
+
 ## 0.6.dev52
 - Ajout d'une page Évènements avec un état vide lorsqu'aucun évènement n'est actif.
 - Ajout d'une page Compte présentant le futur cycle de 7 bonus de connexion sur une fenêtre de 11 jours et le bonus du premier RP du jour, sans inventer les récompenses encore non définies.

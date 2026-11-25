@@ -1,3 +1,44 @@
+# CHECKLIST.md : suivi du dépôt officiel
+
+**Référence :** `ShiivMods/GAIARPOFFI/main`. Cette checklist courante ne comptabilise pas la maquette.
+
+## Phase 0 : fondations
+- [x] Dépôt officiel créé.
+- [x] Documentation historique transférée et vérifiée.
+- [x] Cadrage et séparation des statuts historiques/officiels.
+- [~] Socle Next.js / React / TypeScript écrit.
+- [ ] Générer et versionner package-lock.json.
+- [ ] Installer et vérifier les dépendances, lint, types, tests et build.
+- [ ] Créer ou sélectionner un projet Supabase dédié à GAIA RP.
+- [ ] Vérifier configuration et environnement de développement.
+
+## Phase 1 : inscription
+- [ ] Formaliser inscription, connexion, confirmation e-mail et récupération.
+- [ ] Authentification réelle et gestion des sessions.
+- [ ] Comptes, rôles et permissions.
+- [ ] Tests des parcours et des contrôles d'accès.
+
+## Phase 2 : combat
+- [ ] Extraire et valider les règles de la maquette.
+- [ ] Moteur de combat indépendant de l'interface.
+- [ ] Participants, équipages, tours et synchronisation.
+- [ ] Résolution serveur, persistance, idempotence.
+- [ ] Interface et tests multijoueurs.
+
+## Phase 3 : RP
+- [ ] RP persistants, participants, MJ, PNJ et permissions.
+- [ ] Chronologie et intégration des combats.
+
+## Phase 4 : progression
+- [ ] Caractéristiques, compétences, récompenses et équipements.
+- [ ] Test complet de la boucle RP > combat > progression > RP.
+
+La checklist historique ci-dessous conserve toutes les exigences détaillées ; ses cases cochées ne sont pas des validations officielles.
+
+---
+
+> **Archive de la maquette (ShiivMods/GaiaRP).** Le texte qui suit est conservé pour les règles métier et les décisions de conception. Les mentions d'implémentation, de versions, de routes, de GitHub Pages, de Vite, de dépendances et les cases cochées décrivent uniquement l'ancien dépôt. Elles ne prouvent rien sur GAIARPOFFI. En cas de conflit technique, la section officielle ci-dessus prévaut. Les règles métier non remplacées restent applicables.
+
 # CHECKLIST.md — RP SF / Gaïa RP
 
 **Projet :** RP SF / Gaïa RP  

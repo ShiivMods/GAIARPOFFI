@@ -1,0 +1,4 @@
+html { color-scheme: light dark; }
+body { margin: 0; font-family: system-ui, sans-serif; line-height: 1.6; }
+main { max-width: 42rem; padding: 2rem; margin: 4rem auto; }
+h1 { line-height: 1.2; }

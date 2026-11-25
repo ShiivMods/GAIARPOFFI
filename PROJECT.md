@@ -1,3 +1,30 @@
+# PROJECT.md : GAIA RP officiel
+
+**Référence technique unique :** `ShiivMods/GAIARPOFFI`, branche `main`.
+**Référence historique de conception :** `ShiivMods/GaiaRP` (maquette).
+**Date de transition :** 25 novembre 2026.
+
+## Architecture officielle
+- Next.js App Router, React, TypeScript strict, Node.js 22 (minimum 22.13).
+- PostgreSQL via Supabase est la cible retenue. Aucun projet ni schéma GAIA RP n'est encore configuré.
+- Application serveur, non destinée à l'export statique GitHub Pages. Hébergement non choisi.
+- `src/app/` : routes et interface ; `src/features/` : modules fonctionnels ; `src/game/` : règles métier indépendantes ; `src/server/` : accès et opérations exclusivement serveur.
+- Le serveur est autoritaire ; aucune mutation d'économie, progression ou combat ne repose sur une valeur déclarée par un client. L'IA peut narrer, mais ne décide pas des conséquences mécaniques.
+- Un module n'est terminé qu'après tests et validation fonctionnelle ; pas de données factices présentées comme persistantes.
+
+## Priorités validées
+1. Socle technique et inscription / authentification réelle.
+2. Combats (reprendre les règles validées, puis les tester).
+3. RP et intégration des combats.
+4. Progression et boucle complète RP > combat > progression > RP.
+5. Autres modules du forum.
+
+Le prototype officiel est actuellement au stade de l'initialisation : aucun compte, RP, combat ni progression n'est implémenté. Les règles de développement, d'UX, de sécurité et de conception historiques restent applicables sauf adaptation explicitement documentée.
+
+---
+
+> **Archive de la maquette (ShiivMods/GaiaRP).** Le texte qui suit est conservé pour les règles métier et les décisions de conception. Les mentions d'implémentation, de versions, de routes, de GitHub Pages, de Vite, de dépendances et les cases cochées décrivent uniquement l'ancien dépôt. Elles ne prouvent rien sur GAIARPOFFI. En cas de conflit technique, la section officielle ci-dessus prévaut. Les règles métier non remplacées restent applicables.
+
 # PROJECT.md — RP SF / Gaïa RP
 
 **Projet :** RP SF / Gaïa RP  

@@ -1,3 +1,23 @@
+# SCOPE.md : périmètre officiel
+
+**Référence courante :** `ShiivMods/GAIARPOFFI/main`.
+Les exigences fonctionnelles et règles de jeu du dossier historique ci-dessous constituent le point de départ. Les statuts de réalisation sont réinitialisés pour le dépôt officiel.
+
+| Module | Statut officiel |
+| --- | --- |
+| Socle Next.js / TypeScript | Initialisé dans le dépôt ; exécution à valider |
+| Inscription et authentification | Prévu en premier |
+| Combat spatial | Prévu en deuxième |
+| RP écrit | Prévu |
+| Progression | Prévu |
+| Carte, dynasties, vaisseaux, lore, missions, administration, autres fonctions | Prévu, selon les exigences historiques |
+
+L'inscription est ouverte et requiert un e-mail ; la création du premier personnage reste une exigence fonctionnelle. Les règles détaillées de combat, RP et progression ne sont pas modifiées ici. Aucun service public ni donnée personnelle réelle à ce stade.
+
+---
+
+> **Archive de la maquette (ShiivMods/GaiaRP).** Le texte qui suit est conservé pour les règles métier et les décisions de conception. Les mentions d'implémentation, de versions, de routes, de GitHub Pages, de Vite, de dépendances et les cases cochées décrivent uniquement l'ancien dépôt. Elles ne prouvent rien sur GAIARPOFFI. En cas de conflit technique, la section officielle ci-dessus prévaut. Les règles métier non remplacées restent applicables.
+
 # SCOPE.md — Périmètre du projet RP SF / Gaïa RP
 
 > Ce fichier définit ce qui appartient au projet, ce qui existe actuellement, ce qui est prévu et ce qui ne fait pas partie du périmètre actuel.

@@ -1,0 +1,18 @@
+# Dependencies
+/node_modules/
+# Next.js
+/.next/
+/out/
+/next-env.d.ts
+*.tsbuildinfo
+# Local environment and secrets
+.env*
+!.env.example
+*.pem
+*.key
+# Logs and local tools
+npm-debug.log*
+/coverage/
+/.vercel/
+/.supabase/
+.DS_Store

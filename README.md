@@ -1,63 +1,39 @@
-# RP SF
+# GAIA RP
 
-RP SF est une application web conçue comme support à un jeu de rôle écrit de science-fiction.
+Plateforme web de support à un jeu de rôle écrit de science-fiction. Le RP et les MJ gardent le contrôle narratif ; les règles mécaniques sont exécutées par un moteur de jeu autoritaire côté serveur.
 
-Le projet vise à réunir au même endroit les principaux outils nécessaires au fonctionnement du RP : gestion des membres et personnages, dynasties, vaisseaux, lore, progression, économie, missions, voyages et, à terme, combats spatiaux.
+## État
 
-Le site est actuellement en développement.
+Dépôt officiel en initialisation. Aucun compte ni système de jeu opérationnel. Aucun déploiement public configuré.
 
-## Objectif
+Priorités : inscription, combats, RP, progression. L'ancien dépôt [GaiaRP](https://github.com/ShiivMods/GaiaRP) demeure la référence de la maquette, pas l'état technique courant.
 
-RP SF ne cherche pas à automatiser entièrement le jeu.
+## Développement local
 
-L'application sert avant tout de support aux joueurs et aux Maîtres du Jeu en automatisant les tâches répétitives, les calculs et la gestion des données, tout en laissant au RP et aux MJ le contrôle des décisions qui nécessitent une interprétation.
+Prérequis : Node.js 22.13+ (branche 22 recommandée) et npm. Depuis la racine :
 
-## Fonctionnalités
+```sh
+npm install
+npm run dev
+```
 
-Le projet comprend ou prévoit notamment :
+Ouvrir http://localhost:3000. Le premier `npm install` doit produire un `package-lock.json` à versionner après vérification ; ensuite utiliser `npm ci`.
 
-* gestion des membres, PJ et PNJ ;
-* fiches de personnages ;
-* dynasties ;
-* gestion des vaisseaux et équipages ;
-* progression et compétences ;
-* lore structuré ;
-* factions et espèces ;
-* économie ;
-* missions et récompenses ;
-* déplacements spatiaux ;
-* technologies ;
-* combat spatial ;
-* outils de gestion pour les MJ.
+```sh
+npm run lint
+npm run typecheck
+npm run build
+npm audit
+```
 
-## État du projet
+Le démarrage ne nécessite pas de compte Supabase à ce stade. Copier `.env.example` vers `.env.local` seulement lorsque le projet Supabase dédié sera disponible. Ne jamais commiter `.env.local` ni de clé privilégiée.
 
-RP SF est encore en développement actif.
+## Documentation
 
-Certaines parties sont déjà utilisables tandis que d'autres ne disposent encore que de leur interface ou de leurs premières fondations.
+- [PROJECT.md](PROJECT.md) : architecture et conventions
+- [SCOPE.md](SCOPE.md) : exigences métier
+- [SECURITY.md](SECURITY.md) : sécurité
+- [CHECKLIST.md](CHECKLIST.md) : suivi actuel
+- [CHANGELOG.md](CHANGELOG.md) : historique
 
-Les fonctionnalités peuvent évoluer considérablement jusqu'à leur intégration dans une version stable.
-
-## Structure
-
-Le projet est développé de manière modulaire afin que ses différents systèmes puissent évoluer progressivement sans nécessiter une reconstruction complète de l'application.
-
-Les règles de conception, d'architecture et de développement sont documentées dans :
-
-**`PROJECT.md`**
-
-Ce fichier constitue la référence interne du projet et doit être consulté avant toute modification importante.
-
-## Versions
-
-Le projet distingue les versions de développement des versions stables.
-
-Les versions de développement servent à intégrer et tester les nouvelles fonctionnalités.
-
-Une version stable constitue une base validée du projet. Une version de développement plus récente mais invalidée ne remplace pas automatiquement la dernière base fonctionnelle.
-
-## Développement
-
-Le projet est actuellement développé dans le cadre d'un projet personnel de jeu de rôle.
-
-L'architecture, les mécaniques et les interfaces continueront d'évoluer au fur et à mesure du développement et des tests.
+La documentation historique est conservée dans les sections d'archive et dans le commit de transfert initial.
