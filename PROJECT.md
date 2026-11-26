@@ -1118,3 +1118,6 @@ La maquette GaiaRP est la référence fonctionnelle ET visuelle. Tout module rep
 
 ## Reprise intégrale (dev.6)
 La source historique est le commit GaiaRP 6a5324d5bea9758c94e19305bc8c3e25979897e8. Tous les écrans et contenus sont repris dans Next.js sans refonte. Le dossier src/legacy conserve leurs modules TypeScript/React ; seules les adaptations d’entrée, de navigation, d’assets et de liens vers les fonctions locales sont nécessaires. Les configurations Vite et GitHub Pages restent des références inactives. Aucun contenu de lore ni règle de jeu nouvelle n’est introduit par ce transfert. Voir MIGRATION.md.
+
+## Inscription dev.7
+Voir [REGISTRATION.md](REGISTRATION.md). Le parcours en deux étapes constitue la nouvelle référence. Aucun compte n'est créé avant Embarquer. Données locales uniquement, fournisseur d'identité définitif reporté.

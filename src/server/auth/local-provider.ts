@@ -1,7 +1,8 @@
-import { createHash, randomBytes, randomUUID } from "node:crypto";
-import { normalizeEmail, normalizeUsername } from "./config.ts";
+import { createHash, randomBytes } from "node:crypto";
+import { normalizeEmail } from "./config.ts";
 import { withLocalDb, transaction } from "../db/local.ts";
 import type { DatabaseSync } from "node:sqlite";
+import { verifyPassword } from "./password.ts";
 import type { Account, AuthProvider, Session } from "./types.ts";
 
 export const SESSION_SECONDS = 8 * 60 * 60;
@@ -12,7 +13,7 @@ function accountFrom(row: Record<string, unknown> | undefined): Account | null {
   if (!row) return null;
   return {id: row.id as string, email: row.email as string, username: row.username as string, role: row.role as Account["role"]};
 }
-function issueSession(db: DatabaseSync, account: Account): Session {
+export function issueSession(db: DatabaseSync, account: Account): Session {
   const session = {account, token:randomBytes(32).toString("hex"), expiresAt:new Date(Date.now()+SESSION_SECONDS*1000)};
   db.prepare("DELETE FROM local_auth_sessions WHERE expires_at <= ?").run(Date.now());
   db.prepare("INSERT INTO local_auth_sessions(token_hash,account_id,expires_at) VALUES(?,?,?)")
@@ -20,27 +21,15 @@ function issueSession(db: DatabaseSync, account: Account): Session {
   return session;
 }
 export const localAuth: AuthProvider = {
-  async register(inputEmail,inputUsername) {
-    return withLocalDb(db => {
-      const email=normalizeEmail(inputEmail), username=normalizeUsername(inputUsername);
-      if(!email || !username) return null;
-      return transaction(db,()=>{
-        const account: Account={id:randomUUID(),email,username,role:"player"};
-        const result=db.prepare("INSERT INTO app_accounts(id,email,username,created_at) VALUES(?,?,?,?) ON CONFLICT DO NOTHING")
-          .run(account.id,email,username,Date.now());
-        return result.changes === 0 ? null : issueSession(db,account);
-      });
-    });
-  },
-  async signIn(inputEmail) {
-    return withLocalDb(db=>{
-      const email=normalizeEmail(inputEmail);
-      if(!email) return null;
-      return transaction(db,()=>{
-        const account=accountFrom(db.prepare("SELECT id,email,username,role FROM app_accounts WHERE email=?").get(email));
-        return account ? issueSession(db,account) : null;
-      });
-    });
+  async signIn(inputEmail,password) {
+    const email=normalizeEmail(inputEmail);
+    if(!email) return null;
+    return withLocalDb(db=>transaction(db,()=>{
+      const row=db.prepare("SELECT id,email,username,role,password_hash FROM app_accounts WHERE email=?").get(email);
+      if(!row || typeof row.password_hash!=="string" || !verifyPassword(password,row.password_hash))return null;
+      const account=accountFrom(row);
+      return account ? issueSession(db,account) : null;
+    }));
   },
   async getAccount(token) {
     return withLocalDb(db=>{
@@ -54,3 +43,13 @@ export const localAuth: AuthProvider = {
     });
   },
 };
+
+const TEST_EMAILS=new Set(["joueur1@example.test","joueur2@example.test","joueur3@example.test","mj@example.test","admin@example.test"]);
+export async function signInTestAccount(inputEmail:string):Promise<Session|null>{
+  const email=normalizeEmail(inputEmail);
+  if(!email||!TEST_EMAILS.has(email))return null;
+  return withLocalDb(db=>transaction(db,()=>{
+    const account=accountFrom(db.prepare("SELECT id,email,username,role FROM app_accounts WHERE email=? AND password_hash IS NULL").get(email));
+    return account?issueSession(db,account):null;
+  }));
+}

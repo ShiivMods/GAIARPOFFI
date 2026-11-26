@@ -12,11 +12,13 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   return <main>
     <a href="/">Accueil</a>
     <h1>Connexion locale</h1>
-    <p className="notice">Simulation sans mot de passe : ne jamais exposer ce mode sur un réseau public.</p>
-    {error && <p role="alert">{error === "database" ? "Base locale indisponible. Vérifiez sa configuration." : "Compte de test introuvable."}</p>}
+    <p className="notice">Développement local : utilisez uniquement des identifiants de test. Les cinq comptes de simulation restent accessibles dans les outils de test.</p>
+    {error && <p role="alert">{error === "database" ? "Base locale indisponible. Vérifiez sa configuration." : "Adresse e-mail ou mot de passe incorrect."}</p>}
     <form action={signInAction}>
-      <label htmlFor="email">Adresse e-mail fictive</label>
-      <input id="email" name="email" type="email" required maxLength={76} placeholder="joueur1@example.test" />
+      <label htmlFor="email">Adresse e-mail</label>
+      <input id="email" name="email" type="email" required maxLength={254} autoComplete="email" placeholder="explorateur@example.test" />
+      <label htmlFor="password">Mot de passe</label>
+      <input id="password" name="password" type="password" required autoComplete="current-password" maxLength={128}/>
       <button type="submit">Se connecter</button>
     </form>
     <p><Link href="/inscription">Créer un compte</Link> · <Link href="/dev">Comptes de test</Link></p>

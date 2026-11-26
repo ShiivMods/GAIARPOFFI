@@ -23,11 +23,11 @@ function schemaVersion(db: DatabaseSync): number {
 }
 
 function initialize(db: DatabaseSync) {
-  if (schemaVersion(db) === 2) return;
+  if (schemaVersion(db) === 3) return;
   transaction(db, () => {
     const version = schemaVersion(db);
-    if (version === 2) return;
-    if (version !== 0 && version !== 1) throw new Error("Version de base locale non prise en charge.");
+    if (version === 3) return;
+    if (version !== 0 && version !== 1 && version !== 2) throw new Error("Version de base locale non prise en charge.");
     if (version === 0) {
     db.exec(`
       CREATE TABLE app_accounts (
@@ -71,7 +71,39 @@ function initialize(db: DatabaseSync) {
     db.prepare("INSERT INTO local_combat_scenarios(id,state,updated_at) VALUES(?,?,?)")
       .run("starlight", JSON.stringify(createTurn(participants)), Date.now());
     }
-    db.exec("CREATE TABLE IF NOT EXISTS local_combat_experience (id TEXT PRIMARY KEY REFERENCES local_combat_scenarios(id) ON DELETE CASCADE, experience TEXT NOT NULL CHECK(json_valid(experience))) STRICT; PRAGMA user_version = 2;");
+    db.exec("CREATE TABLE IF NOT EXISTS local_combat_experience (id TEXT PRIMARY KEY REFERENCES local_combat_scenarios(id) ON DELETE CASCADE, experience TEXT NOT NULL CHECK(json_valid(experience))) STRICT; ");
+    db.exec(`
+      ALTER TABLE app_accounts ADD COLUMN password_hash TEXT;
+      CREATE TABLE registration_drafts (
+        token_hash TEXT PRIMARY KEY,
+        email TEXT NOT NULL,
+        password_hash TEXT NOT NULL,
+        expires_at INTEGER NOT NULL
+      ) STRICT;
+      CREATE TABLE app_dynasties (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        name_key TEXT NOT NULL UNIQUE,
+        founder_account_id TEXT NOT NULL REFERENCES app_accounts(id)
+      ) STRICT;
+      CREATE TABLE app_characters (
+        id TEXT PRIMARY KEY,
+        account_id TEXT NOT NULL REFERENCES app_accounts(id),
+        dynasty_id TEXT NOT NULL REFERENCES app_dynasties(id),
+        first_name TEXT NOT NULL,
+        species TEXT NOT NULL CHECK(species = 'Humain'),
+        faction TEXT NOT NULL CHECK(faction = 'Humanis'),
+        height_cm REAL NOT NULL CHECK(height_cm > 0),
+        weight_kg REAL NOT NULL CHECK(weight_kg > 0),
+        age INTEGER NOT NULL CHECK(age >= 0),
+        academy TEXT CHECK(academy IN ('Sciences','Ingénierie','Militaire','Politique')),
+        history TEXT NOT NULL,
+        traits TEXT NOT NULL,
+        CHECK((age < 16 AND academy IS NULL) OR (age >= 16 AND academy IS NOT NULL))
+      ) STRICT;
+      CREATE INDEX app_characters_account_idx ON app_characters(account_id);
+      PRAGMA user_version = 3;
+`);
   });
 }
 

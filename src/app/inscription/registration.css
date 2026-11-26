@@ -1,0 +1,57 @@
+/* GAÏA RP : typography, dark panels and blue accents taken from the existing forum. */
+.registration-shell { min-height:100vh; background:radial-gradient(ellipse at 20% 0%,rgba(64,76,90,.22),transparent 45%),linear-gradient(180deg,#0d1015,#07080b); color:#d8e6f0; font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color-scheme:dark; }
+.registration-shell * { box-sizing:border-box; }
+.registration-shell .registration-topbar { min-height:84px; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:14px 24px; border-bottom:1px solid rgba(137,188,214,.12); background:linear-gradient(90deg,#0a0e13,#0b1217,#110e0c); }
+.registration-shell h1,.registration-shell h2 { font-family:Bahnschrift,"Segoe UI Variable Display","Segoe UI",sans-serif; font-weight:600; letter-spacing:.01em; margin:4px 0 10px; color:#d8e6f0; }
+.registration-shell h1 { font-size:24px; }
+.registration-shell h2 { font-size:27px; }
+.registration-shell h3 { margin:8px 0; font-size:19px; }
+.registration-kicker { color:#75a2b8; font-size:12px; letter-spacing:.14em; }
+.registration-shell a { color:#92c6d8; text-decoration:none; }
+.registration-shell a:hover { color:#ecf9ff; }
+.registration-shell nav { display:flex; gap:16px; }
+.registration-shell .registration-main { max-width:100%; padding:32px 18px 48px; margin:0 auto; }
+.registration-card { margin:0 auto; padding:26px; border:1px solid rgba(126,169,187,.24); border-radius:13px; background:rgba(9,15,20,.87); box-shadow:0 16px 60px rgba(0,0,0,.24); }
+.registration-credentials .registration-card { max-width:520px; }
+.registration-character .registration-card { max-width:900px; }
+.registration-steps { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:20px 0; font-size:13px; color:#8296a8; }
+.registration-steps span { padding:9px 4px; border-bottom:2px solid #27343d; }
+.registration-steps .current { color:#b9e8f1; border-color:#69c4d9; }
+.registration-intro,.registration-local { color:#95a8b6; line-height:1.55; font-size:14px; }
+.registration-shell .registration-form { display:grid; gap:14px; max-width:none; margin:0; }
+.registration-field { display:grid; gap:6px; min-width:0; }
+.registration-shell label,.registration-shell legend { font-size:13px; font-weight:550; color:#a9becb; }
+.registration-shell label small,.registration-shell small { color:#8499a7; font-weight:400; }
+.registration-shell input,.registration-shell select,.registration-shell textarea { width:100%; min-width:0; border:1px solid #31424f; border-radius:6px; background:#0a1219; color:#dbe9ef; padding:10px 12px; font:inherit; font-size:14px; outline:none; }
+.registration-shell input:focus,.registration-shell select:focus,.registration-shell textarea:focus { border-color:#69c4d9; box-shadow:0 0 0 2px rgba(105,196,217,.12); }
+.registration-shell input::placeholder { color:#617686; }
+.registration-shell textarea { resize:vertical; min-height:94px; }
+.registration-grid { display:grid; grid-template-columns:minmax(120px,.75fr) minmax(170px,1fr) minmax(160px,.9fr); gap:14px; align-items:stretch; }
+.registration-identity { grid-column:1 / 3; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+.registration-measurements { display:grid; grid-column:1; gap:10px; align-content:start; }
+.registration-age { margin-top:12px; }
+.registration-summary { min-width:0; padding:15px; border:1px solid rgba(126,169,187,.19); border-radius:10px; background:rgba(80,128,149,.045); }
+.registration-summary p { font-size:14px; line-height:1.55; color:#a4b8c5; margin:8px 0; overflow-wrap:anywhere; }
+.registration-faction { grid-column:2; grid-row:2; }
+.registration-help { grid-column:3; grid-row:1 / 3; }
+.registration-shell .registration-tip { color:#8ec4d7; background:none; border:0; padding:0 2px; cursor:pointer; font:inherit; }
+.registration-academy { border:0; padding:0; margin:0; min-width:0; }
+.registration-academy legend { margin-bottom:8px; }
+.registration-academies { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+.registration-academies label { position:relative; display:block; cursor:pointer; }
+.registration-academies input { position:absolute; opacity:0; width:100%; height:100%; inset:0; cursor:pointer; }
+.registration-academies span { display:block; text-align:center; padding:10px 5px; border:1px solid #31424f; border-radius:6px; background:#0d1720; }
+.registration-academies input:focus-visible+span { outline:2px solid #69c4d9; }
+.registration-academies input:checked+span { border-color:#69c4d9; color:#c8f0fa; background:#1a3541; }
+.registration-academies input:disabled+span { opacity:.45; cursor:not-allowed; }
+.registration-specialization { margin-top:10px; }
+.registration-specialization p { margin-bottom:0; }
+.registration-footer { display:flex; justify-content:flex-end; }
+.registration-shell .registration-primary { border:1px solid rgba(107,197,216,.5); border-radius:7px; color:#dceff4; background:linear-gradient(135deg,#1a3846,#24201d); font:inherit; font-size:14px; font-weight:600; padding:11px 24px; cursor:pointer; }
+.registration-shell .registration-primary:hover { border-color:#9ee4ee; }
+.registration-shell button:disabled { opacity:.55; cursor:not-allowed; }
+.registration-error { border-left:3px solid #cf6f78; padding:10px; background:#351c23; color:#f2b7bc; font-size:14px; margin:0; }
+.registration-shell .registration-back { display:block; margin-top:12px; }
+.registration-back button { color:#83aabb; background:none; border:0; padding:0; font:inherit; cursor:pointer; }
+@media(max-width:700px){.registration-card{padding:18px}.registration-grid{grid-template-columns:1fr 1fr}.registration-identity{grid-column:1/-1}.registration-help{grid-column:1/-1;grid-row:auto}.registration-faction{grid-column:2;grid-row:2}.registration-academies{grid-template-columns:1fr 1fr}.registration-topbar{flex-wrap:wrap}}
+@media(max-width:420px){.registration-grid,.registration-identity{grid-template-columns:1fr}.registration-faction,.registration-help{grid-column:1;grid-row:auto}.registration-measurements{grid-column:1}.registration-shell .registration-main{padding:16px 8px}.registration-steps{font-size:12px}}

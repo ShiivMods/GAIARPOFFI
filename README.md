@@ -33,3 +33,6 @@ Les tests DB utilisent chacun un dossier temporaire indépendant et ne touchent 
 
 ## Reprise intégrale dev.6
 L’accueil et les URL historiques sont de nouveau accessibles directement. Les écrans d’origine sont dans src/legacy/ (React/TypeScript, intégrés au routeur Next.js). `/compte` conserve la page historique ; `/compte/local` est le compte persistant. `/dev` et `/dev/combat` restent les outils fonctionnels SQLite. Les données d'origine ne sont pas remplacées par des données inventées. Voir [MIGRATION.md](MIGRATION.md).
+
+## Inscription
+Ouvrir /inscription pour les identifiants, puis /inscription/personnage. Utiliser une adresse fictive (ex. explorateur@example.test) et un mot de passe de test de 12 caractères minimum. Le compte et le personnage sont créés uniquement au clic Embarquer, puis visibles sur /compte/local. Les fixtures restent accessibles sur /dev. Voir REGISTRATION.md.

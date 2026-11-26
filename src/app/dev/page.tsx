@@ -3,7 +3,7 @@ import "@/app/globals.css";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { localModeEnabled } from "@/server/auth/config";
-import { signInAction } from "@/features/auth/actions";
+import { devSignInAction } from "@/features/auth/actions";
 import { testAccounts } from "@/features/auth/test-accounts";
 
 export const dynamic = "force-dynamic";
@@ -15,7 +15,7 @@ export default function DevPage() {
     <p className="notice">LOCAL uniquement. Chaque compte possède sa propre identité. Pour un combat multijoueur, ouvrir des profils de navigateur distincts.</p>
     <p><Link href="/dev/combat">Ouvrir le terrain d’essai : combat spatial</Link></p>
     <p>Joueurs 01 et 02 : Raviolo. Joueur 03 : K-17. MJ : réinitialisation.</p>
-    <div className="test-grid">{testAccounts.map(account => <form key={account.email} action={signInAction} className="test-account">
+    <div className="test-grid">{testAccounts.map(account => <form key={account.email} action={devSignInAction} className="test-account">
       <input type="hidden" name="email" value={account.email} />
       <strong>{account.label}</strong>
       <span>{account.role}</span>

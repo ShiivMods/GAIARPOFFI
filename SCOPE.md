@@ -1810,3 +1810,6 @@ Aucune technologie ne doit être choisie uniquement pour « commencer le backend
 
 ## Combat dev.5
 Retour à la présentation historique. Cartes de vaisseaux, commandes, équipages, communications persistantes, scanner première estimation, reddition et rapports réels. Résolution manuelle MJ uniquement pour les tests ; automatisation complète et intégration RP non terminées.
+
+## Inscription 1.1/1.2 (dev.7)
+Le parcours local est désormais e-mail et mot de passe, puis premier personnage et dynastie au clic Embarquer. Voir REGISTRATION.md. Les règles d’âge et académies sont appliquées, leurs effets sur la progression restent à définir. Les écrans historiques ne sont pas encore raccordés aux personnages persistants.

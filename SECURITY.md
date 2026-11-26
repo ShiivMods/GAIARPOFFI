@@ -1494,3 +1494,6 @@ La sécurité ne doit jamais être considérée comme « terminée une fois pour
 
 ## Combat dev.5
 SQLite conserve le journal et les caractéristiques des vaisseaux. Seul un MJ de test peut saisir les valeurs provisoires de résolution ; révision et transaction contrôlent les doubles résolutions. Les messages de bord ne sont projetés qu’aux membres du même vaisseau, les messages externes aux deux équipages. La décision de reddition est vérifiée selon le poste et l’appartenance côté serveur. Aucune donnée client n’est acceptée comme résultat de combat automatique. Aucun déploiement.
+
+## Inscription dev.7 (remplace la connexion simulée générale)
+Mot de passe local fictif haché avec scrypt et sel aléatoire, vérification à temps constant du hash ; aucun mot de passe en clair enregistré. Brouillon 30 min, jeton haché en base et cookie HttpOnly SameSite Strict. Aucun compte avant transaction finale ; contrôle d'unicité à chaque étape et contraintes SQLite. Les cinq fixtures exclusivement gardent le changement de compte sans mot de passe. Aucun accès production. Le format e-mail n'établit pas la propriété de l'adresse ; confirmation, récupération, anti-abus et fournisseur final restent à intégrer. Les anciennes notes sur les comptes sans mot de passe décrivent les versions précédentes.

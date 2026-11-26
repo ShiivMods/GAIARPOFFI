@@ -1488,3 +1488,11 @@ La création doit suivre les besoins réels du développement et non l’ordre d
 - [x] Transfert des 53 fichiers publics et comparaison des empreintes Git.
 - [ ] Compilation et tests de non-régression.
 - [ ] Recette visuelle et parcours de navigation comparés à GaiaRP.
+
+## Inscription 1.1/1.2 (dev.7)
+- [~] Écran identifiants et validation préalable.
+- [~] Écran personnage, conseils, sélecteurs et règle des 16 ans.
+- [~] Transaction compte/dynastie/personnage et connexion par mot de passe.
+- [ ] Tests CI et recette visuelle.
+- [ ] Règles de compétences innées et descriptions des académies.
+- [ ] Raccordement aux écrans personnages/dynasties/membres.

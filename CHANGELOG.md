@@ -1,5 +1,11 @@
 # Changelog GAIA RP officiel
 
+## 0.1.0-dev.7 (26 novembre 2026)
+- Inscription 1.1/1.2 selon le croquis, identifiants vérifiés puis personnage et dynastie créés uniquement à Embarquer.
+- Migration SQLite v3 non destructive, brouillon temporaire, mot de passe haché, connexion avec mot de passe.
+- Règles âge/académie et unicité des dynasties ; aucune compétence ou description d’académie inventée.
+- Correction de la dernière erreur TypeScript du routeur historique ; tests à valider.
+
 ## 0.1.0-dev.6 (26 novembre 2026)
 - Reprise intégrale des écrans et données TypeScript/React de GaiaRP dans Next.js, accueil et URL d’origine.
 - Comptes SQLite et terrain de combat connecté conservés, reliés depuis les écrans historiques.

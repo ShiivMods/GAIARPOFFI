@@ -1,50 +1,91 @@
 import assert from "node:assert/strict";
-import { test } from "node:test";
-import { randomBytes } from "node:crypto";
-import { normalizeEmail, normalizeUsername, localDatabasePath } from "../src/server/auth/config.ts";
-import { localAuth } from "../src/server/auth/local-provider.ts";
-
-import { setupIsolatedLocalDb } from "./local-fixture.ts";
+import {test} from "node:test";
+import {normalizeEmail,localDatabasePath} from "../src/server/auth/config.ts";
+import {localAuth,signInTestAccount} from "../src/server/auth/local-provider.ts";
+import {startRegistration,pendingRegistration,completeRegistration,cancelRegistration,getRegisteredCharacter} from "../src/server/auth/registration.ts";
+import {withLocalDb} from "../src/server/db/local.ts";
+import {validateCharacter} from "../src/features/auth/registration-rules.ts";
+import type {CharacterInput} from "../src/features/auth/registration-rules.ts";
+import {setupIsolatedLocalDb} from "./local-fixture.ts";
 setupIsolatedLocalDb();
-test("validation et isolation du mode local", () => {
-  assert.equal(normalizeEmail(" Test@EXAMPLE.TEST "), "test@example.test");
-  assert.equal(normalizeEmail("person@example.com"), null);
-  assert.equal(normalizeUsername("a b"), null);
-  const original = process.env.GAIA_LOCAL_AUTH;
-  try {
-    process.env.GAIA_LOCAL_AUTH = "0";
-    assert.throws(localDatabasePath);
-    process.env.GAIA_LOCAL_AUTH = "1";
-    Object.assign(process.env, { NODE_ENV: "production" });
-    try { assert.throws(localDatabasePath); } finally { Object.assign(process.env, { NODE_ENV: "development" }); }
-  } finally {
-    if (original === undefined) delete process.env.GAIA_LOCAL_AUTH;
-    else process.env.GAIA_LOCAL_AUTH = original;
+const password="test-local-uniquement";
+const character:CharacterInput={dynasty:"Testia",firstName:"Ada",species:"Humain",faction:"Humanis",height:"183",weight:"80",age:"16",academy:"Sciences",history:"",traits:"Curieuse."};
+function count(table:"app_accounts"|"app_characters"|"app_dynasties"){
+  return withLocalDb(db=>Number(db.prepare("SELECT count(*) AS n FROM "+table).get()?.n));
+}
+test("email syntax and development isolation",()=>{
+  assert.equal(normalizeEmail(" Test@EXAMPLE.TEST "),"test@example.test");
+  assert.equal(normalizeEmail("person@example.com"),"person@example.com");
+  for(const email of ["wrong","a@b","a..b@example.test","a@-example.test","a@@example.test"])assert.equal(normalizeEmail(email),null);
+  const original=process.env.GAIA_LOCAL_AUTH;
+  try{
+    process.env.GAIA_LOCAL_AUTH="0";assert.throws(localDatabasePath);
+    process.env.GAIA_LOCAL_AUTH="1";Object.assign(process.env,{NODE_ENV:"production"});assert.throws(localDatabasePath);
+  }finally{
+    Object.assign(process.env,{NODE_ENV:"development"});
+    if(original===undefined)delete process.env.GAIA_LOCAL_AUTH;else process.env.GAIA_LOCAL_AUTH=original;
   }
 });
-test("inscription, unicité, sessions séparées, rôles, révocation", async () => {
-  const suffix = randomBytes(6).toString("hex");
-  const email = "test" + suffix + "@example.test";
-  const username = "test_" + suffix;
-  const created = await localAuth.register(email, username);
-  assert.ok(created);
-  assert.equal(created.account.role, "player");
-  assert.equal(await localAuth.register(email, username + "x"), null);
-  assert.equal(await localAuth.register("other" + suffix + "@example.test", username), null);
-  assert.deepEqual(await localAuth.getAccount(created.token), created.account);
-  const second = await localAuth.signIn(email);
-  assert.ok(second);
-  assert.notEqual(created.token, second.token);
-  assert.equal(second.account.id, created.account.id);
-  const gm = await localAuth.signIn("mj@example.test");
-  const admin = await localAuth.signIn("admin@example.test");
-  assert.ok(gm && admin);
-  assert.equal(gm.account.role, "gm");
-  assert.equal(admin.account.role, "admin");
-  assert.notEqual(gm.account.id, admin.account.id);
-  assert.notEqual(gm.account.id, created.account.id);
+test("age, academy, species and required traits",()=>{
+  assert.equal(validateCharacter({...character,age:"15",academy:""}).academy,null);
+  assert.throws(()=>validateCharacter({...character,age:"15"}),/academy-age/);
+  assert.throws(()=>validateCharacter({...character,academy:""}),/academy-required/);
+  assert.throws(()=>validateCharacter({...character,species:"Autre"}),/faction/);
+  assert.throws(()=>validateCharacter({...character,traits:""}),/traits/);
+  assert.throws(()=>validateCharacter({...character,age:"-1"}),/age/);
+  assert.throws(()=>validateCharacter({...character,height:"0"}),/measurements/);
+});
+test("two-step registration is atomic, case-insensitive and never saves raw password",async()=>{
+  const accounts=count("app_accounts");
+  assert.throws(()=>startRegistration("invalid",password),/email/);
+  assert.throws(()=>startRegistration("valid@example.test","short"),/password/);
+  assert.throws(()=>startRegistration("JOUEUR1@example.test",password),/email-used/);
+  const draft=startRegistration("test@example.test",password);
+  const secondDraft=startRegistration("TEST@example.test",password);
+  assert.equal(pendingRegistration(draft)?.email,"test@example.test");
+  assert.equal(count("app_accounts"),accounts);
+  assert.equal(count("app_characters"),0);
+  assert.equal(count("app_dynasties"),0);
+  assert.equal(await localAuth.signIn("test@example.test",password),null);
+  const stored=withLocalDb(db=>db.prepare("SELECT password_hash FROM registration_drafts LIMIT 1").get());
+  assert.match(String(stored?.password_hash),/^scrypt\$/);
+  assert.notEqual(stored?.password_hash,password);
+  assert.throws(()=>completeRegistration(draft,{...character,dynasty:"arven"}),/dynasty-used/);
+  assert.throws(()=>completeRegistration(draft,{...character,age:"15"}),/academy-age/);
+  assert.equal(count("app_accounts"),accounts);
+  const created=completeRegistration(draft,character);
+  assert.equal(created.account.role,"player");
+  assert.equal(count("app_accounts"),accounts+1);
+  assert.equal(count("app_characters"),1);
+  assert.equal(count("app_dynasties"),1);
+  assert.equal(pendingRegistration(draft),null);
+  assert.throws(()=>completeRegistration(draft,character),/expired/);
+  assert.throws(()=>completeRegistration(secondDraft,{...character,dynasty:"Testib"}),/email-used/);
+  assert.throws(()=>startRegistration("TEST@example.test",password),/email-used/);
+  const another=startRegistration("another@example.test",password);
+  assert.throws(()=>completeRegistration(another,{...character,dynasty:" TESTIA "}),/dynasty-used/);
+  assert.equal(count("app_accounts"),accounts+1);
+  cancelRegistration(another);
+  assert.equal(pendingRegistration(another),null);
+  const expired=startRegistration("expired@example.test",password);
+  withLocalDb(db=>db.prepare("UPDATE registration_drafts SET expires_at=0 WHERE email=?").run("expired@example.test"));
+  assert.throws(()=>completeRegistration(expired,{...character,dynasty:"Testib"}),/expired/);
+  assert.equal(count("app_accounts"),accounts+1);
+  const saved=getRegisteredCharacter(created.account.id);
+  assert.equal(saved?.dynasty,"Testia");
+  assert.equal(saved?.academy,"Sciences");
+  assert.equal(await localAuth.signIn("test@example.test","incorrect-password"),null);
+  assert.equal(await signInTestAccount("test@example.test"),null);
+  const second=await localAuth.signIn("test@example.test",password);assert.ok(second);
+  assert.notEqual(second.token,created.token);
+  assert.equal(second.account.id,created.account.id);
+  const gm=await signInTestAccount("mj@example.test"),admin=await signInTestAccount("admin@example.test");
+  assert.ok(gm&&admin);assert.equal(gm.account.role,"gm");assert.equal(admin.account.role,"admin");
+  assert.equal(await localAuth.signIn("admin@example.test",password),null);
   await localAuth.signOut(created.token);
-  assert.equal(await localAuth.getAccount(created.token), null);
+  assert.equal(await localAuth.getAccount(created.token),null);
   assert.ok(await localAuth.getAccount(second.token));
-  await Promise.all([second, gm, admin].map(s => localAuth.signOut(s.token)));
+  const young=startRegistration("young@example.test",password);
+  const youngAccount=completeRegistration(young,{...character,dynasty:"Testib",age:"15",academy:""});
+  assert.equal(getRegisteredCharacter(youngAccount.account.id)?.academy,null);
 });
