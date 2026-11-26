@@ -1485,6 +1485,6 @@ La création doit suivre les besoins réels du développement et non l’ordre d
 ## Import intégral (dev.6)
 - [x] Transfert des sources des écrans historiques dans src/legacy.
 - [x] Point d’entrée Next.js et URL historiques, accès au compte local et au terrain de combat connecté.
-- [ ] Transfert et vérification de tous les fichiers publics binaires.
+- [x] Transfert des 53 fichiers publics et comparaison des empreintes Git.
 - [ ] Compilation et tests de non-régression.
 - [ ] Recette visuelle et parcours de navigation comparés à GaiaRP.

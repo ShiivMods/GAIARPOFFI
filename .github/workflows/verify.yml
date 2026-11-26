@@ -18,6 +18,8 @@ jobs:
       - name: Install dependencies
         run: |
           if test -f package-lock.json; then npm ci; else npm install; fi
+      - name: Verify historical assets
+        run: npm run assets:check
       - name: Lint, typecheck and build
         run: npm run check
       - name: Local auth and combat tests

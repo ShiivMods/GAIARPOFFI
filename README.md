@@ -17,7 +17,7 @@ Ancienne configuration PostgreSQL : les anciennes variables DATABASE_URL ne sont
 
 ## Terrain d'essai
 
-Sur /dev, incarner Joueur 01 et Joueur 02 (Raviolo) et Joueur 03 (K-17) dans trois profils de navigateur distincts, puis ouvrir /dev/combat. Tester les ordres, Ready, les communications RP, la reddition et les rapports de tour. Le MJ peut arbitrer manuellement les dégâts reçus et renforts de bouclier dès que tous les joueurs sont prêts. Synchronisation toutes les 3 secondes. Le MJ peut réinitialiser le scénario. La résolution automatique des tirs reste à développer. Les illustrations de la maquette sont servies depuis public/. Si la copie binaire n’est pas encore présente dans le dépôt, npm run assets:sync récupère les originaux vérifiés. npm run assets:check contrôle leur intégrité.
+Sur /dev, incarner Joueur 01 et Joueur 02 (Raviolo) et Joueur 03 (K-17) dans trois profils de navigateur distincts, puis ouvrir /dev/combat. Tester les ordres, Ready, les communications RP, la reddition et les rapports de tour. Le MJ peut arbitrer manuellement les dégâts reçus et renforts de bouclier dès que tous les joueurs sont prêts. Synchronisation toutes les 3 secondes. Le MJ peut réinitialiser le scénario. La résolution automatique des tirs reste à développer. Les illustrations de la maquette sont servies depuis public/. Les originaux sont versionnés ; npm run assets:sync restaure les fichiers manquants si nécessaire. npm run assets:check contrôle leur intégrité.
 
 ## Validation
 

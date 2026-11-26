@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages -- The restored legacy application has its own global stylesheet; a full document navigation isolates the two shells. */
 import "@/app/globals.css";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
