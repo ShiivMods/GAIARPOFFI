@@ -1,39 +1,35 @@
 # GAIA RP
 
-Plateforme web de support à un jeu de rôle écrit de science-fiction. Le RP et les MJ gardent le contrôle narratif ; les règles mécaniques sont exécutées par un moteur de jeu autoritaire côté serveur.
+Plateforme de jeu de rôle écrit de science-fiction. Priorités : comptes locaux, combats, RP, progression.
 
-## État
+## Démarrage local (Windows)
 
-Dépôt officiel en initialisation. Aucun compte ni système de jeu opérationnel. Aucun déploiement public configuré.
+Prérequis : Node.js 22.13+ et npm, Docker Desktop démarré (conteneurs Linux). Depuis la racine du dépôt :
 
-Priorités : inscription, combats, RP, progression. L'ancien dépôt [GaiaRP](https://github.com/ShiivMods/GaiaRP) demeure la référence de la maquette, pas l'état technique courant.
-
-## Développement local
-
-Prérequis : Node.js 22.13+ (branche 22 recommandée) et npm. Depuis la racine :
-
-```sh
+```powershell
+Copy-Item .env.example .env.local
 npm install
+npm run db:up
+npm run db:setup
 npm run dev
 ```
 
-Ouvrir http://localhost:3000. Le premier `npm install` doit produire un `package-lock.json` à versionner après vérification ; ensuite utiliser `npm ci`.
+Ouvrir http://127.0.0.1:3000. Conserver la même adresse pour les cookies. L’inscription accepte seulement des adresses fictives @example.test, sans mot de passe. /dev donne accès à trois joueurs, un MJ et un administrateur. Utiliser plusieurs profils de navigateur pour des sessions simultanées. Ne jamais utiliser de données réelles ni exposer le serveur sur le réseau. Les données persistent dans un volume Docker. `npm run db:down` arrête PostgreSQL sans effacer ses données.
 
-```sh
-npm run lint
-npm run typecheck
-npm run build
+## Validation
+
+```powershell
+npm run check
+$env:NODE_ENV = "development"
+npm run test:auth
+Remove-Item Env:NODE_ENV
 npm audit
 ```
 
-Le démarrage ne nécessite pas de compte Supabase à ce stade. Copier `.env.example` vers `.env.local` seulement lorsque le projet Supabase dédié sera disponible. Ne jamais commiter `.env.local` ni de clé privilégiée.
+Le lockfile généré par npm install doit être versionné ; ensuite utiliser npm ci. Les services Supabase/Auth/Vercel sont volontairement différés. L’application de production ne permet aucun parcours local, même avec GAIA_LOCAL_AUTH=1. Aucun déploiement public configuré.
 
 ## Documentation
 
-- [PROJECT.md](PROJECT.md) : architecture et conventions
-- [SCOPE.md](SCOPE.md) : exigences métier
-- [SECURITY.md](SECURITY.md) : sécurité
-- [CHECKLIST.md](CHECKLIST.md) : suivi actuel
-- [CHANGELOG.md](CHANGELOG.md) : historique
+[PROJECT.md](PROJECT.md) · [SCOPE.md](SCOPE.md) · [SECURITY.md](SECURITY.md) · [CHECKLIST.md](CHECKLIST.md) · [CHANGELOG.md](CHANGELOG.md)
 
-La documentation historique est conservée dans les sections d'archive et dans le commit de transfert initial.
+Ancienne maquette : [GaiaRP](https://github.com/ShiivMods/GaiaRP).

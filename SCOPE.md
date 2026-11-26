@@ -5,14 +5,17 @@ Les exigences fonctionnelles et règles de jeu du dossier historique ci-dessous 
 
 | Module | Statut officiel |
 | --- | --- |
-| Socle Next.js / TypeScript | Initialisé dans le dépôt ; exécution à valider |
-| Inscription et authentification | Prévu en premier |
+| Socle Next.js / TypeScript | Socle initial validé par CI ; nouvelle brique à tester |
+| Inscription et authentification | Simulation locale écrite ; validation en cours |
 | Combat spatial | Prévu en deuxième |
 | RP écrit | Prévu |
 | Progression | Prévu |
 | Carte, dynasties, vaisseaux, lore, missions, administration, autres fonctions | Prévu, selon les exigences historiques |
 
 L'inscription est ouverte et requiert un e-mail ; la création du premier personnage reste une exigence fonctionnelle. Les règles détaillées de combat, RP et progression ne sont pas modifiées ici. Aucun service public ni donnée personnelle réelle à ce stade.
+
+## Parcours local
+Inscription avec pseudo unique et adresse fictive @example.test, rôle joueur attribué serveur, connexion simulée sans mot de passe, compte et déconnexion. Cinq comptes de test (trois joueurs, MJ, administrateur). Pas de confirmation e-mail, de récupération ou de création de personnage dans cette brique. Le fournisseur réel reste à intégrer.
 
 ---
 

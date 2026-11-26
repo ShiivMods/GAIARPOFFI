@@ -1,4 +1,13 @@
 html { color-scheme: light dark; }
 body { margin: 0; font-family: system-ui, sans-serif; line-height: 1.6; }
-main { max-width: 42rem; padding: 2rem; margin: 4rem auto; }
+main { max-width: 42rem; padding: 2rem; margin: 2rem auto; overflow-wrap: anywhere; }
 h1 { line-height: 1.2; }
+nav { display: flex; gap: 1rem; flex-wrap: wrap; }
+form { display: grid; gap: .65rem; max-width: 28rem; }
+input, button { font: inherit; padding: .65rem; border-radius: .3rem; border: 1px solid GrayText; }
+button { cursor: pointer; }
+.notice { border-inline-start: 3px solid #bd8b38; padding: .5rem 1rem; }
+.test-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(12rem,1fr)); gap: 1rem; }
+.test-account { border: 1px solid GrayText; padding: 1rem; border-radius: .4rem; }
+dt { font-weight: 600; }
+dd { margin: 0 0 1rem; }

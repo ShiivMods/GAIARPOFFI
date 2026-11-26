@@ -1,7 +1,7 @@
 # SECURITY.md : sécurité officielle
 
 **Référence :** `ShiivMods/GAIARPOFFI/main`.
-**État :** initialisation technique, pas de comptes, données privées, API métier ou service déployé.
+**État :** comptes fictifs locaux et sessions de développement écrits ; validation en attente. Aucun service déployé.
 
 ## Mesures et exigences de la nouvelle architecture
 - Dépôt public : secrets, fichiers d'environnement locaux, clés privilégiées et données privées exclus du Git.
@@ -15,6 +15,9 @@
 - Aucune mise en ligne avant validation des protections et de l'environnement.
 
 Les mesures ci-dessus sont des exigences, non des garanties déjà implémentées.
+
+## Dérogation strictement locale
+L’inscription simulée n’est pas une authentification réelle. La connexion par adresse fictive permet l’impersonation volontaire pour les tests. Aucun mot de passe ni donnée personnelle. L’application exige NODE_ENV=development et GAIA_LOCAL_AUTH=1 ; routes et actions désactivées sinon. Serveur Next et port PostgreSQL liés à 127.0.0.1. Cookies HttpOnly / SameSite Strict, sans Secure pour HTTP localhost ; jetons aléatoires hachés en base, expiration 8 h, révocation serveur. Le rôle est lu depuis la base et jamais accepté depuis un formulaire. Les cinq comptes privilégiés ou non sont des fixtures SQL uniquement locales. Ne pas exposer ce mode, ne pas transférer ses sessions/fixtures en production. RLS, MFA, confirmation e-mail, anti-abus et fournisseur réel restent des exigences de production. Les tests locaux ne prouvent pas la sécurité de production.
 
 ---
 

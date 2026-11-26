@@ -6,20 +6,23 @@
 
 ## Architecture officielle
 - Next.js App Router, React, TypeScript strict, Node.js 22 (minimum 22.13).
-- PostgreSQL via Supabase est la cible retenue. Aucun projet ni schéma GAIA RP n'est encore configuré.
+- Stratégie Local First : PostgreSQL 17 via Docker, authentification simulée et sessions persistantes en développement. Supabase/Auth/Vercel différés ; test d’intégration réel avant la recette finale.
 - Application serveur, non destinée à l'export statique GitHub Pages. Hébergement non choisi.
 - `src/app/` : routes et interface ; `src/features/` : modules fonctionnels ; `src/game/` : règles métier indépendantes ; `src/server/` : accès et opérations exclusivement serveur.
 - Le serveur est autoritaire ; aucune mutation d'économie, progression ou combat ne repose sur une valeur déclarée par un client. L'IA peut narrer, mais ne décide pas des conséquences mécaniques.
 - Un module n'est terminé qu'après tests et validation fonctionnelle ; pas de données factices présentées comme persistantes.
 
 ## Priorités validées
-1. Socle technique et inscription / authentification réelle.
+1. Socle technique et inscription / authentification simulée locale.
 2. Combats (reprendre les règles validées, puis les tester).
 3. RP et intégration des combats.
 4. Progression et boucle complète RP > combat > progression > RP.
 5. Autres modules du forum.
 
-Le prototype officiel est actuellement au stade de l'initialisation : aucun compte, RP, combat ni progression n'est implémenté. Les règles de développement, d'UX, de sécurité et de conception historiques restent applicables sauf adaptation explicitement documentée.
+Une première brique de comptes locaux est écrite ; tests à valider. Pas de combat, RP, progression ou authentification réelle. Les règles de développement, d'UX, de sécurité et de conception historiques restent applicables sauf adaptation explicitement documentée.
+
+## Identité et stockage
+Les comptes métier utilisent des UUID indépendants du fournisseur. Une interface AuthProvider sépare la session du moteur. Le mode local ne fonctionne qu’avec NODE_ENV=development et GAIA_LOCAL_AUTH=1 ; serveur et base liés à localhost. Les comptes locaux sont jetables. La future intégration doit associer des identités vérifiées aux comptes et ne doit pas importer les sessions simulées. Les contrôles métier sont réels dès le développement.
 
 ---
 

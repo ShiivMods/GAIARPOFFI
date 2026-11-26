@@ -9,12 +9,15 @@
 - [~] Socle Next.js / React / TypeScript écrit.
 - [ ] Générer et versionner package-lock.json.
 - [ ] Installer et vérifier les dépendances, lint, types, tests et build.
-- [ ] Créer ou sélectionner un projet Supabase dédié à GAIA RP.
+- [~] PostgreSQL local et migrations SQL préparés ; exécution à vérifier.
+- [ ] Intégration Supabase/Auth/Vercel différée à la phase de préproduction.
 - [ ] Vérifier configuration et environnement de développement.
 
 ## Phase 1 : inscription
 - [ ] Formaliser inscription, connexion, confirmation e-mail et récupération.
-- [ ] Authentification réelle et gestion des sessions.
+- [~] Inscription, connexion et sessions locales écrites ; tests à confirmer.
+- [~] Cinq comptes de test et changement de compte écrits.
+- [ ] Authentification réelle et gestion des sessions de production.
 - [ ] Comptes, rôles et permissions.
 - [ ] Tests des parcours et des contrôles d'accès.
 
@@ -34,6 +37,13 @@
 - [ ] Test complet de la boucle RP > combat > progression > RP.
 
 La checklist historique ci-dessous conserve toutes les exigences détaillées ; ses cases cochées ne sont pas des validations officielles.
+
+## Validation Local First
+- [x] Socle initial : GitHub Actions 45714478561 réussi (lint, typecheck, build, audit).
+- [ ] Nouvelle brique : CI PostgreSQL et parcours utilisateur à valider.
+- [ ] Recette multi-profils dans des navigateurs distincts.
+- [ ] Vérification du blocage du mode local en production.
+- [ ] Avant production : fournisseur réel, politiques RLS, tests d’accès et hébergement.
 
 ---
 

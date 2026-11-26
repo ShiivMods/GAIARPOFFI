@@ -1,5 +1,12 @@
 # Changelog GAIA RP officiel
 
+## 0.1.0-dev.1 (26 novembre 2026)
+- Stratégie Local First : PostgreSQL 17 Docker, migrations SQL et fixtures de cinq comptes.
+- Inscription et connexion simulées, profil, déconnexion, sessions persistantes, outils de test.
+- Mode local interdit hors développement, e-mails fictifs uniquement, rôles côté serveur.
+- CI avec PostgreSQL et tests de la couche auth ; validation à confirmer.
+- Aucun service cloud activé.
+
 ## 0.1.0-dev.0 (25 novembre 2026)
 - Création du socle Next.js App Router / TypeScript strict.
 - Séparation prévue de l'interface, des modules, des règles de jeu et du serveur.
