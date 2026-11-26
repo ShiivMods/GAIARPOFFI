@@ -1,6 +1,6 @@
 {
   "name": "gaiarp",
-  "version": "0.1.0-dev.1",
+  "version": "0.1.0-dev.2",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -15,7 +15,8 @@
     "db:up": "docker compose up -d --wait",
     "db:down": "docker compose down",
     "db:setup": "node --env-file-if-exists=.env.local scripts/db-setup.mjs",
-    "test:auth": "node --env-file-if-exists=.env.local --experimental-strip-types --test tests/local-auth.test.ts"
+    "test:auth": "node --env-file-if-exists=.env.local --experimental-strip-types --test tests/local-auth.test.ts",
+    "test:combat": "node --experimental-strip-types --test tests/combat.test.ts"
   },
   "dependencies": {
     "next": "16.4.6",

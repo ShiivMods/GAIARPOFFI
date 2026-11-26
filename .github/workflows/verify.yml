@@ -38,6 +38,8 @@ jobs:
           fi
       - name: Lint, typecheck and build
         run: npm run check
+      - name: Combat unit tests
+        run: npm run test:combat
       - name: Test database setup and local auth
         env:
           NODE_ENV: development

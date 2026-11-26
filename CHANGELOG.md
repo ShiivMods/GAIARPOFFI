@@ -1,5 +1,11 @@
 # Changelog GAIA RP officiel
 
+## 0.1.0-dev.2 (26 novembre 2026)
+- Reprise des règles de dégâts, seuils et actions de la maquette.
+- Planification pure des tours, Ready Check, reddition majoritaire, propriété du participant et projection des ordres.
+- Documentation COMBAT.md et tests unitaires ; aucune résolution de tir automatique ni persistance de combat à ce stade.
+- CI dev.1 réussie (run 45768821948).
+
 ## 0.1.0-dev.1 (26 novembre 2026)
 - Stratégie Local First : PostgreSQL 17 Docker, migrations SQL et fixtures de cinq comptes.
 - Inscription et connexion simulées, profil, déconnexion, sessions persistantes, outils de test.

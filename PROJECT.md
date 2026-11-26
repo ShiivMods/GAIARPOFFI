@@ -19,10 +19,12 @@
 4. Progression et boucle complète RP > combat > progression > RP.
 5. Autres modules du forum.
 
-Une première brique de comptes locaux est écrite ; tests à valider. Pas de combat, RP, progression ou authentification réelle. Les règles de développement, d'UX, de sécurité et de conception historiques restent applicables sauf adaptation explicitement documentée.
+Comptes locaux validés en CI (run 45768821948). Première brique pure de combat écrite ; tests à valider. Aucun combat persistant, RP, progression ou authentification réelle. Les règles de développement, d'UX, de sécurité et de conception historiques restent applicables sauf adaptation explicitement documentée.
 
 ## Identité et stockage
 Les comptes métier utilisent des UUID indépendants du fournisseur. Une interface AuthProvider sépare la session du moteur. Le mode local ne fonctionne qu’avec NODE_ENV=development et GAIA_LOCAL_AUTH=1 ; serveur et base liés à localhost. Les comptes locaux sont jetables. La future intégration doit associer des identités vérifiées aux comptes et ne doit pas importer les sessions simulées. Les contrôles métier sont réels dès le développement.
+
+Les règles de combat et les décisions encore ouvertes sont documentées dans [COMBAT.md](COMBAT.md).
 
 ---
 

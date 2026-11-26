@@ -19,6 +19,9 @@ Les mesures ci-dessus sont des exigences, non des garanties déjà implémentée
 ## Dérogation strictement locale
 L’inscription simulée n’est pas une authentification réelle. La connexion par adresse fictive permet l’impersonation volontaire pour les tests. Aucun mot de passe ni donnée personnelle. L’application exige NODE_ENV=development et GAIA_LOCAL_AUTH=1 ; routes et actions désactivées sinon. Serveur Next et port PostgreSQL liés à 127.0.0.1. Cookies HttpOnly / SameSite Strict, sans Secure pour HTTP localhost ; jetons aléatoires hachés en base, expiration 8 h, révocation serveur. Le rôle est lu depuis la base et jamais accepté depuis un formulaire. Les cinq comptes privilégiés ou non sont des fixtures SQL uniquement locales. Ne pas exposer ce mode, ne pas transférer ses sessions/fixtures en production. RLS, MFA, confirmation e-mail, anti-abus et fournisseur réel restent des exigences de production. Les tests locaux ne prouvent pas la sécurité de production.
 
+## Combat : première brique
+Les commandes pures vérifient propriété du participant, budget, engagement et révision. La projection masque les ordres ennemis et les identifiants des comptes. Aucun endpoint de combat n'est encore ouvert ; contrôle de session, verrou transactionnel, autorisations contextuelles, tests de concurrence et résolution serveur sont nécessaires avant exposition.
+
 ---
 
 > **Archive de la maquette (ShiivMods/GaiaRP).** Le texte qui suit est conservé pour les règles métier et les décisions de conception. Les mentions d'implémentation, de versions, de routes, de GitHub Pages, de Vite, de dépendances et les cases cochées décrivent uniquement l'ancien dépôt. Elles ne prouvent rien sur GAIARPOFFI. En cas de conflit technique, la section officielle ci-dessus prévaut. Les règles métier non remplacées restent applicables.

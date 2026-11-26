@@ -6,8 +6,8 @@ Les exigences fonctionnelles et règles de jeu du dossier historique ci-dessous 
 | Module | Statut officiel |
 | --- | --- |
 | Socle Next.js / TypeScript | Socle initial validé par CI ; nouvelle brique à tester |
-| Inscription et authentification | Simulation locale écrite ; validation en cours |
-| Combat spatial | Prévu en deuxième |
+| Inscription et authentification | Simulation locale validée en CI ; recette navigateur à faire |
+| Combat spatial | Moteur de règles et planification écrits ; persistance et résolution à faire |
 | RP écrit | Prévu |
 | Progression | Prévu |
 | Carte, dynasties, vaisseaux, lore, missions, administration, autres fonctions | Prévu, selon les exigences historiques |

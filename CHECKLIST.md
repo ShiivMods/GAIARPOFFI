@@ -9,21 +9,21 @@
 - [~] Socle Next.js / React / TypeScript écrit.
 - [ ] Générer et versionner package-lock.json.
 - [ ] Installer et vérifier les dépendances, lint, types, tests et build.
-- [~] PostgreSQL local et migrations SQL préparés ; exécution à vérifier.
+- [x] PostgreSQL local et migrations SQL préparés et testés en CI.
 - [ ] Intégration Supabase/Auth/Vercel différée à la phase de préproduction.
 - [ ] Vérifier configuration et environnement de développement.
 
 ## Phase 1 : inscription
 - [ ] Formaliser inscription, connexion, confirmation e-mail et récupération.
-- [~] Inscription, connexion et sessions locales écrites ; tests à confirmer.
+- [x] Couche inscription, connexion et sessions locales validée en CI ; recette navigateur à faire.
 - [~] Cinq comptes de test et changement de compte écrits.
 - [ ] Authentification réelle et gestion des sessions de production.
 - [ ] Comptes, rôles et permissions.
 - [ ] Tests des parcours et des contrôles d'accès.
 
 ## Phase 2 : combat
-- [ ] Extraire et valider les règles de la maquette.
-- [ ] Moteur de combat indépendant de l'interface.
+- [~] Règles présentes dans la maquette extraites et documentées (COMBAT.md) ; règles manquantes à définir.
+- [~] Moteur indépendant : dégâts, seuils, PA, commandes et projection ; CI à valider.
 - [ ] Participants, équipages, tours et synchronisation.
 - [ ] Résolution serveur, persistance, idempotence.
 - [ ] Interface et tests multijoueurs.
@@ -40,7 +40,8 @@ La checklist historique ci-dessous conserve toutes les exigences détaillées ; 
 
 ## Validation Local First
 - [x] Socle initial : GitHub Actions 45714478561 réussi (lint, typecheck, build, audit).
-- [ ] Nouvelle brique : CI PostgreSQL et parcours utilisateur à valider.
+- [x] CI PostgreSQL et tests de la couche comptes réussis (45768821948).
+- [ ] Parcours navigateur à valider.
 - [ ] Recette multi-profils dans des navigateurs distincts.
 - [ ] Vérification du blocage du mode local en production.
 - [ ] Avant production : fournisseur réel, politiques RLS, tests d’accès et hébergement.
