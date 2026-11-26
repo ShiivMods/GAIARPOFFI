@@ -23,11 +23,11 @@ function schemaVersion(db: DatabaseSync): number {
 }
 
 function initialize(db: DatabaseSync) {
-  if (schemaVersion(db) === 3) return;
+  if (schemaVersion(db) === 4) return;
   transaction(db, () => {
     const version = schemaVersion(db);
-    if (version === 3) return;
-    if (version !== 0 && version !== 1 && version !== 2) throw new Error("Version de base locale non prise en charge.");
+    if (version === 4) return;
+    if (version !== 0 && version !== 1 && version !== 2 && version !== 3) throw new Error("Version de base locale non prise en charge.");
     if (version === 0) {
     db.exec(`
       CREATE TABLE app_accounts (
@@ -72,7 +72,7 @@ function initialize(db: DatabaseSync) {
       .run("starlight", JSON.stringify(createTurn(participants)), Date.now());
     }
     db.exec("CREATE TABLE IF NOT EXISTS local_combat_experience (id TEXT PRIMARY KEY REFERENCES local_combat_scenarios(id) ON DELETE CASCADE, experience TEXT NOT NULL CHECK(json_valid(experience))) STRICT; ");
-    db.exec(`
+    if (version < 3) db.exec(`
       ALTER TABLE app_accounts ADD COLUMN password_hash TEXT;
       CREATE TABLE registration_drafts (
         token_hash TEXT PRIMARY KEY,
@@ -104,6 +104,7 @@ function initialize(db: DatabaseSync) {
       CREATE INDEX app_characters_account_idx ON app_characters(account_id);
       PRAGMA user_version = 3;
 `);
+    db.exec(`ALTER TABLE app_characters ADD COLUMN sex TEXT NOT NULL DEFAULT 'Non-défini' CHECK(sex IN ('Homme','Femme','Non-défini')); PRAGMA user_version = 4;`);
   });
 }
 

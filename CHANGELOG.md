@@ -1,5 +1,10 @@
 # Changelog GAIA RP officiel
 
+## 0.1.0-dev.8 (26 novembre 2026)
+- Sexe et factions disponibles par espèce, Homme/Femme/Non-défini pour Humain ; descriptions facultatives.
+- Migration locale v4 préservant les personnages ; tests de validation.
+- Relecture des notes de conception retrouvées, sans appliquer les arbitrages non validés.
+
 ## 0.1.0-dev.7 (26 novembre 2026)
 - Inscription 1.1/1.2 selon le croquis, identifiants vérifiés puis personnage et dynastie créés uniquement à Embarquer.
 - Migration SQLite v3 non destructive, brouillon temporaire, mot de passe haché, connexion avec mot de passe.

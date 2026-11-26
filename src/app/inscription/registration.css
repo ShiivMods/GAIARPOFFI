@@ -55,3 +55,6 @@
 .registration-back button { color:#83aabb; background:none; border:0; padding:0; font:inherit; cursor:pointer; }
 @media(max-width:700px){.registration-card{padding:18px}.registration-grid{grid-template-columns:1fr 1fr}.registration-identity{grid-column:1/-1}.registration-help{grid-column:1/-1;grid-row:auto}.registration-faction{grid-column:2;grid-row:2}.registration-academies{grid-template-columns:1fr 1fr}.registration-topbar{flex-wrap:wrap}}
 @media(max-width:420px){.registration-grid,.registration-identity{grid-template-columns:1fr}.registration-faction,.registration-help{grid-column:1;grid-row:auto}.registration-measurements{grid-column:1}.registration-shell .registration-main{padding:16px 8px}.registration-steps{font-size:12px}}
+
+.registration-identity { grid-template-columns:repeat(2,minmax(0,1fr)); }
+@media(max-width:420px){.registration-identity{grid-template-columns:1fr}}

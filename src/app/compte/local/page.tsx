@@ -25,12 +25,13 @@ export default async function AccountPage() {
     </dl>
     {character&&<section><h2>Premier personnage</h2><dl>
       <dt>Dynastie</dt><dd>{character.dynasty}</dd>
+      <dt>Sexe</dt><dd>{character.sex}</dd>
       <dt>Espèce / faction</dt><dd>{character.species} · {character.faction}</dd>
       <dt>Âge</dt><dd>{character.age} ans</dd>
       <dt>Taille / poids</dt><dd>{character.heightCm} cm · {character.weightKg} kg</dd>
       <dt>Académie</dt><dd>{character.academy??"Aucune"}</dd>
       {character.history&&<><dt>Histoire</dt><dd style={{whiteSpace:"pre-wrap"}}>{character.history}</dd></>}
-      <dt>Caractère &amp; traits physiques</dt><dd style={{whiteSpace:"pre-wrap"}}>{character.traits}</dd>
+      <dt>Caractère &amp; traits physiques</dt><dd style={{whiteSpace:"pre-wrap"}}>{character.traits||"Non renseigné"}</dd>
     </dl></section>}
     <form action={signOutAction}><button type="submit">Se déconnecter</button></form>
     <p><Link href="/dev/combat">Terrain d’essai : combat spatial</Link></p>

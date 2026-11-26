@@ -1813,3 +1813,6 @@ Retour à la présentation historique. Cartes de vaisseaux, commandes, équipage
 
 ## Inscription 1.1/1.2 (dev.7)
 Le parcours local est désormais e-mail et mot de passe, puis premier personnage et dynastie au clic Embarquer. Voir REGISTRATION.md. Les règles d’âge et académies sont appliquées, leurs effets sur la progression restent à définir. Les écrans historiques ne sont pas encore raccordés aux personnages persistants.
+
+## Inscription dev.8
+Sexe et factions disponibles selon l’espèce ; Humain : Homme, Femme, Non-défini et Humanis uniquement. Histoire et caractère/traits physiques facultatifs, modification future. Comparaison des notes retrouvées : NOTES-REVIEW.md (aucune règle contradictoire adoptée sans décision).

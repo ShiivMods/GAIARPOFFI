@@ -9,7 +9,7 @@ import type {CharacterInput} from "../src/features/auth/registration-rules.ts";
 import {setupIsolatedLocalDb} from "./local-fixture.ts";
 setupIsolatedLocalDb();
 const password="test-local-uniquement";
-const character:CharacterInput={dynasty:"Testia",firstName:"Ada",species:"Humain",faction:"Humanis",height:"183",weight:"80",age:"16",academy:"Sciences",history:"",traits:"Curieuse."};
+const character:CharacterInput={dynasty:"Testia",firstName:"Ada",species:"Humain",sex:"Femme",faction:"Humanis",height:"183",weight:"80",age:"16",academy:"Sciences",history:"",traits:"Curieuse."};
 function count(table:"app_accounts"|"app_characters"|"app_dynasties"){
   return withLocalDb(db=>Number(db.prepare("SELECT count(*) AS n FROM "+table).get()?.n));
 }
@@ -26,12 +26,16 @@ test("email syntax and development isolation",()=>{
     if(original===undefined)delete process.env.GAIA_LOCAL_AUTH;else process.env.GAIA_LOCAL_AUTH=original;
   }
 });
-test("age, academy, species and required traits",()=>{
+test("age, academy, species, sex, factions and optional descriptions",()=>{
   assert.equal(validateCharacter({...character,age:"15",academy:""}).academy,null);
   assert.throws(()=>validateCharacter({...character,age:"15"}),/academy-age/);
   assert.throws(()=>validateCharacter({...character,academy:""}),/academy-required/);
   assert.throws(()=>validateCharacter({...character,species:"Autre"}),/faction/);
-  assert.throws(()=>validateCharacter({...character,traits:""}),/traits/);
+  assert.equal(validateCharacter({...character,history:"",traits:""}).traits,"");
+  for(const sex of ["Homme","Femme","Non-défini"])assert.equal(validateCharacter({...character,sex}).sex,sex);
+  assert.throws(()=>validateCharacter({...character,sex:""}),/sex/);
+  assert.throws(()=>validateCharacter({...character,sex:"Autre"}),/sex/);
+  assert.throws(()=>validateCharacter({...character,faction:"Primordia"}),/faction/);
   assert.throws(()=>validateCharacter({...character,age:"-1"}),/age/);
   assert.throws(()=>validateCharacter({...character,height:"0"}),/measurements/);
 });
@@ -74,6 +78,7 @@ test("two-step registration is atomic, case-insensitive and never saves raw pass
   const saved=getRegisteredCharacter(created.account.id);
   assert.equal(saved?.dynasty,"Testia");
   assert.equal(saved?.academy,"Sciences");
+  assert.equal(saved?.sex,"Femme");
   assert.equal(await localAuth.signIn("test@example.test","incorrect-password"),null);
   assert.equal(await signInTestAccount("test@example.test"),null);
   const second=await localAuth.signIn("test@example.test",password);assert.ok(second);
@@ -86,6 +91,8 @@ test("two-step registration is atomic, case-insensitive and never saves raw pass
   assert.equal(await localAuth.getAccount(created.token),null);
   assert.ok(await localAuth.getAccount(second.token));
   const young=startRegistration("young@example.test",password);
-  const youngAccount=completeRegistration(young,{...character,dynasty:"Testib",age:"15",academy:""});
+  const youngAccount=completeRegistration(young,{...character,dynasty:"Testib",age:"15",academy:"",sex:"Non-défini",traits:"",history:""});
   assert.equal(getRegisteredCharacter(youngAccount.account.id)?.academy,null);
+  assert.equal(getRegisteredCharacter(youngAccount.account.id)?.sex,"Non-défini");
+  assert.equal(getRegisteredCharacter(youngAccount.account.id)?.traits,"");
 });

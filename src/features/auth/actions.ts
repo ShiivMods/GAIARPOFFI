@@ -16,11 +16,11 @@ function allowed(){if(!localModeEnabled())notFound();}
 const errors:Record<string,string>={
   email:"Adresse e-mail invalide.",password:"Le mot de passe doit contenir de 12 à 128 caractères.",
   "email-used":"Cette adresse e-mail est déjà utilisée.","dynasty-used":"Ce nom de dynastie est déjà pris.",
-  name:"Renseignez un nom et un prénom valides.",faction:"Espèce ou faction non disponible.",
+  name:"Renseignez un nom et un prénom valides.",faction:"Espèce ou faction non disponible.",sex:"Sélectionnez un sexe disponible pour cette espèce.",
   measurements:"Indiquez une taille et un poids positifs.",age:"Indiquez un âge entier valide.",
   "academy-age":"Avant 16 ans, aucune académie ne peut être choisie.",
   "academy-required":"Choisissez une académie pour votre citoyen d’Humanis.",
-  traits:"Renseignez le caractère et les traits physiques (10 000 caractères maximum).",
+  traits:"Chaque description est limitée à 10 000 caractères.",
   expired:"Votre inscription a expiré. Reprenez la première étape.",
 };
 function errorMessage(error:unknown){
@@ -40,8 +40,9 @@ export async function finishRegistrationAction(_previous:string,data:FormData):P
   allowed();
   const store=await cookies(),token=store.get(DRAFT_COOKIE)?.value;
   if(!token)redirect("/inscription?error=expired");
-  const input:CharacterInput={dynasty:field(data,"dynasty",60),firstName:field(data,"firstName",60),species:field(data,"species",30),faction:field(data,"faction",30),height:field(data,"height",30),weight:field(data,"weight",30),age:field(data,"age",20),academy:field(data,"academy",30),history:field(data,"history"),traits:field(data,"traits")};
+  const input:CharacterInput={dynasty:field(data,"dynasty",60),firstName:field(data,"firstName",60),species:field(data,"species",30),sex:field(data,"sex",30),faction:field(data,"faction",30),height:field(data,"height",30),weight:field(data,"weight",30),age:field(data,"age",20),academy:field(data,"academy",30),history:field(data,"history"),traits:field(data,"traits")};
   let session:Session;
+  if(["history","traits"].some(key=>typeof data.get(key)==="string"&&String(data.get(key)).length>10000))return errors.traits;
   try{session=completeRegistration(token,input);}catch(error){
     if(error instanceof Error&&(error.message==="expired"||error.message==="email-used")){
       cancelRegistration(token);store.delete(DRAFT_COOKIE);

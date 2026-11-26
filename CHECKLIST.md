@@ -1496,3 +1496,8 @@ La création doit suivre les besoins réels du développement et non l’ordre d
 - [ ] Tests CI et recette visuelle.
 - [ ] Règles de compétences innées et descriptions des académies.
 - [ ] Raccordement aux écrans personnages/dynasties/membres.
+
+## dev.8
+- [~] Sexe et compatibilité espèce/faction vérifiés côté serveur ; descriptions facultatives ; migration non destructive et tests.
+- [ ] Arbitrer les divergences des notes retrouvées (NOTES-REVIEW.md).
+- [ ] Modification ultérieure des fiches de personnages.
