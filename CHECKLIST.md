@@ -23,10 +23,10 @@
 
 ## Phase 2 : combat
 - [~] Règles présentes dans la maquette extraites et documentées (COMBAT.md) ; règles manquantes à définir.
-- [~] Moteur indépendant : dégâts, seuils, PA, commandes et projection ; CI à valider.
-- [ ] Participants, équipages, tours et synchronisation.
-- [ ] Résolution serveur, persistance, idempotence.
-- [ ] Interface et tests multijoueurs.
+- [x] Moteur indépendant : dégâts, seuils, PA, commandes et projection ; CI 45769088467 réussie.
+- [~] Participants, équipages, planification et synchronisation locale écrits ; validation en cours.
+- [~] Persistance locale et verrou de révision écrits ; résolution et idempotence de résolution à faire.
+- [~] Interface de test locale et tests DB de concurrence / accès écrits ; recette navigateur à faire.
 
 ## Phase 3 : RP
 - [ ] RP persistants, participants, MJ, PNJ et permissions.

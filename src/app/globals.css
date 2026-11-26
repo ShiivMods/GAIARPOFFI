@@ -11,3 +11,20 @@ button { cursor: pointer; }
 .test-account { border: 1px solid GrayText; padding: 1rem; border-radius: .4rem; }
 dt { font-weight: 600; }
 dd { margin: 0 0 1rem; }
+
+.combat-lab { max-width: 70rem; }
+.combat-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.combat-heading h1 { margin: .35rem 0; }
+.combat-status, .combat-ships { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,16rem),1fr)); gap: 1rem; margin-block: 1rem; }
+.combat-status > div, .combat-panel { border: 1px solid GrayText; border-radius: .5rem; padding: 1rem; }
+.combat-status small, .combat-status strong { display: block; }
+.combat-panel h2 { margin: 0 0 .5rem; font-size: 1.25rem; }
+.combat-panel progress { width: 100%; }
+.combat-member { display: flex; justify-content: space-between; gap: .75rem; flex-wrap: wrap; border-top: 1px solid GrayText; padding-block: .6rem; }
+.combat-orders { display: block; }
+.combat-actions { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,15rem),1fr)); gap: .5rem; }
+.combat-choice button { text-align: left; }
+.combat-choice.selected button { outline: 2px solid #458ab3; outline-offset: -2px; }
+.combat-controls { display: flex; flex-wrap: wrap; gap: .75rem; }
+.combat-error { border-inline-start: 3px solid #c65353; padding: .5rem 1rem; }
+button:disabled { cursor: not-allowed; opacity: .65; }

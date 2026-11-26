@@ -1,5 +1,12 @@
 # Changelog GAIA RP officiel
 
+## 0.1.0-dev.3 (26 novembre 2026)
+- Scénario Starlight persistant PostgreSQL, trois joueurs et contrôle MJ.
+- Interface de planification, synchronisation périodique, ordres, Ready et reddition.
+- Verrou transactionnel, révision, projection par participant et réinitialisation réservée au MJ.
+- Tests d’intégration DB (concurrence, persistance et permissions) ; validation à confirmer.
+- CI dev.2 réussie (45769088467). Pas de résolution automatique.
+
 ## 0.1.0-dev.2 (26 novembre 2026)
 - Reprise des règles de dégâts, seuils et actions de la maquette.
 - Planification pure des tours, Ready Check, reddition majoritaire, propriété du participant et projection des ordres.

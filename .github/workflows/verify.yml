@@ -49,5 +49,6 @@ jobs:
           npm run db:setup
           npm run db:setup
           npm run test:auth
+          npm run test:combat:db
       - name: Dependency audit
         run: npm audit --audit-level=moderate

@@ -20,6 +20,7 @@ export default async function AccountPage() {
       <dt>Identifiant de compte</dt><dd>{account.id}</dd>
     </dl>
     <form action={signOutAction}><button type="submit">Se déconnecter</button></form>
+    <p><Link href="/dev/combat">Terrain d’essai : combat spatial</Link></p>
     <p><Link href="/dev">Changer de compte de test</Link></p>
   </main>;
 }
