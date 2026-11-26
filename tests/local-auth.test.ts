@@ -15,8 +15,8 @@ test("validation et isolation du mode local", () => {
     process.env.GAIA_LOCAL_AUTH = "0";
     assert.throws(localDatabasePath);
     process.env.GAIA_LOCAL_AUTH = "1";
-    process.env.NODE_ENV = "production";
-    try { assert.throws(localDatabasePath); } finally { process.env.NODE_ENV = "development"; }
+    Object.assign(process.env, { NODE_ENV: "production" });
+    try { assert.throws(localDatabasePath); } finally { Object.assign(process.env, { NODE_ENV: "development" }); }
   } finally {
     if (original === undefined) delete process.env.GAIA_LOCAL_AUTH;
     else process.env.GAIA_LOCAL_AUTH = original;

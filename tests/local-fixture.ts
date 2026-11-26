@@ -7,7 +7,7 @@ export function useIsolatedLocalDb() {
   const original=process.cwd();
   const dir=mkdtempSync(join(tmpdir(),"gaiarp-test-"));
   process.chdir(dir);
-  process.env.NODE_ENV="development";
+  Object.assign(process.env, { NODE_ENV: "development" });
   process.env.GAIA_LOCAL_AUTH="1";
   after(()=>{
     process.chdir(original);

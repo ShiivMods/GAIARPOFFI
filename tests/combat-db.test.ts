@@ -12,7 +12,7 @@ test("persistent shared planning, permissions, concurrency and reset", async () 
     const rows = withLocalDb(db=>db.prepare("SELECT id,email FROM app_accounts").all()).map(row=>({id:String(row.id),email:String(row.email)}));
     const account = (email: string) => { const row = rows.find(r => r.email === email + "@example.test"); assert.ok(row); return row.id; };
     const a = account("joueur1"), b = account("joueur2"), c = account("joueur3"), gm = account("mj"), admin = account("admin");
-    withLocalDb(db=>db.prepare("INSERT INTO local_combat_scenarios(id,state,updated_at) SELECT ?,state,updated_at FROM local_combat_scenarios WHERE id=\'starlight\'").run(id));
+    withLocalDb(db=>db.prepare("INSERT INTO local_combat_scenarios(id,state,updated_at) SELECT ?,state,updated_at FROM local_combat_scenarios WHERE id='starlight'").run(id));
     const initial = await getCombatView(id,a);
     assert.ok(initial);
     await resetCombat(id,gm,initial.revision);
