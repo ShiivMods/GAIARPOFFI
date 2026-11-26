@@ -171,7 +171,6 @@ export const routes: Route[] = [
   { from: 'starlight', to: 'to-dev-03', state: 'open', firstVisibleChapter: 'pre' },
   { from: 'starlight', to: 'to-dev-04', state: 'open', firstVisibleChapter: 'pre' },
   { from: 'temporis-system', to: 'to-dev-03', state: 'open', firstVisibleChapter: 'pre' },
-  { from: 'to-dev-03', to: 'to-dev-04', state: 'dangerous', firstVisibleChapter: 'pre' },
   { from: 'to-dev-03', to: 'orison-prime', state: 'open', firstVisibleChapter: 'c2' },
   { from: 'orison-prime', to: 'orison-02', state: 'open', firstVisibleChapter: 'c3' },
   { from: 'orison-prime', to: 'orison-03', state: 'open', firstVisibleChapter: 'c3' },

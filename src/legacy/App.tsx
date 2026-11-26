@@ -40,6 +40,7 @@ import { AccountPage } from './features/account/AccountPage'
 import { EventsPage } from './features/events/EventsPage'
 import { getAppPath, pushAppRoute, replaceAppRoute, routeSlug } from './router'
 import { nextGameMonth } from '../game/time/calendar'
+import { StellarVisual } from './features/map/StellarVisual'
 
 const MAP_W = 1240
 const MAP_H = 760
@@ -1004,9 +1005,6 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false, isSign
                 </div>
               ) : (
                 <svg className="sector-map" viewBox={`0 0 ${MAP_W} ${MAP_H}`}>
-                  <defs>
-                    <filter id="starGlow"><feGaussianBlur stdDeviation="4" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
-                  </defs>
                   {visibleRoutes.map((route) => {
                     const from = systemById.get(route.from)
                     const to = systemById.get(route.to)
@@ -1026,7 +1024,7 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false, isSign
                         onClick={() => { if (!unexploredAtCarte0 && !locked) openSystem(system) }}
                       >
                         <circle r="27" className="system-halo" />
-                        <circle r="8" fill={unexploredAtCarte0 ? '#6f7c84' : locked ? '#8f9aad' : system.starColor ?? '#d9e7f3'} className="system-star" filter="url(#starGlow)" />
+                        <StellarVisual radius={9.5} color={unexploredAtCarte0 ? '#6f7c84' : locked ? '#8f9aad' : system.starColor ?? '#d9e7f3'} muted={unexploredAtCarte0 || locked} />
                         <text x="19" y="5" className="system-name">{unexploredAtCarte0 ? 'INEXPLORÉ' : system.name}</text>
                         {locked && <text x="19" y="18" className="system-lock-note">NON ACCESSIBLE</text>}
                       </g>
@@ -1454,9 +1452,6 @@ function SystemMapView({ system, planets, objects, selectedPlanetId, selectedObj
         }}
       >
         <defs>
-          <radialGradient id="sunFill"><stop offset="0%" stopColor="#fffad0" /><stop offset="58%" stopColor={system.starColor ?? '#f2d692'} /><stop offset="100%" stopColor="#9f6545" /></radialGradient>
-          <clipPath id="systemSunClip"><circle cx={SYSTEM_CX} cy={SYSTEM_CY} r="42" /></clipPath>
-          <filter id="sunGlow"><feGaussianBlur stdDeviation="13" /></filter>
           <filter id="objectGlow"><feGaussianBlur stdDeviation="4" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
           <radialGradient id="astroLimbShade" cx="36%" cy="30%" r="72%">
             <stop offset="0%" stopColor="rgba(255,255,255,.08)" />
@@ -1498,7 +1493,6 @@ function SystemMapView({ system, planets, objects, selectedPlanetId, selectedObj
         />
 
         <g transform={`translate(${pan.x} ${pan.y}) translate(${SYSTEM_CX} ${SYSTEM_CY}) scale(${zoom}) translate(${-SYSTEM_CX} ${-SYSTEM_CY})`}>
-          <circle cx={SYSTEM_CX} cy={SYSTEM_CY} r="76" fill={system.starColor ?? '#f2d692'} opacity=".15" filter="url(#sunGlow)" />
           {planets.map((planet) => <circle key={`orbit-${planet.id}`} cx={SYSTEM_CX} cy={SYSTEM_CY} r={planet.orbit} className="orbit-line" />)}
 
           {objects.map((object) => {
@@ -1515,21 +1509,7 @@ function SystemMapView({ system, planets, objects, selectedPlanetId, selectedObj
           >
             <circle cx={SYSTEM_CX} cy={SYSTEM_CY} r="62" className="system-star-hit" />
             {!selectedPlanetId && !selectedObjectId && <circle cx={SYSTEM_CX} cy={SYSTEM_CY} r="52" className="system-object-selection star-selection" />}
-            <circle cx={SYSTEM_CX} cy={SYSTEM_CY} r="52" fill={system.starColor ?? '#f2d692'} opacity=".18" filter="url(#sunGlow)" />
-            <circle cx={SYSTEM_CX} cy={SYSTEM_CY} r="42" fill="url(#sunFill)" className="system-sun" />
-            {system.starImage ? (
-              <image
-                href={system.starImage}
-                x={SYSTEM_CX - 48}
-                y={SYSTEM_CY - 48}
-                width={96}
-                height={96}
-                preserveAspectRatio="xMidYMid slice"
-                clipPath="url(#systemSunClip)"
-                className="system-sun-image"
-              />
-            ) : null}
-            <circle cx={SYSTEM_CX} cy={SYSTEM_CY} r="42" fill="none" className="system-sun system-sun-ring" />
+            <StellarVisual x={SYSTEM_CX} y={SYSTEM_CY} radius={42} color={system.starColor ?? '#f2d692'} />
             <text x={SYSTEM_CX} y={SYSTEM_CY + 68} textAnchor="middle" className="sun-label">{system.name.toUpperCase()}</text>
           </g>
 

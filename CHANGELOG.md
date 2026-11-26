@@ -1,5 +1,10 @@
 # Changelog GAIA RP officiel
 
+## 0.1.0-dev.14 (26 novembre 2026)
+- Nouveau rendu texturé et lumineux des soleils, partagé entre les cartes secteur et système ; couleurs historiques conservées.
+- Suppression de la liaison orange entre Tō-03 et Tō-04 uniquement.
+- Planètes, orbites, positions, libellés et interactions inchangés.
+
 ## 0.1.0-dev.13 (26 novembre 2026)
 - Correction du double incrément de l’année au passage du mois 12 au mois 1.
 - Carte galactique comme accueil joueur et après connexion ; /pont redirige vers /carte.
