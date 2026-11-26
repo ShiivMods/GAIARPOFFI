@@ -30,3 +30,6 @@ Les points ci-dessous prévalent sur les questions historiques ci-dessus.
 - Un compte de référence (créé lors de la première inscription) possède le premier personnage et les suivants. Le joueur choisit son personnage actif ; plusieurs personnages du même compte peuvent combattre dans des camps opposés, avec projections par personnage et fair-play. À implémenter dans la couche compte/personnage.
 - Piratage des communications confirmé comme exception conditionnelle. Le fichier -Compétences.txt est non exhaustif ; aucune liste fermée ne doit en être déduite.
 - Travail des mineurs et diplôme : règle de lore, pas de verrouillage technique supplémentaire demandé. PNJ et membres tests seront refaits/supprimés avant ouverture ; leurs vaisseaux ne constituent pas un canon définitif. Religions conservées.
+
+## Formation dev.10
+Seuils 14/18/21 ans et diplôme en RP activé exclusivement par un MJ confirmés. Voir [EDUCATION.md](EDUCATION.md). Statut persistant, taux 0/25/100 % selon formation, validation MJ locale avec trace. Le moteur de progression, le vieillissement et le raccordement aux RP restent à faire.

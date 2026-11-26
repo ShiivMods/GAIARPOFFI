@@ -23,11 +23,11 @@ function schemaVersion(db: DatabaseSync): number {
 }
 
 function initialize(db: DatabaseSync) {
-  if (schemaVersion(db) === 4) return;
+  if (schemaVersion(db) === 5) return;
   transaction(db, () => {
     const version = schemaVersion(db);
-    if (version === 4) return;
-    if (version !== 0 && version !== 1 && version !== 2 && version !== 3) throw new Error("Version de base locale non prise en charge.");
+    if (version === 5) return;
+    if (version !== 0 && version !== 1 && version !== 2 && version !== 3 && version !== 4) throw new Error("Version de base locale non prise en charge.");
     if (version === 0) {
     db.exec(`
       CREATE TABLE app_accounts (
@@ -104,7 +104,40 @@ function initialize(db: DatabaseSync) {
       CREATE INDEX app_characters_account_idx ON app_characters(account_id);
       PRAGMA user_version = 3;
 `);
-    db.exec(`ALTER TABLE app_characters ADD COLUMN sex TEXT NOT NULL DEFAULT 'Non-défini' CHECK(sex IN ('Homme','Femme','Non-défini')); PRAGMA user_version = 4;`);
+    if (version < 4) db.exec(`ALTER TABLE app_characters ADD COLUMN sex TEXT NOT NULL DEFAULT 'Non-défini' CHECK(sex IN ('Homme','Femme','Non-défini')); PRAGMA user_version = 4;`);
+    db.exec(`
+      CREATE TABLE app_characters_v5 (
+        id TEXT PRIMARY KEY,
+        account_id TEXT NOT NULL REFERENCES app_accounts(id),
+        dynasty_id TEXT NOT NULL REFERENCES app_dynasties(id),
+        first_name TEXT NOT NULL,
+        species TEXT NOT NULL CHECK(species = 'Humain'),
+        faction TEXT NOT NULL CHECK(faction = 'Humanis'),
+        height_cm REAL NOT NULL CHECK(height_cm > 0),
+        weight_kg REAL NOT NULL CHECK(weight_kg > 0),
+        age INTEGER NOT NULL CHECK(age >= 0),
+        academy TEXT CHECK(academy IN ('Sciences','Ingénierie','Militaire','Politique')),
+        history TEXT NOT NULL,
+        traits TEXT NOT NULL,
+        sex TEXT NOT NULL CHECK(sex IN ('Homme','Femme','Non-défini')),
+        education_status TEXT NOT NULL CHECK(education_status IN ('none','student','graduate')),
+        CHECK((education_status='none' AND academy IS NULL) OR (education_status='student' AND age>=14 AND academy IS NOT NULL) OR (education_status='graduate' AND age>=18 AND academy IS NOT NULL))
+      ) STRICT;
+      INSERT INTO app_characters_v5(id,account_id,dynasty_id,first_name,species,faction,height_cm,weight_kg,age,academy,history,traits,sex,education_status)
+      SELECT id,account_id,dynasty_id,first_name,species,faction,height_cm,weight_kg,age,academy,history,traits,sex,
+        CASE WHEN academy IS NULL THEN 'none' WHEN age>=18 THEN 'graduate' ELSE 'student' END
+      FROM app_characters;
+      DROP TABLE app_characters;
+      ALTER TABLE app_characters_v5 RENAME TO app_characters;
+      CREATE INDEX app_characters_account_idx ON app_characters(account_id);
+      CREATE TABLE academy_graduations (
+        character_id TEXT PRIMARY KEY REFERENCES app_characters(id),
+        gm_account_id TEXT NOT NULL REFERENCES app_accounts(id),
+        rp_reference TEXT NOT NULL CHECK(length(trim(rp_reference)) BETWEEN 1 AND 500),
+        validated_at INTEGER NOT NULL
+      ) STRICT;
+      PRAGMA user_version = 5;
+    `);
   });
 }
 

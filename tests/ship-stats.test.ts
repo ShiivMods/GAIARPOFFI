@@ -5,10 +5,10 @@ import type {BaseShipStats,InstalledEquipment} from "../src/game/ships/stats.ts"
 const base:BaseShipStats={firepower:2,speed:100,dodge:40,shield:6000,shieldRegen:0,hull:1000,armor:0,armorRegen:0,crew:2,firingPosts:0};
 const equipment=(id:string,kind:string,component:InstalledEquipment["component"]):InstalledEquipment=>({slot:{id,kind},component});
 test("shield capacity comes solely from the installed generator",()=>{
-  const module=equipment("module","module",{id:"module",shield:9000,weight:2});
+  const extraModule=equipment("module","module",{id:"module",shield:9000,weight:2});
   const generator=equipment("shield","shield",{id:"gen",shield:2500,weightExempt:true});
-  assert.equal(calculateShipStats(base,[module,generator]).shield,2500);
-  assert.equal(calculateShipStats(base,[module]).shield,0);
+  assert.equal(calculateShipStats(base,[extraModule,generator]).shield,2500);
+  assert.equal(calculateShipStats(base,[extraModule]).shield,0);
   assert.throws(()=>calculateShipStats(base,[generator,generator]),/Multiple/);
 });
 test("weight precedes equipment percentages and crew bonuses apply last",()=>{

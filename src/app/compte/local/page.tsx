@@ -4,6 +4,8 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { localModeEnabled } from "@/server/auth/config";
 import { currentAccount } from "@/server/auth/session";
+import {acquiredSpecialization,educationProgressionRate} from "@/game/characters/education";
+import type {Academy} from "@/game/characters/education";
 import {getRegisteredCharacter} from "@/server/auth/registration";
 import { signOutAction } from "@/features/auth/actions";
 
@@ -30,6 +32,9 @@ export default async function AccountPage() {
       <dt>Âge</dt><dd>{character.age} ans</dd>
       <dt>Taille / poids</dt><dd>{character.heightCm} cm · {character.weightKg} kg</dd>
       <dt>Académie</dt><dd>{character.academy??"Aucune"}</dd>
+      <dt>Formation</dt><dd>{character.educationStatus==="graduate"?"Diplômé":character.educationStatus==="student"?"Étudiant":"Sans académie"}</dd>
+      <dt>Spécialisation acquise</dt><dd>{acquiredSpecialization(character.academy as Academy|null,character.educationStatus)??"Aucune"}</dd>
+      <dt>Gains de spécialisation (barème)</dt><dd>{educationProgressionRate(character.age,character.educationStatus)*100} %</dd>
       {character.history&&<><dt>Histoire</dt><dd style={{whiteSpace:"pre-wrap"}}>{character.history}</dd></>}
       <dt>Caractère &amp; traits physiques</dt><dd style={{whiteSpace:"pre-wrap"}}>{character.traits||"Non renseigné"}</dd>
     </dl></section>}

@@ -1507,3 +1507,6 @@ La création doit suivre les besoins réels du développement et non l’ordre d
 - [~] Calcul vaisseau raccordé au panneau : bouclier générateur, poids puis multiplicateurs puis passifs ; poids réels à renseigner.
 - [~] Validateur de postes pur ; raccordement au catalogue à faire.
 - [ ] Personnage actif multi-personnages, piratage conditionnel et liaison configuration/combat.
+
+## Formation dev.10
+Seuils 14/18/21 ans et diplôme en RP activé exclusivement par un MJ confirmés. Voir [EDUCATION.md](EDUCATION.md). Statut persistant, taux 0/25/100 % selon formation, validation MJ locale avec trace. Le moteur de progression, le vieillissement et le raccordement aux RP restent à faire.

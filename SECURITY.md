@@ -1497,3 +1497,6 @@ SQLite conserve le journal et les caractéristiques des vaisseaux. Seul un MJ de
 
 ## Inscription dev.7 (remplace la connexion simulée générale)
 Mot de passe local fictif haché avec scrypt et sel aléatoire, vérification à temps constant du hash ; aucun mot de passe en clair enregistré. Brouillon 30 min, jeton haché en base et cookie HttpOnly SameSite Strict. Aucun compte avant transaction finale ; contrôle d'unicité à chaque étape et contraintes SQLite. Les cinq fixtures exclusivement gardent le changement de compte sans mot de passe. Aucun accès production. Le format e-mail n'établit pas la propriété de l'adresse ; confirmation, récupération, anti-abus et fournisseur final restent à intégrer. Les anciennes notes sur les comptes sans mot de passe décrivent les versions précédentes.
+
+## Formation dev.10
+Seuils 14/18/21 ans et diplôme en RP activé exclusivement par un MJ confirmés. Voir [EDUCATION.md](EDUCATION.md). Statut persistant, taux 0/25/100 % selon formation, validation MJ locale avec trace. Le moteur de progression, le vieillissement et le raccordement aux RP restent à faire.

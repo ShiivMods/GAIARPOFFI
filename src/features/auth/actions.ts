@@ -18,7 +18,7 @@ const errors:Record<string,string>={
   "email-used":"Cette adresse e-mail est déjà utilisée.","dynasty-used":"Ce nom de dynastie est déjà pris.",
   name:"Renseignez un nom et un prénom valides.",faction:"Espèce ou faction non disponible.",sex:"Sélectionnez un sexe disponible pour cette espèce.",
   measurements:"Indiquez une taille et un poids positifs.",age:"Indiquez un âge entier valide.",
-  "academy-age":"Avant 16 ans, aucune académie ne peut être choisie.",
+  "academy-age":"Avant 14 ans, aucune académie ne peut être choisie.",
   "academy-required":"Choisissez une académie pour votre citoyen d’Humanis.",
   traits:"Chaque description est limitée à 10 000 caractères.",
   expired:"Votre inscription a expiré. Reprenez la première étape.",

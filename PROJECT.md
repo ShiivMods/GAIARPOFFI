@@ -1124,3 +1124,6 @@ Voir [REGISTRATION.md](REGISTRATION.md). Le parcours en deux étapes constitue l
 
 ## Arbitrages du 26 novembre 2026
 Compte de référence distinct de ses personnages ; sélection du personnage actif par le joueur. Les membres tests et PNJ historiques seront remplacés avant ouverture. Religions conservées. Voir NOTES-REVIEW.md, SHIPS.md et REGISTRATION.md pour les décisions métier. Les sources historiques de compétences sont non exhaustives.
+
+## Formation dev.10
+Seuils 14/18/21 ans et diplôme en RP activé exclusivement par un MJ confirmés. Voir [EDUCATION.md](EDUCATION.md). Statut persistant, taux 0/25/100 % selon formation, validation MJ locale avec trace. Le moteur de progression, le vieillissement et le raccordement aux RP restent à faire.

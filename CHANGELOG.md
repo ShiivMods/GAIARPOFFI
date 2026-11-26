@@ -1,5 +1,10 @@
 # Changelog GAIA RP officiel
 
+## 0.1.0-dev.10 (26 novembre 2026)
+- Inscription Humanis : académie dès 14 ans, adulte diplômé à la création, statut étudiant persistant.
+- Diplôme acquis en jeu sur RP validé par MJ ; contrôle âge/rôle/statut et historique de validation.
+- Migration SQLite v5 et tests, correction du lint des tests vaisseau.
+
 ## 0.1.0-dev.9 (26 novembre 2026)
 - Arbitrages des notes retrouvées documentés ; PA du vaisseau supprimés des règles cibles (aucune modification du budget de test).
 - Calcul de configuration des vaisseaux corrigé : générateur seul, poids et ordre des modificateurs ; poids non renseignés signalés.

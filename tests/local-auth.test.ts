@@ -27,9 +27,13 @@ test("email syntax and development isolation",()=>{
   }
 });
 test("age, academy, species, sex, factions and optional descriptions",()=>{
-  assert.equal(validateCharacter({...character,age:"15",academy:""}).academy,null);
-  assert.throws(()=>validateCharacter({...character,age:"15"}),/academy-age/);
-  assert.throws(()=>validateCharacter({...character,academy:""}),/academy-required/);
+  assert.equal(validateCharacter({...character,age:"13",academy:""}).academy,null);
+  assert.throws(()=>validateCharacter({...character,age:"13"}),/academy-age/);
+  assert.equal(validateCharacter({...character,age:"14",academy:""}).educationStatus,"none");
+  assert.equal(validateCharacter({...character,age:"14"}).educationStatus,"student");
+  assert.equal(validateCharacter({...character,age:"17"}).educationStatus,"student");
+  assert.equal(validateCharacter({...character,age:"18"}).educationStatus,"graduate");
+  assert.throws(()=>validateCharacter({...character,age:"18",academy:""}),/academy-required/);
   assert.throws(()=>validateCharacter({...character,species:"Autre"}),/faction/);
   assert.equal(validateCharacter({...character,history:"",traits:""}).traits,"");
   for(const sex of ["Homme","Femme","Non-défini"])assert.equal(validateCharacter({...character,sex}).sex,sex);
@@ -55,7 +59,7 @@ test("two-step registration is atomic, case-insensitive and never saves raw pass
   assert.match(String(stored?.password_hash),/^scrypt\$/);
   assert.notEqual(stored?.password_hash,password);
   assert.throws(()=>completeRegistration(draft,{...character,dynasty:"arven"}),/dynasty-used/);
-  assert.throws(()=>completeRegistration(draft,{...character,age:"15"}),/academy-age/);
+  assert.throws(()=>completeRegistration(draft,{...character,age:"13"}),/academy-age/);
   assert.equal(count("app_accounts"),accounts);
   const created=completeRegistration(draft,character);
   assert.equal(created.account.role,"player");
@@ -78,6 +82,7 @@ test("two-step registration is atomic, case-insensitive and never saves raw pass
   const saved=getRegisteredCharacter(created.account.id);
   assert.equal(saved?.dynasty,"Testia");
   assert.equal(saved?.academy,"Sciences");
+  assert.equal(saved?.educationStatus,"student");
   assert.equal(saved?.sex,"Femme");
   assert.equal(await localAuth.signIn("test@example.test","incorrect-password"),null);
   assert.equal(await signInTestAccount("test@example.test"),null);
@@ -96,3 +101,4 @@ test("two-step registration is atomic, case-insensitive and never saves raw pass
   assert.equal(getRegisteredCharacter(youngAccount.account.id)?.sex,"Non-défini");
   assert.equal(getRegisteredCharacter(youngAccount.account.id)?.traits,"");
 });
+

@@ -1,7 +1,7 @@
 "use client";
 import {useActionState,useState} from "react";
 import {beginRegistrationAction,finishRegistrationAction} from "./actions";
-import {ACADEMIES,ACADEMY_MIN_AGE,SPECIES_OPTIONS,optionsForSpecies} from "./registration-rules";
+import {ACADEMIES,ACADEMY_MIN_AGE,GRADUATION_MIN_AGE,SPECIALIZATIONS,SPECIES_OPTIONS,optionsForSpecies} from "./registration-rules";
 
 const HELP={
   name:"Votre nom représente votre dynastie. Un nom déjà pris ne peut pas être réutilisé. Vous pourrez par la suite rejoindre la dynastie d’un autre joueur.",
@@ -11,8 +11,8 @@ const HELP={
   faction:"Les factions accessibles dépendent de l’espèce. Humanis est actuellement la seule faction disponible à l’inscription.",
   height:"Indiquez la taille en centimètres, par exemple 183 cm.",
   weight:"Indiquez le poids en kilogrammes, par exemple 80 kg.",
-  age:"En dessous de 16 ans, votre personnage ne peut pas choisir d’académie et ne disposera pas de certaines compétences innées. Voir les règles relatives à l’âge.",
-  academy:"L’académie représente votre background. Un citoyen d’Humanis doit être diplômé dès lors qu’il peut choisir une académie.",
+  age:"Avant 14 ans, aucune académie ni progression de spécialisation. De 14 à 17 ans, formation possible avec 25 % des gains. Première majorité à 18 ans ; permis de vaisseau accessible à 21 ans.",
+  academy:"L’académie mène à une spécialisation. Un personnage créé à partir de 18 ans est diplômé ; un étudiant doit obtenir son diplôme en RP et le faire valider par un MJ.",
   history:"L’histoire du personnage est facultative.",
   traits:"Facultatif. Vous pourrez compléter le caractère et les traits physiques plus tard.",
 };
@@ -47,6 +47,7 @@ export function CharacterForm(){
   }
   const [help,setHelp]=useState<HelpKey>("name");
   const eligible=values.age.trim()!==""&&Number.isInteger(Number(values.age))&&Number(values.age)>=ACADEMY_MIN_AGE;
+  const mustChoose=eligible&&Number(values.age)>=GRADUATION_MIN_AGE;
   function change(key:keyof typeof values,value:string){
     setValues(old=>({...old,[key]:value}));
     if(key==="age"&&(value.trim()===""||Number(value)<ACADEMY_MIN_AGE||!Number.isInteger(Number(value))))setAcademy("");
@@ -70,8 +71,9 @@ export function CharacterForm(){
       <aside className="registration-summary registration-help" aria-live="polite"><div className="registration-kicker">CONSEIL</div><p>{HELP[help]}</p></aside>
     </div>
     <fieldset className="registration-academy"><legend>Académie {tip("academy")}</legend>
-      <div className="registration-academies">{ACADEMIES.map(name=><label key={name} className={academy===name?"chosen":""}><input type="radio" name="academy" value={name} checked={academy===name} disabled={!eligible} required={eligible} onChange={()=>{setAcademy(name);setHelp("academy");}}/><span>{name}</span></label>)}</div>
-      <div className="registration-summary registration-specialization"><div className="registration-kicker">SPÉCIALISATION SÉLECTIONNÉE</div><p>{!eligible?"Académie indisponible avant 16 ans (renseignez l’âge).":academy||"Choisissez une académie."}</p></div>
+      <div className="registration-academies">{ACADEMIES.map(name=><label key={name} className={academy===name?"chosen":""}><input type="radio" name="academy" value={name} checked={academy===name} disabled={!eligible} required={mustChoose} onChange={()=>{setAcademy(name);setHelp("academy");}}/><span>{name}</span></label>)}</div>
+      {eligible&&!mustChoose&&academy&&<button type="button" className="registration-tip" onClick={()=>setAcademy("")}>Ne pas choisir d’académie</button>}
+      <div className="registration-summary registration-specialization"><div className="registration-kicker">SPÉCIALISATION SÉLECTIONNÉE</div><p>{!eligible?"Académie indisponible avant 14 ans (renseignez l’âge).":academy?`${SPECIALIZATIONS[academy as keyof typeof SPECIALIZATIONS]} · ${mustChoose?"Diplômé à la création":"Formation en cours · 25 % des gains"}`:mustChoose?"Choisissez une académie.":"Académie facultative · aucune progression de spécialisation hors formation."}</p></div>
     </fieldset>
     <div className="registration-field"><label htmlFor="reg-history">Histoire du personnage <small>(optionnel)</small></label><textarea id="reg-history" name="history" rows={5} maxLength={10000} value={values.history} onChange={e=>change("history",e.target.value)} onFocus={()=>setHelp("history")}/></div>
     <div className="registration-field"><label htmlFor="reg-traits">Caractère &amp; traits physiques <small>(optionnel)</small></label><textarea id="reg-traits" name="traits" rows={5} maxLength={10000} value={values.traits} onChange={e=>change("traits",e.target.value)} onFocus={()=>setHelp("traits")}/></div>

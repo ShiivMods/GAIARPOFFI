@@ -1819,3 +1819,6 @@ Sexe et factions disponibles selon l’espèce ; Humain : Homme, Femme, Non-déf
 
 ## Arbitrages du 26 novembre 2026
 Voir SHIPS.md (calculs vaisseaux), REGISTRATION.md (académies), NOTES-REVIEW.md (décisions). PA par personnage/capacité, non par type de vaisseau. Compte multi-personnages et sélection active à implémenter ; les restrictions de travail des mineurs évoquées dans les notes sont du lore, pas des verrous techniques supplémentaires.
+
+## Formation dev.10
+Seuils 14/18/21 ans et diplôme en RP activé exclusivement par un MJ confirmés. Voir [EDUCATION.md](EDUCATION.md). Statut persistant, taux 0/25/100 % selon formation, validation MJ locale avec trace. Le moteur de progression, le vieillissement et le raccordement aux RP restent à faire.

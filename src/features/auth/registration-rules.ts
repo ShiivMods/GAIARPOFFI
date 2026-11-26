@@ -1,6 +1,8 @@
+import {ACADEMY_MIN_AGE,GRADUATION_MIN_AGE,initialEducation} from "../../game/characters/education.ts";
+import type {EducationStatus} from "../../game/characters/education.ts";
+export {ACADEMY_MIN_AGE,GRADUATION_MIN_AGE,SPECIALIZATIONS} from "../../game/characters/education.ts";
 export const ACADEMIES=["Sciences","Ingénierie","Militaire","Politique"] as const;
 export type Academy=typeof ACADEMIES[number];
-export const ACADEMY_MIN_AGE=16;
 // Shared catalog: only species and combinations currently authorized at registration.
 export const SPECIES_OPTIONS: Readonly<Record<string,{sexes:readonly string[];factions:readonly string[]}>>={
   Humain:{sexes:["Homme","Femme","Non-défini"],factions:["Humanis"]},
@@ -12,7 +14,7 @@ export type CharacterInput={
 };
 export type CharacterData={
   dynasty:string; nameKey:string; firstName:string; species:string; sex:string; faction:string;
-  heightCm:number; weightKg:number; age:number; academy:Academy|null; history:string; traits:string;
+  heightCm:number; weightKg:number; age:number; academy:Academy|null; educationStatus:EducationStatus; history:string; traits:string;
 };
 export function dynastyKey(name:string){return name.normalize("NFKC").trim().replace(/\s+/g," ").toLocaleLowerCase("fr");}
 function cleanName(name:string){return name.normalize("NFKC").trim().replace(/\s+/g," ");}
@@ -33,13 +35,13 @@ export function validateCharacter(input:CharacterInput):CharacterData{
   if(!/^\d+$/.test(input.age.trim())||!Number.isSafeInteger(age)||age<0)throw new Error("age");
   let academy:Academy|null=null;
   if(age<ACADEMY_MIN_AGE){if(input.academy)throw new Error("academy-age");}
-  else {
+  else if(input.academy){
     if(!ACADEMIES.includes(input.academy as Academy))throw new Error("academy-required");
     academy=input.academy as Academy;
-  }
+  }else if(age>=GRADUATION_MIN_AGE)throw new Error("academy-required");
   const history=input.history.trim(),traits=input.traits.trim();
   if(history.length>10000||traits.length>10000)throw new Error("traits");
-  return {dynasty,nameKey:dynastyKey(dynasty),firstName,species:input.species,sex:input.sex,faction:input.faction,heightCm,weightKg,age,academy,history,traits};
+  return {dynasty,nameKey:dynastyKey(dynasty),firstName,species:input.species,sex:input.sex,faction:input.faction,heightCm,weightKg,age,academy,educationStatus:initialEducation(age,academy),history,traits};
 }
 // Names shown in the historical member directory; no new dynasty names invented.
 export const HISTORICAL_DYNASTIES=new Set(["Arven","Vaelor","Coris","Solan","Nemor","Orven","Taal","Marek","Kell","Meris","Ryn","Ilyan","Vel","Daren","Var","Tenn","Dross","Venn","Kader","Ahn","Myr","Oss"].map(dynastyKey));

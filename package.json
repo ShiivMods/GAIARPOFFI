@@ -1,6 +1,6 @@
 {
   "name": "gaiarp",
-  "version": "0.1.0-dev.9",
+  "version": "0.1.0-dev.10",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -15,11 +15,12 @@
     "test:auth": "node --experimental-strip-types --test tests/local-auth.test.ts",
     "test:combat": "node --experimental-strip-types --test tests/combat.test.ts",
     "test:combat:db": "node --experimental-strip-types --test tests/combat-db.test.ts",
-    "test": "npm run test:auth && npm run test:combat && npm run test:combat:db && npm run test:combat:experience && npm run test:ships",
+    "test": "npm run test:auth && npm run test:combat && npm run test:combat:db && npm run test:combat:experience && npm run test:ships && npm run test:education",
     "assets:sync": "node scripts/import-legacy-assets.mjs",
     "test:combat:experience": "node --experimental-strip-types --test tests/combat-experience.test.ts",
     "assets:check": "node scripts/import-legacy-assets.mjs --check",
-    "test:ships": "node --experimental-strip-types --test tests/ship-stats.test.ts tests/combat-stations.test.ts"
+    "test:ships": "node --experimental-strip-types --test tests/ship-stats.test.ts tests/combat-stations.test.ts",
+    "test:education": "node --experimental-strip-types --test tests/education.test.ts"
   },
   "dependencies": {
     "next": "16.4.6",
