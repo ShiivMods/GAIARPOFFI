@@ -17,6 +17,9 @@ export type ShipComponentStats = {
   firingPosts?: number
   powerCapacity?: number
   powerUse?: number
+  weight?: number
+  weightExempt?: boolean
+  speedPercent?: number
 }
 
 export type ShipComponentOption = ShipComponentStats & {
@@ -52,10 +55,10 @@ const emptyModule: ShipComponentOption = { id: 'empty', name: 'Emplacement vide'
 
 export const explorationBlueprint: ShipBlueprint = {
   id: 'exploration-t1', role: 'Exploration', tier: 'Tier I', image: assetUrl('/ship-lysa-exploration.png'), accent: '#69c4d9',
-  base: { firepower: 2, speed: 40, dodge: 35, shield: 6000, shieldRegen: 0, hull: 3000, armor: 0, armorRegen: 0, crew: 4, firingPosts: 0 },
+  base: { firepower: 2, speed: 40, dodge: 35, shield: 0, shieldRegen: 0, hull: 3000, armor: 0, armorRegen: 0, crew: 4, firingPosts: 0 },
   slots: [
     { id: 'engine', label: 'Moteur', kind: 'engine', required: true, area: 'left', defaultId: 'engine-horizon-1', options: [
-      { id: 'engine-horizon-1', name: 'Moteur Horizon I', description: 'Moteur standard fourni avec le vaisseau. Bonne réserve énergétique.', powerCapacity: 8 },
+      { id: 'engine-horizon-1', weightExempt: true, name: 'Moteur Horizon I', description: 'Moteur standard fourni avec le vaisseau. Bonne réserve énergétique.', powerCapacity: 8 },
       { id: 'engine-horizon-2', name: 'Moteur Horizon II', description: 'Version améliorée, plus coûteuse mais capable d’alimenter davantage de modules.', powerCapacity: 11, speed: 2 },
     ] },
     { id: 'crew', label: 'Cabine d’équipage', kind: 'crew', area: 'left', defaultId: 'crew-standard', options: [
@@ -82,15 +85,15 @@ export const explorationBlueprint: ShipBlueprint = {
       { id: 'module-defense', name: 'Contre-mesures', description: 'Suite défensive améliorant l’esquive du bâtiment.', powerUse: 2, dodge: 10 },
     ] },
     { id: 'scanner', label: 'Scanner', kind: 'scanner', required: true, area: 'right', defaultId: 'scanner-pathfinder', options: [
-      { id: 'scanner-pathfinder', name: 'Scanner Pathfinder', description: 'Scanner d’exploration fiable, fourni d’origine.', powerUse: 1, technology: 'Scan I' },
+      { id: 'scanner-pathfinder', weightExempt: true, name: 'Scanner Pathfinder', description: 'Scanner d’exploration fiable, fourni d’origine.', powerUse: 1, technology: 'Scan I' },
       { id: 'scanner-deepsight', name: 'Scanner Deepsight', description: 'Suite de détection plus fine réduisant le risque de mauvaises surprises.', powerUse: 2, technology: 'Scan II' },
     ] },
     { id: 'thrusters', label: 'Propulseurs', kind: 'thrusters', required: true, area: 'right', defaultId: 'thruster-ion', options: [
-      { id: 'thruster-ion', name: 'Propulseurs ioniques', description: 'Propulsion standard, souple et économe.', powerUse: 1, speed: 14, dodge: 12, propulsion: 'Ionique' },
+      { id: 'thruster-ion', weightExempt: true, name: 'Propulseurs ioniques', description: 'Propulsion standard, souple et économe.', powerUse: 1, speed: 14, dodge: 12, propulsion: 'Ionique' },
       { id: 'thruster-plasma', name: 'Propulseurs plasma', description: 'Plus rapides, mais nettement plus énergivores.', powerUse: 3, speed: 25, dodge: 6, propulsion: 'Plasma' },
     ] },
     { id: 'shield', label: 'Générateur bouclier', kind: 'shield', required: true, area: 'right', defaultId: 'shield-aegis', options: [
-      { id: 'shield-aegis', name: 'Bouclier Aegis I', description: 'Générateur défensif standard.', powerUse: 1, shield: 2500, shieldRegen: 0 },
+      { id: 'shield-aegis', weightExempt: true, name: 'Bouclier Aegis I', description: 'Générateur défensif standard.', powerUse: 1, shield: 2500, shieldRegen: 0 },
       { id: 'shield-aegis-2', name: 'Bouclier Aegis II', description: 'Protection supérieure avec recharge lente intégrée.', powerUse: 3, shield: 4000, shieldRegen: 200 },
     ] },
   ],
@@ -98,7 +101,7 @@ export const explorationBlueprint: ShipBlueprint = {
 
 export const combatBlueprint: ShipBlueprint = {
   id: 'combat-t2', role: 'Combat', tier: 'Tier II', image: assetUrl('/ship-seris-combat.png'), accent: '#cf6f78',
-  base: { firepower: 70, speed: 80, dodge: 55, shield: 7000, shieldRegen: 100, hull: 12000, armor: 2500, armorRegen: 0, crew: 6, firingPosts: 1 },
+  base: { firepower: 70, speed: 80, dodge: 55, shield: 0, shieldRegen: 100, hull: 12000, armor: 2500, armorRegen: 0, crew: 6, firingPosts: 1 },
   slots: [
     { id: 'engine', label: 'Moteur', kind: 'engine', required: true, area: 'left', defaultId: 'engine-warcore', options: [
       { id: 'engine-warcore', name: 'Moteur Warcore II', description: 'Cœur énergétique militaire prévu pour une forte charge de combat.', powerCapacity: 14 },

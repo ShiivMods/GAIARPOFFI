@@ -1,5 +1,11 @@
 # Changelog GAIA RP officiel
 
+## 0.1.0-dev.9 (26 novembre 2026)
+- Arbitrages des notes retrouvées documentés ; PA du vaisseau supprimés des règles cibles (aucune modification du budget de test).
+- Calcul de configuration des vaisseaux corrigé : générateur seul, poids et ordre des modificateurs ; poids non renseignés signalés.
+- Validateur pur de restrictions de poste, tests associés ; catalogue à raccorder.
+- Règle âge/académie inchangée en attente de discussion.
+
 ## 0.1.0-dev.8 (26 novembre 2026)
 - Sexe et factions disponibles par espèce, Homme/Femme/Non-défini pour Humain ; descriptions facultatives.
 - Migration locale v4 préservant les personnages ; tests de validation.

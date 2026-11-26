@@ -16,3 +16,6 @@ Tests navigateur et CI ; confirmation de propriété e-mail, récupération, pro
 
 ## dev.8
 Catalogue partagé client/serveur des sexes et factions disponibles par espèce ; aucune autre espèce ajoutée. Migration v4 : personnages locaux existants préservés et sexe initialisé à Non-défini, faute d’information. Les nouvelles inscriptions exigent un choix explicite. Les deux textes sont facultatifs. La modification ultérieure des fiches reste à implémenter. L’âge de 16 ans reste en vigueur pour le formulaire en attendant arbitrage des notes retrouvées (14/18 ans). Voir NOTES-REVIEW.md.
+
+## Arbitrages du 26 novembre 2026
+Sciences → Scientifique ; Ingénierie → Technicien ; Militaire → Soldat ; Politique → Officiel. La « surspécialisation » intervient plus tard et reste un terme de conception, pas une appellation officielle dans le lore. Le compte de référence est créé avec le premier personnage et peut en contenir d'autres ; le joueur sélectionnera son personnage actif. Âge et académie restent en discussion ; aucun changement de seuil dans cette version.

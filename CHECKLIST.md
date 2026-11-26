@@ -1501,3 +1501,9 @@ La création doit suivre les besoins réels du développement et non l’ordre d
 - [~] Sexe et compatibilité espèce/faction vérifiés côté serveur ; descriptions facultatives ; migration non destructive et tests.
 - [ ] Arbitrer les divergences des notes retrouvées (NOTES-REVIEW.md).
 - [ ] Modification ultérieure des fiches de personnages.
+
+## dev.9
+- [x] Arbitrages 2 à 6 et secondaires documentés ; âge et équilibre PA ouverts.
+- [~] Calcul vaisseau raccordé au panneau : bouclier générateur, poids puis multiplicateurs puis passifs ; poids réels à renseigner.
+- [~] Validateur de postes pur ; raccordement au catalogue à faire.
+- [ ] Personnage actif multi-personnages, piratage conditionnel et liaison configuration/combat.

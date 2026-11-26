@@ -1816,3 +1816,6 @@ Le parcours local est désormais e-mail et mot de passe, puis premier personnage
 
 ## Inscription dev.8
 Sexe et factions disponibles selon l’espèce ; Humain : Homme, Femme, Non-défini et Humanis uniquement. Histoire et caractère/traits physiques facultatifs, modification future. Comparaison des notes retrouvées : NOTES-REVIEW.md (aucune règle contradictoire adoptée sans décision).
+
+## Arbitrages du 26 novembre 2026
+Voir SHIPS.md (calculs vaisseaux), REGISTRATION.md (académies), NOTES-REVIEW.md (décisions). PA par personnage/capacité, non par type de vaisseau. Compte multi-personnages et sélection active à implémenter ; les restrictions de travail des mineurs évoquées dans les notes sont du lore, pas des verrous techniques supplémentaires.

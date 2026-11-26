@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from 'react'
 import type { CharacterProfile } from '../characters/characterData'
 import { currentChapterId, isVisibleAtChapter, planets, sectors, systems, systemObjects } from '../../world/data'
 import { blueprintForCharacter } from './shipData'
+import { calculateShipStats } from '../../../game/ships/stats'
 import type { ShipComponentOption, ShipSlotDefinition, ShipSlotKind } from './shipData'
 
 export function ShipModificationOverlay({ currentCharacter, combatLocked, onClose }: { currentCharacter: CharacterProfile; combatLocked: boolean; onClose: () => void }) {
@@ -16,27 +17,7 @@ export function ShipModificationOverlay({ currentCharacter, combatLocked, onClos
     return { slot, component: slot.options.find((option) => option.id === selectedId) ?? slot.options[0] }
   }), [blueprint, equipped])
 
-  const stats = useMemo(() => {
-    const result = { ...blueprint.base, powerCapacity: 0, powerUse: 0, propulsion: '—', ammo: new Set<string>(), technology: new Set<string>() }
-    installed.forEach(({ component }) => {
-      result.firepower += component.firepower ?? 0
-      result.speed += component.speed ?? 0
-      result.dodge += component.dodge ?? 0
-      result.shield += component.shield ?? 0
-      result.shieldRegen += component.shieldRegen ?? 0
-      result.hull += component.hull ?? 0
-      result.armor += component.armor ?? 0
-      result.armorRegen += component.armorRegen ?? 0
-      result.crew += component.crew ?? 0
-      result.firingPosts += component.firingPosts ?? 0
-      result.powerCapacity += component.powerCapacity ?? 0
-      result.powerUse += component.powerUse ?? 0
-      if (component.propulsion) result.propulsion = component.propulsion
-      if (component.ammo) result.ammo.add(component.ammo)
-      if (component.technology) result.technology.add(component.technology)
-    })
-    return result
-  }, [blueprint, installed])
+  const stats = useMemo(() => calculateShipStats(blueprint.base, installed), [blueprint, installed])
 
   const selected = installed.find(({ slot }) => slot.id === selectedSlotId) ?? installed[0]
   const remainingPower = stats.powerCapacity - stats.powerUse
@@ -89,7 +70,8 @@ export function ShipModificationOverlay({ currentCharacter, combatLocked, onClos
           <div className="ship-stat-title">Feuille statistique dynamique</div>
           <div className="ship-stat-grid">
             <ShipStat label="Puissance de feu / tour" value={stats.firepower} />
-            <ShipStat label="Vitesse" value={stats.speed} />
+            <ShipStat label="Vitesse" value={stats.missingWeights.length ? `${stats.speed} (provisoire)` : stats.speed} />
+            <ShipStat label="Poids équipements renseigné" value={stats.missingWeights.length ? `${stats.knownWeight} + poids manquants` : stats.knownWeight} />
             <ShipStat label="Esquive / tour" value={`${stats.dodge}%`} />
             <ShipStat label="Capacité bouclier" value={stats.shield} />
             <ShipStat label="Régén. bouclier / tour" value={stats.shieldRegen} />
@@ -110,6 +92,7 @@ export function ShipModificationOverlay({ currentCharacter, combatLocked, onClos
             <div className="ship-component-head"><span>{selected.slot.label}</span>{selected.slot.required && <b>SYSTÈME OBLIGATOIRE</b>}</div>
             <h3>{selected.component.name}</h3>
             <p>{selected.component.description}</p>
+            <div className="ship-component-power">Poids : <b>{selected.component.weightExempt || selected.component.id === "empty" ? "0 (exempté)" : selected.component.weight ?? "Non défini"}</b></div>
             <div className="ship-component-power">Consommation : <b>{selected.component.powerUse ?? 0} pt</b>{selected.component.powerCapacity ? <> · Capacité moteur : <b>{selected.component.powerCapacity} pts</b></> : null}</div>
             {canEdit ? <div className="ship-component-options">
               {selected.slot.options.map((option) => <button key={option.id} className={option.id === selected.component.id ? 'active' : ''} onClick={() => installComponent(selected.slot.id, option.id)}><strong>{option.name}</strong><small>{option.description}</small></button>)}

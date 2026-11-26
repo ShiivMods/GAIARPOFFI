@@ -1121,3 +1121,6 @@ La source historique est le commit GaiaRP 6a5324d5bea9758c94e19305bc8c3e25979897
 
 ## Inscription dev.7
 Voir [REGISTRATION.md](REGISTRATION.md). Le parcours en deux étapes constitue la nouvelle référence. Aucun compte n'est créé avant Embarquer. Données locales uniquement, fournisseur d'identité définitif reporté.
+
+## Arbitrages du 26 novembre 2026
+Compte de référence distinct de ses personnages ; sélection du personnage actif par le joueur. Les membres tests et PNJ historiques seront remplacés avant ouverture. Religions conservées. Voir NOTES-REVIEW.md, SHIPS.md et REGISTRATION.md pour les décisions métier. Les sources historiques de compétences sont non exhaustives.
