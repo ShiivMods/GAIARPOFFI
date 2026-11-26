@@ -67,7 +67,7 @@ export async function signInAction(data:FormData){
   try{session=await authProvider().signIn(field(data,"email",254),field(data,"password",128));if(session)await setSession(session);}
   catch{redirect("/connexion?error=database");}
   if(!session)redirect("/connexion?error=invalid");
-  redirect("/compte/local");
+  redirect("/carte");
 }
 export async function devSignInAction(data:FormData){
   allowed();

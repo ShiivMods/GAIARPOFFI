@@ -1828,3 +1828,6 @@ Navigation Règlement et page publique en deux sections, informations spécifiqu
 
 ## Administration dev.12
 Page réservée aux administrateurs et MJ, contrôle de session serveur, permissions explicites par outil. Aucun nouveau module de gestion défini. Accès historiques restreints ; données de carte de la maquette encore présentes côté client, à isoler avant publication. Voir [ADMINISTRATION.md](ADMINISTRATION.md).
+
+## Navigation dev.13
+Carte galactique directe pour les joueurs ; pont immersif reporté à une éventuelle V2. Panneaux personnage et vaisseau conservés. Correction du calendrier local sans modification des règles de vieillissement ni persistance.

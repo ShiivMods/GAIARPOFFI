@@ -1133,3 +1133,6 @@ Page publique dans la navigation principale, deux rubriques : règlement génér
 
 ## Administration dev.12
 Page réservée aux administrateurs et MJ, contrôle de session serveur, permissions explicites par outil. Aucun nouveau module de gestion défini. Accès historiques restreints ; données de carte de la maquette encore présentes côté client, à isoler avant publication. Voir [ADMINISTRATION.md](ADMINISTRATION.md).
+
+## Navigation dev.13
+La carte galactique est l'accueil du joueur connecté. Le pont immersif est retiré de la navigation actuelle et conservé dans src/legacy/features/ships/ShipHome.tsx pour une éventuelle V2. Les fiches personnage, vaisseau, configuration et autres onglets restent accessibles depuis la carte ; /pont redirige vers /carte. L'accueil visiteur reste public. Le calendrier de la maquette utilise une transition pure unique (année/mois), sans double incrément ; il n'est pas encore persistant.

@@ -1,5 +1,10 @@
 # Changelog GAIA RP officiel
 
+## 0.1.0-dev.13 (26 novembre 2026)
+- Correction du double incrément de l’année au passage du mois 12 au mois 1.
+- Carte galactique comme accueil joueur et après connexion ; /pont redirige vers /carte.
+- Pont immersif conservé pour une éventuelle V2 ; panneaux vaisseau, personnage et configuration toujours disponibles.
+
 ## 0.1.0-dev.12 (26 novembre 2026)
 - Bouton Administration et espace réservé aux administrateurs et MJ, dans le thème du forum.
 - Permissions explicites, contrôle serveur et raccourcis vers outils existants selon rôle.

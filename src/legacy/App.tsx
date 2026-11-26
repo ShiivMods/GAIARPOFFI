@@ -39,6 +39,7 @@ import { assetUrl } from './utils/assets'
 import { AccountPage } from './features/account/AccountPage'
 import { EventsPage } from './features/events/EventsPage'
 import { getAppPath, pushAppRoute, replaceAppRoute, routeSlug } from './router'
+import { nextGameMonth } from '../game/time/calendar'
 
 const MAP_W = 1240
 const MAP_H = 760
@@ -126,9 +127,8 @@ const galaxyStars = makeGalaxyStars(300, 98437)
 
 
 
-function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { canOpenAdministration?: boolean; canPreviewAdminMap?: boolean }) {
-  const [screen, setScreen] = useState<ScreenMode>('home')
-  const [homeView, setHomeView] = useState<'visitor' | 'bridge'>('visitor')
+function App({ canOpenAdministration = false, canPreviewAdminMap = false, isSignedIn = false }: { canOpenAdministration?: boolean; canPreviewAdminMap?: boolean; isSignedIn?: boolean }) {
+  const [screen, setScreen] = useState<ScreenMode>(isSignedIn ? 'map' : 'home')
   const [level, setLevel] = useState<'galaxy' | 'sector' | 'system' | 'planet' | 'zone' | 'interior'>('galaxy')
   const [chapterId, setChapterId] = useState(currentChapterId)
   const [sectorId, setSectorId] = useState('tochaku')
@@ -153,19 +153,24 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
   const [loreInitialView, setLoreInitialView] = useState<LoreInitialView>('history')
   const [lorePageKey, setLorePageKey] = useState(0)
   const [rulesSection, setRulesSection] = useState<RulesSection>('general')
-  const [gameYear, setGameYear] = useState(153)
-  const [gameMonth, setGameMonth] = useState(1)
+  const [gameDate, setGameDate] = useState({ year: 153, month: 1 })
+  const { year: gameYear, month: gameMonth } = gameDate
 
   const advanceGameMonth = () => {
     if (!canPreviewAdminMap) return
-    setGameMonth((month) => {
-      if (month >= 12) {
-        setGameYear((year) => year + 1)
-        return 1
-      }
+    setGameDate(nextGameMonth)
+  }
 
-      return month + 1
-    })
+  function showGalaxy(tab: InspectorTab = 'map') {
+    setScreen('map')
+    setLevel('galaxy')
+    setPlanetId(null)
+    setSystemObjectId(null)
+    setZoneId(null)
+    setPlaceId(null)
+    setHoveredZoneId(null)
+    setHoveredPlaceId(null)
+    setInspectorTab(tab)
   }
 
   const chapter = chapters.find((item) => item.id === chapterId) ?? chapters.at(-1)!
@@ -242,15 +247,18 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
     const parts = path.split('/').filter(Boolean).map((part) => decodeURIComponent(part))
 
     if (parts.length === 0) {
-      setScreen('home')
-      setHomeView('visitor')
+      if (isSignedIn) {
+        replaceAppRoute('/carte')
+        showGalaxy()
+      } else {
+        setScreen('home')
+      }
       return true
     }
 
     if (parts[0] === 'pont') {
-      setScreen('home')
-      setHomeView('bridge')
-      setInspectorTab('map')
+      replaceAppRoute('/carte')
+      showGalaxy()
       return true
     }
 
@@ -279,9 +287,7 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
       const character = characterProfiles.find((item) => item.id === parts[1])
       if (!character) return false
       setActiveCharacterId(character.id)
-      setHomeView('bridge')
-      setScreen('home')
-      setInspectorTab('character')
+      showGalaxy('character')
       return true
     }
 
@@ -298,9 +304,8 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
       const character = characterProfiles.find((item) => routeSlug(item.shipName) === parts[1] || item.id === parts[1])
       if (!character) return false
       setActiveCharacterId(character.id)
-      setHomeView('bridge')
-      setInspectorTab('ship')
-      setScreen(parts[2] === 'configuration' ? 'shipconfig' : 'home')
+      showGalaxy('ship')
+      if (parts[2] === 'configuration') setScreen('shipconfig')
       return true
     }
 
@@ -469,9 +474,16 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
     setHoveredPlaceId(null)
   }
 
-  const goHome = () => { pushAppRoute('/'); setHomeView('visitor'); setScreen('home'); setPlanetId(null); setSystemObjectId(null); clearPlanetNavigation() }
+  const goHome = () => {
+    if (isSignedIn) { goGalaxy(); return }
+    pushAppRoute('/')
+    setScreen('home')
+    setPlanetId(null)
+    setSystemObjectId(null)
+    clearPlanetNavigation()
+  }
   const openShipConfiguration = () => { pushAppRoute(`${characterShipRoute(currentCharacter)}/configuration`); setScreen('shipconfig') }
-  const closeShipConfiguration = () => { pushAppRoute(characterShipRoute(currentCharacter)); setHomeView('bridge'); setScreen('home'); setInspectorTab('ship') }
+  const closeShipConfiguration = () => { pushAppRoute(characterShipRoute(currentCharacter)); showGalaxy('ship') }
   const openMembers = () => { pushAppRoute('/membres'); setScreen('members'); setPlanetId(null); setSystemObjectId(null); clearPlanetNavigation() }
   const openRules = (section: RulesSection = 'general') => {
     pushAppRoute(section === 'gaia' ? '/reglement/gaia' : '/reglement')
@@ -489,7 +501,7 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
     setSystemObjectId(null)
     clearPlanetNavigation()
   }
-  const goGalaxy = () => { pushAppRoute('/carte'); setScreen('map'); setLevel('galaxy'); setPlanetId(null); setSystemObjectId(null); clearPlanetNavigation(); setInspectorTab('map') }
+  const goGalaxy = () => { pushAppRoute('/carte'); showGalaxy() }
   const goSector = () => { pushAppRoute(`/carte/secteurs/${selectedSector.id}`); setScreen('map'); setLevel('sector'); setPlanetId(null); setSystemObjectId(null); clearPlanetNavigation(); setInspectorTab('map') }
   const goSystem = () => { pushAppRoute(`/carte/systemes/${selectedSystem.id}`); setScreen('map'); setLevel('system'); setPlanetId(null); setSystemObjectId(null); clearPlanetNavigation(); setInspectorTab('map') }
   const goPlanet = () => { if (!surfaceAstro) return; pushAppRoute(mapObjectRoute(selectedSystem, surfaceAstro.id)); setScreen('map'); setLevel('planet'); setZoneId(null); setPlaceId(null); setHoveredZoneId(null); setHoveredPlaceId(null); setInspectorTab('map') }
@@ -503,9 +515,7 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
   const openRpCharacter = (characterId: string) => {
     pushAppRoute(`/personnages/${characterId}`)
     setActiveCharacterId(characterId)
-    setHomeView('bridge')
-    setScreen('home')
-    setInspectorTab('character')
+    showGalaxy('character')
   }
 
   const openRpFaction = (faction: string) => {
@@ -522,9 +532,7 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
 
   const returnToCharacter = () => {
     pushAppRoute(`/personnages/${currentCharacter.id}`)
-    setHomeView('bridge')
-    setScreen('home')
-    setInspectorTab('character')
+    showGalaxy('character')
   }
 
   const openRpThread = (thread: RpThread) => {
@@ -641,37 +649,20 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
     setLevel('zone')
   }
 
-  const openHomeTarget = (target: 'map' | 'ship' | 'character') => {
-    if (target === 'map') {
-      pushAppRoute('/carte')
-      setInspectorTab('map')
-      setScreen('map')
-      setLevel('galaxy')
-      setPlanetId(null)
-      setSystemObjectId(null)
-      clearPlanetNavigation()
-      return
-    }
-    pushAppRoute(target === 'character' ? `/personnages/${currentCharacter.id}` : characterShipRoute(currentCharacter))
-    setHomeView('bridge')
-    setScreen('home')
-    setInspectorTab(target)
-  }
-
   const changeInspectorTab = (tab: InspectorTab) => {
     setInspectorTab(tab)
-    if (screen !== 'home' || homeView !== 'bridge') return
+    if (screen !== 'map' || level !== 'galaxy') return
     if (tab === 'character') pushAppRoute(`/personnages/${currentCharacter.id}`)
     else if (tab === 'ship') pushAppRoute(characterShipRoute(currentCharacter))
-    else if (tab === 'map') pushAppRoute('/pont')
+    else if (getAppPath().startsWith('/personnages/') || getAppPath().startsWith('/vaisseaux/')) pushAppRoute('/carte')
   }
 
   const changeActiveCharacter = (characterId: string) => {
     const character = characterProfiles.find((item) => item.id === characterId)
     if (!character) return
     setActiveCharacterId(character.id)
-    if (screen === 'home' && inspectorTab === 'character') pushAppRoute(`/personnages/${character.id}`)
-    if (screen === 'home' && inspectorTab === 'ship') pushAppRoute(characterShipRoute(character))
+    if (screen === 'map' && level === 'galaxy' && inspectorTab === 'character') pushAppRoute(`/personnages/${character.id}`)
+    if (screen === 'map' && level === 'galaxy' && inspectorTab === 'ship') pushAppRoute(characterShipRoute(character))
   }
 
   const selectPlanetPlace = (nextPlaceId: string | null) => {
@@ -744,7 +735,7 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
     '--system-accent': selectedSystem.starColor ?? selectedSector.theme.primary,
   } as CSSProperties
 
-  const isVisitorHome = screen === 'home' && homeView === 'visitor'
+  const isVisitorHome = screen === 'home'
   const isStandalonePage = screen === 'members' || screen === 'lore' || screen === 'shipconfig' || screen === 'combat' || screen === 'events' || screen === 'account' || screen === 'rules'
 
   return (
@@ -752,13 +743,13 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
       <header className={`topbar ${isStandalonePage ? 'standalone-topbar' : ''}`}>
         <div className="brand-block">
           <div className="eyebrow">GAÏA // INTERFACE DE NAVIGATION</div>
-          <h1>{screen === 'members' ? 'Membres' : screen === 'events' ? 'Évènements' : screen === 'account' ? 'Compte' : screen === 'rules' ? 'Règlement' : screen === 'lore' ? 'Lore' : screen === 'shipconfig' ? `Vaisseau · ${currentCharacter.shipName}` : screen === 'combat' ? 'Combat spatial' : screen === 'dynasty' ? currentCharacter.dynasty : screen === 'rp' ? `RP · ${activeRp.title}` : isVisitorHome ? 'Bienvenue, futur explorateur' : screen === 'home' ? 'Pont du VVF Raviolo' : level === 'galaxy' ? 'Carte Galactique' : level === 'sector' ? `Carte Secteur · ${selectedSector.name}` : level === 'system' ? `Carte Système · ${selectedSystem.name}` : level === 'planet' ? surfaceAstro?.name ?? 'Astre' : level === 'interior' ? selectedSystemObject?.name ?? 'Installation' : selectedZone?.name ?? 'Zone planétaire'}</h1>
+          <h1>{screen === 'members' ? 'Membres' : screen === 'events' ? 'Évènements' : screen === 'account' ? 'Compte' : screen === 'rules' ? 'Règlement' : screen === 'lore' ? 'Lore' : screen === 'shipconfig' ? `Vaisseau · ${currentCharacter.shipName}` : screen === 'combat' ? 'Combat spatial' : screen === 'dynasty' ? currentCharacter.dynasty : screen === 'rp' ? `RP · ${activeRp.title}` : isVisitorHome ? 'Bienvenue, futur explorateur' : level === 'galaxy' ? 'Carte Galactique' : level === 'sector' ? `Carte Secteur · ${selectedSector.name}` : level === 'system' ? `Carte Système · ${selectedSystem.name}` : level === 'planet' ? surfaceAstro?.name ?? 'Astre' : level === 'interior' ? selectedSystemObject?.name ?? 'Installation' : selectedZone?.name ?? 'Zone planétaire'}</h1>
         </div>
 
         <button type="button" className="rules-mobile-link" aria-current={screen === 'rules' ? 'page' : undefined} onClick={() => openRules()}>Règlement</button>
         {canOpenAdministration && <button type="button" className="rules-mobile-link administration-mobile-link" onClick={() => window.location.assign('/administration')}>Administration</button>}
         <nav className="global-nav" aria-label="Navigation principale">
-          <button className={screen === 'home' ? 'active' : ''} onClick={goHome}>Accueil</button>
+          <button className={screen === 'home' || (isSignedIn && screen === 'map') ? 'active' : ''} onClick={goHome}>Accueil</button>
           <button className={screen === 'events' ? 'active' : ''} onClick={openEvents}>Évènements</button>
           <button className={screen === 'rules' ? 'active' : ''} onClick={() => openRules()}>Règlement</button>
           <button className={screen === 'lore' ? 'active' : ''} onClick={() => openLore('history')}>Lore</button>
@@ -784,25 +775,8 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
         ) : null}
       </header>
 
-            {screen === 'home' && (
-        <button
-          type="button"
-          className="dev-home-switch"
-          onClick={() => {
-            if (homeView === 'visitor') {
-              pushAppRoute('/pont')
-              setHomeView('bridge')
-              setInspectorTab('map')
-            } else {
-              goHome()
-            }
-          }}
-        >
-          <span>DEV</span>
-          {homeView === 'visitor'
-            ? 'Voir le pont joueur'
-            : 'Voir l’accueil visiteur'}
-        </button>
+      {isVisitorHome && (
+        <button type="button" className="dev-home-switch" onClick={goGalaxy}><span>DEV</span>Voir la carte galactique</button>
       )}
 
       {!isVisitorHome && !isStandalonePage && (isCurrentChapter ? <NewsTicker /> : (
@@ -813,10 +787,9 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
       ))}
 
       {!isVisitorHome && !isStandalonePage && <div className="breadcrumb-bar">
-        <button className={screen === 'home' ? 'active' : ''} onClick={goHome}>VAISSEAU</button>
+        <button className={screen === 'map' && level === 'galaxy' ? 'active' : ''} onClick={goGalaxy}>GAÏA</button>
         {screen === 'dynasty' && <><span>/</span><button className="active">{currentCharacter.dynasty.toUpperCase()}</button></>}
         {screen === 'rp' && <><span>/</span><button onClick={returnFromRp}>RP</button><span>/</span><button className="active">{activeRp.title.toUpperCase()}</button></>}
-        {screen === 'map' && <><span>/</span><button className={level === 'galaxy' ? 'active' : ''} onClick={goGalaxy}>GAÏA</button></>}
         {screen === 'map' && level !== 'galaxy' && <><span>/</span><button className={level === 'sector' ? 'active' : ''} onClick={goSector}>{selectedSector.name.toUpperCase()}</button></>}
         {screen === 'map' && ['system', 'planet', 'zone', 'interior'].includes(level) && <><span>/</span><button className={level === 'system' ? 'active' : ''} onClick={goSystem}>{selectedSystem.name.toUpperCase()}</button></>}
         {screen === 'map' && ['planet', 'zone', 'interior'].includes(level) && surfaceAstro && <><span>/</span><button className={level === 'planet' || level === 'interior' ? 'active' : ''} onClick={level === 'interior' ? undefined : goPlanet}>{surfaceAstro.name.toUpperCase()}</button></>}
@@ -871,9 +844,7 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
             if (entry.profileId && characterProfiles.some((profile) => profile.id === entry.profileId)) {
               pushAppRoute(`/personnages/${entry.profileId}`)
               setActiveCharacterId(entry.profileId)
-              setHomeView('bridge')
-              setScreen('home')
-              setInspectorTab('character')
+              showGalaxy('character')
               return
             }
             alert(`Prototype : ouvrir la fiche personnage de ${entry.firstName} ${entry.dynastyName}.`)
@@ -914,10 +885,7 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
         />
       ) : (
       <main className={`workspace ${inspectorTab === 'character' ? 'character-open' : ''} ${inspectorTab === 'missions' ? 'missions-open' : ''}`}>
-        <section className={`map-card ${screen === 'home' ? 'view-home' : `view-${level}`}`}>
-          {screen === 'home' && (
-            <ShipHome onOpen={openHomeTarget} />
-          )}
+        <section className={`map-card view-${level}`}>
           {screen === 'map' && level === 'galaxy' && (
             <div className="ship-room">
               <div className="bridge-vignette" />
@@ -1142,7 +1110,6 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
           {inspectorTab === 'map' && (
             <>
               <EraPanel chapterId={chapterId} onReturnPresent={() => changeChapter(currentChapterId)} />
-              {screen === 'home' && <HomeNavigationInspector onOpenMap={() => openHomeTarget('map')} />}
               {screen === 'map' && level === 'galaxy' && <GalaxyInspector chapterId={chapterId} />}
               {screen === 'map' && level === 'sector' && <SectorInspector sector={selectedSector} state={selectedSectorState} chapterId={chapterId} />}
               {screen === 'map' && level === 'system' && !selectedPlanet && !selectedSystemObject && <SystemInspector system={selectedSystem} objects={visibleSystemObjects} chapterId={chapterId} onOpenRps={() => setInspectorTab('rps')} />}
@@ -1167,66 +1134,6 @@ function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { ca
         </aside>
       </main>
       )}
-    </div>
-  )
-}
-
-function ShipHome({
-  onOpen,
-}: {
-  onOpen: (target: 'map' | 'ship' | 'character') => void
-}) {
-  return (
-    <div className="ship-home">
-      <div className="ship-home-vignette" />
-
-      <div className="ship-home-copy">
-        <div className="eyebrow">VVF RAVIOLO · PONT PRINCIPAL</div>
-        <h2>Bienvenue à bord</h2>
-        <p>
-          Sélectionne un élément du vaisseau ou utilise le panneau de droite.
-        </p>
-      </div>
-
-      <button
-        className="ship-hotspot hotspot-exo"
-        onClick={() => onOpen('character')}
-        aria-label="Ouvrir les informations du personnage"
-      >
-        <span className="hotspot-ring" />
-        <span className="hotspot-label">
-          <b>Équipement personnel</b>
-          <small>Personnage · Exo-combinaison</small>
-        </span>
-      </button>
-
-      <button
-        className="ship-hotspot hotspot-map"
-        onClick={() => onOpen('map')}
-        aria-label="Ouvrir la carte galactique"
-      >
-        <span className="hotspot-ring" />
-        <span className="hotspot-label">
-          <b>Navigation</b>
-          <small>Carte galactique · Gaïa</small>
-        </span>
-      </button>
-
-      <button
-        className="ship-hotspot hotspot-command"
-        onClick={() => onOpen('ship')}
-        aria-label="Ouvrir les informations du vaisseau"
-      >
-        <span className="hotspot-ring" />
-        <span className="hotspot-label">
-          <b>Poste de commandement</b>
-          <small>État et gestion du vaisseau</small>
-        </span>
-      </button>
-
-      <div className="ship-home-hint">
-        Survole un poste pour l’identifier · Les mêmes accès restent disponibles à droite
-      </div>
     </div>
   )
 }
@@ -1313,24 +1220,6 @@ function VisitorHomePage() {
     </main>
   )
 }
-
-function HomeNavigationInspector({ onOpenMap }: { onOpenMap: () => void }) {
-  return (
-    <div className="home-nav-panel cozy-panel">
-      <div className="inspector-kicker">NAVIGATION</div>
-      <h2>Table galactique</h2>
-      <p className="description">La projection centrale donne accès à Gaïa, aux secteurs connus et à leurs systèmes. La carte 0.4.0 reste inchangée derrière cet écran d’accueil.</p>
-      <button className="edit-primary" onClick={onOpenMap}>Ouvrir la carte galactique</button>
-      <SectionLabel>Raccourcis du pont</SectionLabel>
-      <div className="home-shortcuts">
-        <div><b>Centre</b><span>Navigation galactique</span></div>
-        <div><b>Gauche</b><span>Personnage / Exo</span></div>
-        <div><b>Droite</b><span>Vaisseau / Commandement</span></div>
-      </div>
-    </div>
-  )
-}
-
 
 function InspectorTabs({ active, onChange }: { active: InspectorTab; onChange: (tab: InspectorTab) => void }) {
   return (

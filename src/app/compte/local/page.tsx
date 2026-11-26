@@ -18,7 +18,7 @@ export default async function AccountPage() {
   const character = getRegisteredCharacter(account.id);
   const labels = { player: "Joueur", gm: "Maître du jeu", admin: "Administrateur" };
   return <main>
-    <a href="/">Accueil</a>
+    <a href="/carte">Carte galactique</a>
     <h1>Mon compte</h1>
     <dl>
       <dt>{character?"Personnage":"Compte de test"}</dt><dd>{character?character.firstName+" "+character.dynasty:account.username}</dd>

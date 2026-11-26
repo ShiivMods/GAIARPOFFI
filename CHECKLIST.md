@@ -1519,3 +1519,8 @@ Seuils 14/18/21 ans et diplôme en RP activé exclusivement par un MJ confirmés
 
 ## Administration dev.12
 Page réservée aux administrateurs et MJ, contrôle de session serveur, permissions explicites par outil. Aucun nouveau module de gestion défini. Accès historiques restreints ; données de carte de la maquette encore présentes côté client, à isoler avant publication. Voir [ADMINISTRATION.md](ADMINISTRATION.md).
+
+## dev.13
+- [x] Transition pure de calendrier (mois 12 → mois 1, année +1), tests de régression ajoutés.
+- [x] Carte galactique comme accueil joueur, ancien pont désactivé, fiches conservées.
+- [ ] Recette navigateur et CI ; calendrier global persistant à développer.
