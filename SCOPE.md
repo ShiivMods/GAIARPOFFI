@@ -1822,3 +1822,6 @@ Voir SHIPS.md (calculs vaisseaux), REGISTRATION.md (académies), NOTES-REVIEW.md
 
 ## Formation dev.10
 Seuils 14/18/21 ans et diplôme en RP activé exclusivement par un MJ confirmés. Voir [EDUCATION.md](EDUCATION.md). Statut persistant, taux 0/25/100 % selon formation, validation MJ locale avec trace. Le moteur de progression, le vieillissement et le raccordement aux RP restent à faire.
+
+## Règlement dev.11
+Navigation Règlement et page publique en deux sections, informations spécifiques rédigées : catégories RP, connaissances, combats, fil rouge, fin de l'histoire, ajouts et communauté. Règlement général à rédiger. Les règles de combat et de récompenses décrites sont des règles cibles, pas de nouvelles fonctionnalités implémentées.

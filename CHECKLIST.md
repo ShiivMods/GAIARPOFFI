@@ -1510,3 +1510,9 @@ La création doit suivre les besoins réels du développement et non l’ordre d
 
 ## Formation dev.10
 Seuils 14/18/21 ans et diplôme en RP activé exclusivement par un MJ confirmés. Voir [EDUCATION.md](EDUCATION.md). Statut persistant, taux 0/25/100 % selon formation, validation MJ locale avec trace. Le moteur de progression, le vieillissement et le raccordement aux RP restent à faire.
+
+## Règlement dev.11
+- [x] Bouton de navigation et page à deux sections.
+- [x] Texte spécifique fourni et structuré, sommaire navigable.
+- [ ] Rédaction du règlement général.
+- [ ] Recette visuelle et vérification des liens directs et du retour navigateur.

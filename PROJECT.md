@@ -1127,3 +1127,6 @@ Compte de référence distinct de ses personnages ; sélection du personnage act
 
 ## Formation dev.10
 Seuils 14/18/21 ans et diplôme en RP activé exclusivement par un MJ confirmés. Voir [EDUCATION.md](EDUCATION.md). Statut persistant, taux 0/25/100 % selon formation, validation MJ locale avec trace. Le moteur de progression, le vieillissement et le raccordement aux RP restent à faire.
+
+## Règlement dev.11
+Page publique dans la navigation principale, deux rubriques : règlement général (rédaction à fournir) et informations spécifiques à GAIARP (texte fourni par la conception, sept thèmes). Contenu joueur dans src/legacy/features/rules. Routes /reglement et /reglement/gaia. Ne pas présenter les systèmes décrits comme techniquement terminés ; le combat terrestre et la résolution spatiale automatique restent à développer.

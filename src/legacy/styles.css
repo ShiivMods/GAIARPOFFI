@@ -4790,3 +4790,55 @@ html {
   color: #69818d;
   font-size: 20px;
 }
+
+/* === Règlement : même enveloppe que les archives du Lore === */
+.rules-tabs { grid-template-columns: 1fr 1fr; }
+.rules-layout { display: flex; min-height: 0; overflow: hidden; }
+.rules-index { width: 248px; flex: 0 0 248px; padding: 24px 16px; border-right: 1px solid rgba(125,169,192,.13); background: rgba(7,12,17,.65); overflow: auto; }
+.rules-index .eyebrow { display: block; padding: 0 8px 14px; font-size: 11px; }
+.rules-index nav { display: grid; gap: 5px; }
+.rules-index button { display: flex; align-items: baseline; gap: 10px; text-align: left; border: 1px solid transparent; border-radius: 7px; background: transparent; color: #a6bbc8; font-size: 13px; line-height: 1.5; padding: 9px 8px; }
+.rules-index button small { color: #6a9bb0; font-variant-numeric: tabular-nums; }
+.rules-index button:hover,.rules-index button:focus-visible { border-color: rgba(105,192,216,.28); background: rgba(76,161,184,.09); color: #e1edf1; }
+.rules-content { flex: 1; min-width: 0; overflow-y: auto; }
+.rules-document { width: min(890px,100%); margin: 0 auto; padding: 30px clamp(20px,4vw,54px) 52px; color: #b5c5cf; font-size: 14px; line-height: 1.8; }
+.rules-intro { padding: 0 0 22px; border-bottom: 1px solid rgba(125,169,192,.18); }
+.rules-intro h2 { color: #e0edf3; line-height: 1.25; }
+.rules-intro p { margin: 8px 0; color: #95aab8; }
+.rules-chapter { padding: 26px 0; border-bottom: 1px solid rgba(125,169,192,.13); }
+.rules-chapter:last-child { border-bottom: 0; }
+.rules-chapter header { display: flex; gap: 13px; align-items: baseline; margin-bottom: 13px; }
+.rules-number { font-size: 12px; color: #6f9fb2; letter-spacing: .11em; }
+.rules-chapter h3 { font-size: 21px; color: #dcebf2; font-weight: 600; line-height: 1.3; margin: 0; }
+.rules-chapter h4 { font-size: 16px; color: #c6e0ea; margin: 0 0 8px; }
+.rules-chapter p { margin: 10px 0; }
+.rules-definitions { display: grid; gap: 8px; margin: 16px 0; }
+.rules-definitions > div { padding: 12px 15px; border: 1px solid rgba(125,169,192,.12); border-radius: 7px; background: rgba(61,99,117,.05); }
+.rules-definitions dt { font-weight: 600; color: #b9d7e4; }
+.rules-definitions dd { margin: 4px 0 0; }
+.rules-note { border-left: 2px solid #6699ad; background: rgba(78,134,154,.07); padding: 10px 14px; color: #c2d4dd; }
+.rules-subchapter { margin-top: 22px; }
+.rules-chapter ul { padding-left: 22px; }
+.rules-chapter li { margin: 7px 0; }
+.rules-inline-button,.rules-mobile-link { border: 1px solid rgba(107,197,216,.28); background: rgba(62,134,153,.10); color: #b9dce8; border-radius: 7px; padding: 8px 12px; font-size: 13px; }
+.rules-mobile-link { display: none; }
+.global-nav button { white-space: nowrap; }
+@media(max-width:980px) {
+  .rules-mobile-link { display: block; flex: 0 0 auto; }
+  .rules-page { height: calc(100dvh - 84px); padding: 14px; }
+  .rules-shell { display: grid; grid-template-rows: auto auto minmax(0,1fr); overflow: hidden; }
+  .rules-tabs { grid-template-columns: 1fr 1fr; }
+  .rules-layout { flex-direction: column; }
+  .rules-index { width: auto; flex: 0 0 auto; padding: 8px 12px; border-right: 0; border-bottom: 1px solid rgba(125,169,192,.13); overflow: auto; }
+  .rules-index .eyebrow { display: none; }
+  .rules-index nav { display: flex; gap: 4px; }
+  .rules-index button { flex: 0 0 auto; white-space: nowrap; }
+  .rules-content { min-height: 0; overflow: auto; }
+}
+@media(max-width:860px) {
+  .app-shell:has(.rules-page) { height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+  .app-shell:has(.rules-page) .topbar { flex-shrink: 0; }
+  .rules-page { flex: 1; height: auto; min-height: 0; }
+  .rules-document { padding: 22px 16px 36px; }
+  .rules-tabs button { padding: 9px 6px; }
+}

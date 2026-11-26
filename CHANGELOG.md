@@ -1,5 +1,10 @@
 # Changelog GAIA RP officiel
 
+## 0.1.0-dev.11 (26 novembre 2026)
+- Bouton Règlement dans la navigation, deux sections et sommaire des informations spécifiques.
+- Relecture et intégration du texte fourni, règlement général en attente de rédaction.
+- Aucun changement de mécanique de jeu.
+
 ## 0.1.0-dev.10 (26 novembre 2026)
 - Inscription Humanis : académie dès 14 ans, adulte diplômé à la création, statut étudiant persistant.
 - Diplôme acquis en jeu sur RP validé par MJ ; contrôle âge/rôle/statut et historique de validation.

@@ -32,6 +32,8 @@ import { knownSectorPaths, sectorHotspots } from './world/sectorGeometry'
 import { planetZones, placesForObject, zonesForObject, zonesForPlanet } from './world/planetNavigation'
 import type { PlanetZone, RpPlace } from './world/planetNavigation'
 import { LorePage } from './features/lore/LorePage'
+import { RulesPage } from './features/rules/RulesPage'
+import type { RulesSection } from './features/rules/rulesData'
 import type { LoreInitialView } from './features/lore/LorePage'
 import { assetUrl } from './utils/assets'
 import { AccountPage } from './features/account/AccountPage'
@@ -80,7 +82,7 @@ function populationAtChapter(value: string | undefined, chapterId: string) {
 type Point = { x: number; y: number }
 type StarPoint = { x: number; y: number; r: number; opacity: number }
 type MapViewMode = 'player' | 'admin'
-type ScreenMode = 'home' | 'map' | 'dynasty' | 'rp' | 'combat' | 'members' | 'lore' | 'shipconfig' | 'events' | 'account'
+type ScreenMode = 'home' | 'map' | 'dynasty' | 'rp' | 'combat' | 'members' | 'lore' | 'shipconfig' | 'events' | 'account' | 'rules'
 type InspectorTab = 'map' | 'ship' | 'character' | 'rps' | 'myrps' | 'missions'
 
 const stateLabel: Record<DiscoveryState, string> = {
@@ -150,6 +152,7 @@ function App() {
   const [rpInvitedIds, setRpInvitedIds] = useState<string[]>(prototypeRp.invitedIds)
   const [loreInitialView, setLoreInitialView] = useState<LoreInitialView>('history')
   const [lorePageKey, setLorePageKey] = useState(0)
+  const [rulesSection, setRulesSection] = useState<RulesSection>('general')
   const [gameYear, setGameYear] = useState(153)
   const [gameMonth, setGameMonth] = useState(1)
 
@@ -247,6 +250,12 @@ function App() {
       setScreen('home')
       setHomeView('bridge')
       setInspectorTab('map')
+      return true
+    }
+
+    if (parts[0] === 'reglement') {
+      setRulesSection(parts[1] === 'gaia' ? 'gaia' : 'general')
+      setScreen('rules')
       return true
     }
 
@@ -462,6 +471,11 @@ function App() {
   const openShipConfiguration = () => { pushAppRoute(`${characterShipRoute(currentCharacter)}/configuration`); setScreen('shipconfig') }
   const closeShipConfiguration = () => { pushAppRoute(characterShipRoute(currentCharacter)); setHomeView('bridge'); setScreen('home'); setInspectorTab('ship') }
   const openMembers = () => { pushAppRoute('/membres'); setScreen('members'); setPlanetId(null); setSystemObjectId(null); clearPlanetNavigation() }
+  const openRules = (section: RulesSection = 'general') => {
+    pushAppRoute(section === 'gaia' ? '/reglement/gaia' : '/reglement')
+    setRulesSection(section)
+    setScreen('rules')
+  }
   const openEvents = () => { pushAppRoute('/evenements'); setScreen('events') }
   const openAccount = () => { pushAppRoute('/compte'); setScreen('account') }
   const openLore = (view: LoreInitialView = 'history') => {
@@ -729,19 +743,21 @@ function App() {
   } as CSSProperties
 
   const isVisitorHome = screen === 'home' && homeView === 'visitor'
-  const isStandalonePage = screen === 'members' || screen === 'lore' || screen === 'shipconfig' || screen === 'combat' || screen === 'events' || screen === 'account'
+  const isStandalonePage = screen === 'members' || screen === 'lore' || screen === 'shipconfig' || screen === 'combat' || screen === 'events' || screen === 'account' || screen === 'rules'
 
   return (
     <div className="app-shell">
       <header className={`topbar ${isStandalonePage ? 'standalone-topbar' : ''}`}>
         <div className="brand-block">
           <div className="eyebrow">GAÏA // INTERFACE DE NAVIGATION</div>
-          <h1>{screen === 'members' ? 'Membres' : screen === 'events' ? 'Évènements' : screen === 'account' ? 'Compte' : screen === 'lore' ? 'Lore' : screen === 'shipconfig' ? `Vaisseau · ${currentCharacter.shipName}` : screen === 'combat' ? 'Combat spatial' : screen === 'dynasty' ? currentCharacter.dynasty : screen === 'rp' ? `RP · ${activeRp.title}` : isVisitorHome ? 'Bienvenue, futur explorateur' : screen === 'home' ? 'Pont du VVF Raviolo' : level === 'galaxy' ? 'Carte Galactique' : level === 'sector' ? `Carte Secteur · ${selectedSector.name}` : level === 'system' ? `Carte Système · ${selectedSystem.name}` : level === 'planet' ? surfaceAstro?.name ?? 'Astre' : level === 'interior' ? selectedSystemObject?.name ?? 'Installation' : selectedZone?.name ?? 'Zone planétaire'}</h1>
+          <h1>{screen === 'members' ? 'Membres' : screen === 'events' ? 'Évènements' : screen === 'account' ? 'Compte' : screen === 'rules' ? 'Règlement' : screen === 'lore' ? 'Lore' : screen === 'shipconfig' ? `Vaisseau · ${currentCharacter.shipName}` : screen === 'combat' ? 'Combat spatial' : screen === 'dynasty' ? currentCharacter.dynasty : screen === 'rp' ? `RP · ${activeRp.title}` : isVisitorHome ? 'Bienvenue, futur explorateur' : screen === 'home' ? 'Pont du VVF Raviolo' : level === 'galaxy' ? 'Carte Galactique' : level === 'sector' ? `Carte Secteur · ${selectedSector.name}` : level === 'system' ? `Carte Système · ${selectedSystem.name}` : level === 'planet' ? surfaceAstro?.name ?? 'Astre' : level === 'interior' ? selectedSystemObject?.name ?? 'Installation' : selectedZone?.name ?? 'Zone planétaire'}</h1>
         </div>
 
+        <button type="button" className="rules-mobile-link" aria-current={screen === 'rules' ? 'page' : undefined} onClick={() => openRules()}>Règlement</button>
         <nav className="global-nav" aria-label="Navigation principale">
           <button className={screen === 'home' ? 'active' : ''} onClick={goHome}>Accueil</button>
           <button className={screen === 'events' ? 'active' : ''} onClick={openEvents}>Évènements</button>
+          <button className={screen === 'rules' ? 'active' : ''} onClick={() => openRules()}>Règlement</button>
           <button className={screen === 'lore' ? 'active' : ''} onClick={() => openLore('history')}>Lore</button>
           <button className={screen === 'members' ? 'active' : ''} onClick={openMembers}>Membres</button>
           <button className={screen === 'account' ? 'active quiet' : 'quiet'} onClick={openAccount}>Compte</button>
@@ -834,6 +850,8 @@ function App() {
         <EventsPage />
       ) : screen === 'account' ? (
         <><AccountPage /><a className="legacy-local-link" href="/compte/local">Compte local et outils de test</a></>
+      ) : screen === 'rules' ? (
+        <RulesPage section={rulesSection} onSectionChange={openRules} />
       ) : screen === 'lore' ? (
         <LorePage key={lorePageKey} initialView={loreInitialView} onViewChange={(view) => pushAppRoute(loreRoute(view))} />
       ) : screen === 'combat' ? (
