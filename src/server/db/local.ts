@@ -23,11 +23,12 @@ function schemaVersion(db: DatabaseSync): number {
 }
 
 function initialize(db: DatabaseSync) {
-  if (schemaVersion(db) === 1) return;
+  if (schemaVersion(db) === 2) return;
   transaction(db, () => {
     const version = schemaVersion(db);
-    if (version === 1) return;
-    if (version !== 0) throw new Error("Version de base locale non prise en charge.");
+    if (version === 2) return;
+    if (version !== 0 && version !== 1) throw new Error("Version de base locale non prise en charge.");
+    if (version === 0) {
     db.exec(`
       CREATE TABLE app_accounts (
         id TEXT PRIMARY KEY,
@@ -69,7 +70,8 @@ function initialize(db: DatabaseSync) {
     ];
     db.prepare("INSERT INTO local_combat_scenarios(id,state,updated_at) VALUES(?,?,?)")
       .run("starlight", JSON.stringify(createTurn(participants)), Date.now());
-    db.exec("PRAGMA user_version = 1");
+    }
+    db.exec("CREATE TABLE IF NOT EXISTS local_combat_experience (id TEXT PRIMARY KEY REFERENCES local_combat_scenarios(id) ON DELETE CASCADE, experience TEXT NOT NULL CHECK(json_valid(experience))) STRICT; PRAGMA user_version = 2;");
   });
 }
 

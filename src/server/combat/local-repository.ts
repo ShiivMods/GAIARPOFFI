@@ -2,6 +2,8 @@ import { withLocalDb, transaction } from "../db/local.ts";
 import type { DatabaseSync } from "node:sqlite";
 import { applyCommand, createTurn, projectTurn, summarizeTurn } from "../../game/combat/turn.ts";
 import type { Command, TurnState } from "../../game/combat/turn.ts";
+import {readExperience,writeExperience} from "./experience-repository.ts";
+import {initialExperience} from "../../game/combat/experience.ts";
 
 export const TEST_SCENARIO_ID = "starlight";
 function validId(id: string) {
@@ -30,6 +32,7 @@ export async function submitCombatCommand(id:string,accountId:string,expectedRev
   return withLocalDb(db=>transaction(db,()=>{
     const state=readState(db,id);
     if(!state) throw new Error("Unknown scenario");
+    if(readExperience(db,id).result)throw new Error("Combat finished");
     const member=state.members.find(m=>m.accountId===accountId);
     if(!member) throw new Error("Forbidden participant");
     const next=applyCommand(state,accountId,member.id,expectedRevision,command);
@@ -56,5 +59,6 @@ export async function resetCombat(id:string,accountId:string,expectedRevision:nu
     if(state.revision!==expectedRevision) throw new Error("Stale revision");
     const participants=state.members.map(({id,accountId,shipId,name,station})=>({id,accountId,shipId,name,station}));
     writeState(db,id,{...createTurn(participants),revision:state.revision+1});
+    writeExperience(db,id,initialExperience());
   }));
 }

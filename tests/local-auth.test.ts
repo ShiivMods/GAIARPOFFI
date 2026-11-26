@@ -4,8 +4,8 @@ import { randomBytes } from "node:crypto";
 import { normalizeEmail, normalizeUsername, localDatabasePath } from "../src/server/auth/config.ts";
 import { localAuth } from "../src/server/auth/local-provider.ts";
 
-import { useIsolatedLocalDb } from "./local-fixture.ts";
-useIsolatedLocalDb();
+import { setupIsolatedLocalDb } from "./local-fixture.ts";
+setupIsolatedLocalDb();
 test("validation et isolation du mode local", () => {
   assert.equal(normalizeEmail(" Test@EXAMPLE.TEST "), "test@example.test");
   assert.equal(normalizeEmail("person@example.com"), null);

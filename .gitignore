@@ -5,17 +5,15 @@
 /out/
 /next-env.d.ts
 *.tsbuildinfo
-# Local environment and secrets
 .env*
 !.env.example
 *.pem
 *.key
-# Logs and local tools
 npm-debug.log*
 /coverage/
 /.vercel/
 /.supabase/
 .DS_Store
-
-# Local SQLite state
 /.gaia/
+# Exact historical combat images downloaded automatically
+/public/combat/

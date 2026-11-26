@@ -1,6 +1,6 @@
 {
   "name": "gaiarp",
-  "version": "0.1.0-dev.4",
+  "version": "0.1.0-dev.5",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -15,7 +15,9 @@
     "test:auth": "node --experimental-strip-types --test tests/local-auth.test.ts",
     "test:combat": "node --experimental-strip-types --test tests/combat.test.ts",
     "test:combat:db": "node --experimental-strip-types --test tests/combat-db.test.ts",
-    "test": "npm run test:auth && npm run test:combat && npm run test:combat:db"
+    "test": "npm run test:auth && npm run test:combat && npm run test:combat:db",
+    "assets:sync": "node scripts/sync-combat-assets.mjs",
+    "predev": "node scripts/sync-combat-assets.mjs"
   },
   "dependencies": {
     "next": "16.4.6",

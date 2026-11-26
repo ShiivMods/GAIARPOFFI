@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { after } from "node:test";
 
-export function useIsolatedLocalDb() {
+export function setupIsolatedLocalDb() {
   const original=process.cwd();
   const dir=mkdtempSync(join(tmpdir(),"gaiarp-test-"));
   process.chdir(dir);

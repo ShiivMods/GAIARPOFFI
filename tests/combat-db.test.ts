@@ -2,10 +2,10 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { randomBytes } from "node:crypto";
 import { withLocalDb } from "../src/server/db/local.ts";
-import { useIsolatedLocalDb } from "./local-fixture.ts";
+import { setupIsolatedLocalDb } from "./local-fixture.ts";
 import { getCombatView, getResetView, resetCombat, submitCombatCommand } from "../src/server/combat/local-repository.ts";
 
-useIsolatedLocalDb();
+setupIsolatedLocalDb();
 test("persistent shared planning, permissions, concurrency and reset", async () => {
   const id = "test-" + randomBytes(8).toString("hex");
   try {
