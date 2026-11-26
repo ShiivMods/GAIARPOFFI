@@ -17,7 +17,7 @@ Ancienne configuration PostgreSQL : les anciennes variables DATABASE_URL ne sont
 
 ## Terrain d'essai
 
-Sur /dev, incarner Joueur 01 et Joueur 02 (Raviolo) et Joueur 03 (K-17) dans trois profils de navigateur distincts, puis ouvrir /dev/combat. Tester les ordres, Ready, les communications RP, la reddition et les rapports de tour. Le MJ peut arbitrer manuellement les dégâts reçus et renforts de bouclier dès que tous les joueurs sont prêts. Synchronisation toutes les 3 secondes. Le MJ peut réinitialiser le scénario. La résolution automatique des tirs reste à développer. Au premier lancement, predev récupère les illustrations originales et vérifie leur empreinte ; en cas d’échec, le serveur démarre quand même. npm run assets:sync permet de réessayer.
+Sur /dev, incarner Joueur 01 et Joueur 02 (Raviolo) et Joueur 03 (K-17) dans trois profils de navigateur distincts, puis ouvrir /dev/combat. Tester les ordres, Ready, les communications RP, la reddition et les rapports de tour. Le MJ peut arbitrer manuellement les dégâts reçus et renforts de bouclier dès que tous les joueurs sont prêts. Synchronisation toutes les 3 secondes. Le MJ peut réinitialiser le scénario. La résolution automatique des tirs reste à développer. Les illustrations de la maquette sont servies depuis public/. Si la copie binaire n’est pas encore présente dans le dépôt, npm run assets:sync récupère les originaux vérifiés. npm run assets:check contrôle leur intégrité.
 
 ## Validation
 
@@ -30,3 +30,6 @@ npm audit
 Les tests DB utilisent chacun un dossier temporaire indépendant et ne touchent pas aux données de jeu. Le mode comptes fictifs est réservé à next dev sur localhost ; option GAIA_LOCAL_AUTH=0 pour le désactiver. Aucun déploiement public n'est configuré. L'intégration Supabase/Auth/Vercel sera traitée lors de la mise en ligne, qui ne marque pas la fin du développement.
 
 [PROJECT.md](PROJECT.md) · [SCOPE.md](SCOPE.md) · [SECURITY.md](SECURITY.md) · [CHECKLIST.md](CHECKLIST.md) · [COMBAT.md](COMBAT.md) · [CHANGELOG.md](CHANGELOG.md)
+
+## Reprise intégrale dev.6
+L’accueil et les URL historiques sont de nouveau accessibles directement. Les écrans d’origine sont dans src/legacy/ (React/TypeScript, intégrés au routeur Next.js). `/compte` conserve la page historique ; `/compte/local` est le compte persistant. `/dev` et `/dev/combat` restent les outils fonctionnels SQLite. Les données d'origine ne sont pas remplacées par des données inventées. Voir [MIGRATION.md](MIGRATION.md).

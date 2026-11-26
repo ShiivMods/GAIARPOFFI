@@ -1481,3 +1481,10 @@ La création doit suivre les besoins réels du développement et non l’ordre d
 - [~] Reddition par majorité, décision du capitaine adverse, résolution manuelle MJ et passage au tour suivant.
 - [ ] Formules d’armes/toucher/esquive, avaries et ciblage, effets exacts et scan progressif complet.
 - [ ] Intégration dans le RP et parité visuelle vérifiée par recette.
+
+## Import intégral (dev.6)
+- [x] Transfert des sources des écrans historiques dans src/legacy.
+- [x] Point d’entrée Next.js et URL historiques, accès au compte local et au terrain de combat connecté.
+- [ ] Transfert et vérification de tous les fichiers publics binaires.
+- [ ] Compilation et tests de non-régression.
+- [ ] Recette visuelle et parcours de navigation comparés à GaiaRP.

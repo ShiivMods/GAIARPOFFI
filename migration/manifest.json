@@ -1,0 +1,541 @@
+{
+  "repository": "ShiivMods/GaiaRP",
+  "commit": "6a5324d5bea9758c94e19305bc8c3e25979897e8",
+  "assets": [
+    {
+      "path": "public/alecto-realistic.png",
+      "sha": "9d0e7c71b1b251fa58aa659a05d74caeba384fc5",
+      "size": 2625436
+    },
+    {
+      "path": "public/alecto.svg",
+      "sha": "3288e458a1655356ee9603db10ddaa024fa2465d",
+      "size": 1642
+    },
+    {
+      "path": "public/argos-depot.svg",
+      "sha": "cbcdeef2e1bc6ecd9139a184eca941848f2317a0",
+      "size": 829
+    },
+    {
+      "path": "public/argos-map.png",
+      "sha": "d91a3a81b084d139b83c99a708af4204b0649132",
+      "size": 1711294
+    },
+    {
+      "path": "public/argos-realistic.png",
+      "sha": "67cf2fc86438602e1c2d25f5b7be60724f538acf",
+      "size": 2485179
+    },
+    {
+      "path": "public/bastion-elysia-map.png",
+      "sha": "dbf9d5b9946fa140e4910bb582a625a6e76a27c2",
+      "size": 1268288
+    },
+    {
+      "path": "public/bastion-elysia-realistic.png",
+      "sha": "10e49d140617e2935a5ca6cf4ec5c8eed527d1f7",
+      "size": 2630992
+    },
+    {
+      "path": "public/bastion-elysia.svg",
+      "sha": "b1268f3df4caddf24baf6505db49e39fc9cd502c",
+      "size": 846
+    },
+    {
+      "path": "public/caelus-realistic.png",
+      "sha": "db75dcd1c21b89f6cecc5c0f1a0b10c257a337e5",
+      "size": 2061797
+    },
+    {
+      "path": "public/caelus.svg",
+      "sha": "3df64ff77787944b8cbef8933e75fdc4058b2607",
+      "size": 1499
+    },
+    {
+      "path": "public/character-dialogue-avatar.png",
+      "sha": "dbf7cab0dda6839d07eeb808ca7770e154450327",
+      "size": 25734
+    },
+    {
+      "path": "public/character-grand-avatar.png",
+      "sha": "a424af4f60763323e29ac1581f429ac79a3a40cb",
+      "size": 80334
+    },
+    {
+      "path": "public/elias-kern-grand.png",
+      "sha": "ef0916fb8978ac87d23e13895297da8272496e3b",
+      "size": 2420448
+    },
+    {
+      "path": "public/elysia.png",
+      "sha": "e4b5c98c884f4eb355d006cbbd8148c98b18033b",
+      "size": 2686767
+    },
+    {
+      "path": "public/gaia-sector-reference.png",
+      "sha": "73845d5d6e56744892e5669ed56e56aa80c40c7f",
+      "size": 15766
+    },
+    {
+      "path": "public/helios-station-map.png",
+      "sha": "f95a3af11d8145d8ac32155001fcc740664986b7",
+      "size": 1004028
+    },
+    {
+      "path": "public/helios-station-realistic.png",
+      "sha": "0519f4a1d03329d5321bfa03dd877c3ce13d22f5",
+      "size": 2810100
+    },
+    {
+      "path": "public/helios-station.svg",
+      "sha": "cff1956bf60d88d004c94e9a005bc49da8e0244c",
+      "size": 790
+    },
+    {
+      "path": "public/lysa-dialogue-realistic.png",
+      "sha": "fb22b0fb5c15a2a3159c72292c00620c67637cc1",
+      "size": 2184714
+    },
+    {
+      "path": "public/lysa-grand-realistic.png",
+      "sha": "6c52c3260a281e702e6d5b3851cdda85c1d13fdc",
+      "size": 1947624
+    },
+    {
+      "path": "public/map-alecto.png",
+      "sha": "53d3af8f5754a9417b055b0067c80facae18d551",
+      "size": 116780
+    },
+    {
+      "path": "public/map-beige.png",
+      "sha": "e9239b3ed61da209d666fdb57f81bca3a66b876c",
+      "size": 133085
+    },
+    {
+      "path": "public/map-caelus.png",
+      "sha": "1e947ec9528c67d9a773279fb0535dc0d4e5f037",
+      "size": 102868
+    },
+    {
+      "path": "public/map-dark.png",
+      "sha": "7ab5e6be8bea3c87cada0a52e3c7318e4ace42a7",
+      "size": 130012
+    },
+    {
+      "path": "public/map-elysia.png",
+      "sha": "587ca08630bb855374b83d4f2d543d5de92d7267",
+      "size": 144181
+    },
+    {
+      "path": "public/map-iria.png",
+      "sha": "8c32b1454f995d9fc1bbbc1bae8cda75c063e9a2",
+      "size": 126420
+    },
+    {
+      "path": "public/map-nerea.png",
+      "sha": "70bd51f331b584e440beeacfef554839bcfb9c6b",
+      "size": 130816
+    },
+    {
+      "path": "public/map-nivea.png",
+      "sha": "8f9c7c19e825e2a5bb681942cc1584e49f60bb86",
+      "size": 126521
+    },
+    {
+      "path": "public/map-rocky.png",
+      "sha": "a6d4186fe80f669c8e606013bf24f46f522b682b",
+      "size": 91227
+    },
+    {
+      "path": "public/map-silex.png",
+      "sha": "6c7c6b16983c77857752e2361b1cb277fd130f60",
+      "size": 133430
+    },
+    {
+      "path": "public/map-vespera.png",
+      "sha": "ff9b28f999d1e28828d1751e1670089a80fea068",
+      "size": 101900
+    },
+    {
+      "path": "public/moon-beige-cratered.png",
+      "sha": "4487ea528a3d32f4fef3b2ab592d01bcd1ba6d90",
+      "size": 2404039
+    },
+    {
+      "path": "public/moon-dark-metallic.png",
+      "sha": "b4887a526a6481c0f8c9a9280f6793fccee08f19",
+      "size": 2443476
+    },
+    {
+      "path": "public/nerea-realistic.png",
+      "sha": "017c9dee45e2adaa224b8a5e72a75f3473bfd95c",
+      "size": 2647613
+    },
+    {
+      "path": "public/nerea.svg",
+      "sha": "e202ece080c7cbecb6e56517be2f90a6475f6c09",
+      "size": 1593
+    },
+    {
+      "path": "public/nivea-realistic.png",
+      "sha": "cb9ea70d746f4e277ffaa64de15a97b3a6d324ab",
+      "size": 2453076
+    },
+    {
+      "path": "public/nivea.svg",
+      "sha": "a7602f8d51ccecf780b00d27b73a8090c71f49f6",
+      "size": 1150
+    },
+    {
+      "path": "public/nouvelle-terre.png",
+      "sha": "e4b5c98c884f4eb355d006cbbd8148c98b18033b",
+      "size": 2686767
+    },
+    {
+      "path": "public/rocky-moon-realistic.png",
+      "sha": "81a8c236ad3433c8e051f0c6482158dec0a72a9d",
+      "size": 1936159
+    },
+    {
+      "path": "public/rocky-moon.svg",
+      "sha": "9c53a9e240095d5100218d4a7a78fee0260f0ac4",
+      "size": 1113
+    },
+    {
+      "path": "public/selene.png",
+      "sha": "e47af67532ee681e285270d1612be3a38864e885",
+      "size": 2481657
+    },
+    {
+      "path": "public/ship-bridge.svg",
+      "sha": "87b7c0606b2da36936edf6f8a3ad66e3d2bff8be",
+      "size": 2860
+    },
+    {
+      "path": "public/ship-interior.svg",
+      "sha": "bb48dcb4f6c975bca8c00c149ca47eecc22aaf61",
+      "size": 5009
+    },
+    {
+      "path": "public/ship-lysa-exploration.png",
+      "sha": "a2e0e7c09e2ed5ed292f3cf6a634cd957067857f",
+      "size": 1765594
+    },
+    {
+      "path": "public/ship-seris-combat.png",
+      "sha": "922c6ab9747a956e2403ac832a110c4b9ce1255c",
+      "size": 1857557
+    },
+    {
+      "path": "public/silex-fantasy.png",
+      "sha": "c349bbfb8ddec9565df6da6ceb8e0c2bd348f133",
+      "size": 2459264
+    },
+    {
+      "path": "public/silex-realistic.png",
+      "sha": "ac0c3c5096f187b7f450a8d107c8764a53ca8c05",
+      "size": 2376307
+    },
+    {
+      "path": "public/starlight-star.jpg",
+      "sha": "df7e3cc71c013cf77360c048c1bebedb27bdbae1",
+      "size": 1756822
+    },
+    {
+      "path": "public/starlight-star.png",
+      "sha": "df7e3cc71c013cf77360c048c1bebedb27bdbae1",
+      "size": 1756822
+    },
+    {
+      "path": "public/vespera-realistic-v2.png",
+      "sha": "1d86bb3573d02276e74aad7ab092b4eedc14a51b",
+      "size": 2049431
+    },
+    {
+      "path": "public/vespera-realistic.png",
+      "sha": "34a19da423be4edee2cdfd9c0662aec180bf442f",
+      "size": 2593464
+    },
+    {
+      "path": "public/vespera.svg",
+      "sha": "b8a0d053405ceb714cbc4254ef116213c2b530b2",
+      "size": 1405
+    },
+    {
+      "path": "public/visitor-galaxy-bg.png",
+      "sha": "80a3a24c0e33d364185b5df6017fd2fac59e2ca5",
+      "size": 1602279
+    }
+  ],
+  "source": [
+    {
+      "path": "src/App.tsx",
+      "target": "src/legacy/App.tsx",
+      "sha": "3e4513f13c2b0fa5b0b7fff1a7db08471979e6d9",
+      "adapted": true
+    },
+    {
+      "path": "src/assets/ship-bridge.svg",
+      "target": "src/legacy/assets/ship-bridge.svg",
+      "sha": "87b7c0606b2da36936edf6f8a3ad66e3d2bff8be",
+      "adapted": false
+    },
+    {
+      "path": "src/assets/ship-interior.svg",
+      "target": "src/legacy/assets/ship-interior.svg",
+      "sha": "bb48dcb4f6c975bca8c00c149ca47eecc22aaf61",
+      "adapted": false
+    },
+    {
+      "path": "src/features/README.md",
+      "target": "src/legacy/features/README.md",
+      "sha": "d1af3bce2cb0c8c4bf46424bc2bae9a8a5686672",
+      "adapted": false
+    },
+    {
+      "path": "src/features/account/AccountPage.tsx",
+      "target": "src/legacy/features/account/AccountPage.tsx",
+      "sha": "ff196bdd3293d747bd50ba752925d8ea789ccc23",
+      "adapted": false
+    },
+    {
+      "path": "src/features/characters/CharacterPanels.tsx",
+      "target": "src/legacy/features/characters/CharacterPanels.tsx",
+      "sha": "414aa88a09e7d140e16b6d6ec997bec53e17f09a",
+      "adapted": false
+    },
+    {
+      "path": "src/features/characters/characterData.ts",
+      "target": "src/legacy/features/characters/characterData.ts",
+      "sha": "5eeb6d8a188428ece76118e9c020e6d45926e94f",
+      "adapted": false
+    },
+    {
+      "path": "src/features/combat/CombatPage.tsx",
+      "target": "src/legacy/features/combat/CombatPage.tsx",
+      "sha": "6fd54a7f257223617b22e3e77b12155eaf1c40b3",
+      "adapted": false
+    },
+    {
+      "path": "src/features/combat/combatData.ts",
+      "target": "src/legacy/features/combat/combatData.ts",
+      "sha": "23e805f3ab238260561af57fb6d8328c902f8b1c",
+      "adapted": false
+    },
+    {
+      "path": "src/features/combat/combatRules.ts",
+      "target": "src/legacy/features/combat/combatRules.ts",
+      "sha": "0d27323cce428ca2c857eac1064128424699be13",
+      "adapted": false
+    },
+    {
+      "path": "src/features/dynasty/DynastyPage.tsx",
+      "target": "src/legacy/features/dynasty/DynastyPage.tsx",
+      "sha": "e8f96c008638ca4853b060f7dda0cc048cad0af0",
+      "adapted": false
+    },
+    {
+      "path": "src/features/events/EventsPage.tsx",
+      "target": "src/legacy/features/events/EventsPage.tsx",
+      "sha": "03779547bb512e0d202aa63f85ca6842c5ee780f",
+      "adapted": false
+    },
+    {
+      "path": "src/features/lore/DiscoveriesLore.tsx",
+      "target": "src/legacy/features/lore/DiscoveriesLore.tsx",
+      "sha": "59537babc510277f8a47d5cb7f9ff3f5a84cd773",
+      "adapted": false
+    },
+    {
+      "path": "src/features/lore/LorePage.tsx",
+      "target": "src/legacy/features/lore/LorePage.tsx",
+      "sha": "09c64613f997ba505133a929ddfeeb4834c6320c",
+      "adapted": false
+    },
+    {
+      "path": "src/features/lore/discoveriesData.ts",
+      "target": "src/legacy/features/lore/discoveriesData.ts",
+      "sha": "1d50a69f1ef0bfd7b787b19969a66a2802169123",
+      "adapted": false
+    },
+    {
+      "path": "src/features/lore/loreData.ts",
+      "target": "src/legacy/features/lore/loreData.ts",
+      "sha": "d7907107bf765561e65b915c3fc6834ac84eef3b",
+      "adapted": false
+    },
+    {
+      "path": "src/features/members/MembersPage.tsx",
+      "target": "src/legacy/features/members/MembersPage.tsx",
+      "sha": "060716905907fa4a8986dadcc85d695c030715c4",
+      "adapted": false
+    },
+    {
+      "path": "src/features/members/memberData.ts",
+      "target": "src/legacy/features/members/memberData.ts",
+      "sha": "915be24cc7c0d19d1bf37c5dacdb3240716ea55f",
+      "adapted": false
+    },
+    {
+      "path": "src/features/missions/MissionsInspector.tsx",
+      "target": "src/legacy/features/missions/MissionsInspector.tsx",
+      "sha": "d55875a7c70d8a5603230a5ef8f7e81f574762e7",
+      "adapted": false
+    },
+    {
+      "path": "src/features/missions/missionData.ts",
+      "target": "src/legacy/features/missions/missionData.ts",
+      "sha": "4612958e5dd305232c69d3c57aa2781e213f385f",
+      "adapted": false
+    },
+    {
+      "path": "src/features/rp/RpPage.tsx",
+      "target": "src/legacy/features/rp/RpPage.tsx",
+      "sha": "a19baf924ecc675448c32b2818051b9e4389b55d",
+      "adapted": false
+    },
+    {
+      "path": "src/features/rp/rpData.ts",
+      "target": "src/legacy/features/rp/rpData.ts",
+      "sha": "4134d84ca371a29cb7a65cb2e38bb36e7b41357d",
+      "adapted": false
+    },
+    {
+      "path": "src/features/ships/ShipPanels.tsx",
+      "target": "src/legacy/features/ships/ShipPanels.tsx",
+      "sha": "08a6a33cf45038ee5bbe9741f3104ea6736290f4",
+      "adapted": false
+    },
+    {
+      "path": "src/features/ships/shipData.ts",
+      "target": "src/legacy/features/ships/shipData.ts",
+      "sha": "46461f63e8c591224c2bc466859cba14e1eab767",
+      "adapted": false
+    },
+    {
+      "path": "src/router.ts",
+      "target": "src/legacy/router.ts",
+      "sha": "422a761bced7609ae7b09e22f26a75e7546d519d",
+      "adapted": true
+    },
+    {
+      "path": "src/styles.css",
+      "target": "src/legacy/styles.css",
+      "sha": "17a89063c65d70080cb9e704159984e33751e479",
+      "adapted": false
+    },
+    {
+      "path": "src/utils/assets.ts",
+      "target": "src/legacy/utils/assets.ts",
+      "sha": "9d8609d2bf2c7b0f813c4bfc3d34d2fc23bd0ca0",
+      "adapted": true
+    },
+    {
+      "path": "src/world/data.ts",
+      "target": "src/legacy/world/data.ts",
+      "sha": "caf237722d75e6f65a8ff76660fca37d2966f0e0",
+      "adapted": false
+    },
+    {
+      "path": "src/world/planetNavigation.ts",
+      "target": "src/legacy/world/planetNavigation.ts",
+      "sha": "6d836bc26c313ac5931d4dcb36ca1b6db7d5700d",
+      "adapted": false
+    },
+    {
+      "path": "src/world/sectorGeometry.ts",
+      "target": "src/legacy/world/sectorGeometry.ts",
+      "sha": "04b6554f0db1969cf9ad2aac573870e1d86f774b",
+      "adapted": false
+    },
+    {
+      "path": "src/world/types.ts",
+      "target": "src/legacy/world/types.ts",
+      "sha": "6fd45e2c93df999b9c833e2ca66d9408c4281494",
+      "adapted": false
+    }
+  ],
+  "archive": [
+    {
+      "path": ".github/workflows/deploy.yml",
+      "sha": "7d4d64bff9556441c42b7c094f7289fe08a91e3a"
+    },
+    {
+      "path": ".gitignore",
+      "sha": "c91cb6534b4767ee1458e5a12d1c2f497ce60512"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "sha": "28d1d1bfe8ee7261b08389b2b3c114d04eca48f6"
+    },
+    {
+      "path": "CHECKLIST.md",
+      "sha": "e4ebc61b5b1defd3fc144049d454b0d46f4cddea"
+    },
+    {
+      "path": "PROJECT.md",
+      "sha": "3fe1526ad8a2ab31ed1a5818fde2fb3bab031bae"
+    },
+    {
+      "path": "README.md",
+      "sha": "817b7db594dbdef069178a63bcca5f67d4d5ab21"
+    },
+    {
+      "path": "SCOPE.md",
+      "sha": "7bb9340c44d154276748010d01df4cf5825dd2bb"
+    },
+    {
+      "path": "SECURITY.md",
+      "sha": "97849b75b53c9b0eddb5275799ac580985aac5b8"
+    },
+    {
+      "path": "index.html",
+      "sha": "84e199a0a765f271ca2d6529181e14783400ba46"
+    },
+    {
+      "path": "package-lock.json",
+      "sha": "05fb5ed4455fc464f2287f0818a062070f6a7600"
+    },
+    {
+      "path": "package.json",
+      "sha": "08e6a5afc28f580ba567b312a5e4b831bed725f7"
+    },
+    {
+      "path": "public/404.html",
+      "sha": "72e579bf6763c12e3312eab58999f1ca6f2007a2"
+    },
+    {
+      "path": "src/App.tsx",
+      "sha": "3e4513f13c2b0fa5b0b7fff1a7db08471979e6d9"
+    },
+    {
+      "path": "src/main.tsx",
+      "sha": "bea5db19d09a2431754b21871e231dc4787c58fa"
+    },
+    {
+      "path": "src/router.ts",
+      "sha": "422a761bced7609ae7b09e22f26a75e7546d519d"
+    },
+    {
+      "path": "src/utils/assets.ts",
+      "sha": "9d8609d2bf2c7b0f813c4bfc3d34d2fc23bd0ca0"
+    },
+    {
+      "path": "src/vite-env.d.ts",
+      "sha": "dd737e21d128c835af5614f8959272d5a41402b9"
+    },
+    {
+      "path": "tsconfig.app.json",
+      "sha": "c27e592249f6964635105156b2b019893b95eabb"
+    },
+    {
+      "path": "tsconfig.app.tsbuildinfo",
+      "sha": "3b1d48c888bedecd4dc18a235768f74db82fd92d"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha": "426eda2be1b042c95058043d7937404527e90384"
+    }
+  ]
+}

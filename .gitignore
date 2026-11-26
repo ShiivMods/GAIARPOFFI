@@ -15,5 +15,6 @@ npm-debug.log*
 /.supabase/
 .DS_Store
 /.gaia/
-# Exact historical combat images downloaded automatically
+# Obsolete downloaded copies from dev.5
 /public/combat/
+/.legacy-import/

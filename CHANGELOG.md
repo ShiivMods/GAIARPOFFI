@@ -1,5 +1,11 @@
 # Changelog GAIA RP officiel
 
+## 0.1.0-dev.6 (26 novembre 2026)
+- Reprise intégrale des écrans et données TypeScript/React de GaiaRP dans Next.js, accueil et URL d’origine.
+- Comptes SQLite et terrain de combat connecté conservés, reliés depuis les écrans historiques.
+- Copie des fichiers publics originaux avec contrôle d’empreinte ; aucune invention de contenu.
+- CI et parité navigateur à confirmer.
+
 ## 0.1.0-dev.5 (26 novembre 2026)
 - Restauration de l’interface de combat historique et de ses styles, récupération vérifiée des illustrations d’origine au lancement.
 - Caractéristiques persistantes, communications RP, scanner initial, rapports et archives, décision de reddition.

@@ -1115,3 +1115,6 @@ Le projet doit pouvoir continuer à grandir sans que chaque nouvelle fonctionnal
 
 ## Règle de reprise de la maquette
 La maquette GaiaRP est la référence fonctionnelle ET visuelle. Tout module repris doit conserver ses écrans, ses règles et ses parcours existants ; les simulations sont remplacées progressivement par des systèmes réels. Une simplification technique ne justifie pas une régression du parcours utilisateur. Documenter toute fonctionnalité manquante avant d’annoncer la parité.
+
+## Reprise intégrale (dev.6)
+La source historique est le commit GaiaRP 6a5324d5bea9758c94e19305bc8c3e25979897e8. Tous les écrans et contenus sont repris dans Next.js sans refonte. Le dossier src/legacy conserve leurs modules TypeScript/React ; seules les adaptations d’entrée, de navigation, d’assets et de liens vers les fonctions locales sont nécessaires. Les configurations Vite et GitHub Pages restent des références inactives. Aucun contenu de lore ni règle de jeu nouvelle n’est introduit par ce transfert. Voir MIGRATION.md.

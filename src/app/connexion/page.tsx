@@ -1,3 +1,4 @@
+import "@/app/globals.css";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { localModeEnabled } from "@/server/auth/config";
@@ -8,7 +9,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   if (!localModeEnabled()) notFound();
   const { error } = await searchParams;
   return <main>
-    <Link href="/">Accueil</Link>
+    <a href="/">Accueil</a>
     <h1>Connexion locale</h1>
     <p className="notice">Simulation sans mot de passe : ne jamais exposer ce mode sur un réseau public.</p>
     {error && <p role="alert">{error === "database" ? "Base locale indisponible. Vérifiez sa configuration." : "Compte de test introuvable."}</p>}

@@ -14,6 +14,7 @@ import type {Message,Report} from "@/game/combat/experience";
 import {combatAction,resetCombatAction,rpMessageAction,resolveCombatAction,surrenderDecisionAction} from "@/features/combat/actions";
 import {LiveRefresh} from "@/features/combat/live-refresh";
 import {CommandButton} from "@/features/combat/command-button";
+import "@/app/globals.css";
 import "../../combat-legacy.css";
 
 export const dynamic="force-dynamic";
@@ -43,7 +44,7 @@ export default async function CombatPage({searchParams}:{searchParams:Promise<{e
       <div><Link className="combat-back" href="/dev">‹ Retour aux outils de test</Link><div className="eyebrow">INSTANCE MÉCANIQUE · COMBAT SPATIAL</div><h2>Engagement dans l’espace de Starlight</h2></div>
       <div className="combat-turn-state"><small>{view?.experience.result?"INSTANCE":"TOUR ACTUEL"}</small><strong>{view?.experience.result?"✓":String(view?.turn??gm?.turn??1).padStart(2,"0")}</strong><span>{view?.experience.result?"Combat terminé":view?phases[view.phase]:gm?phases[gm.phase]:"Hors combat"}</span></div>
     </header>
-    <div className="combat-local-toolbar"><Link href="/compte">Mon compte</Link><span>Local · Résolution manuelle MJ provisoire</span><LiveRefresh/></div>
+    <div className="combat-local-toolbar"><Link href="/compte/local">Mon compte</Link><span>Local · Résolution manuelle MJ provisoire</span><LiveRefresh/></div>
     {typeof error==="string"&&Object.hasOwn(errors,error)&&<p role="alert" className="combat-error">{errors[error]}</p>}
     {!view&&!gm&&<section className="combat-panel"><h2>Vous ne participez pas à cette instance</h2><p>Incarnez un des trois joueurs de test. Le MJ peut arbitrer ou réinitialiser le scénario.</p><Link href="/dev">Changer de compte</Link></section>}
     {gm&&<GmPanel gm={gm}/>}
@@ -121,7 +122,7 @@ function ShipCombatCard({ship,side,status}:{ship:Ship;side:"player"|"enemy";stat
   const prop=systems?propulsionPerformance(systems.propulsionIntegrity):null;
   const arm=systems?armamentPerformance(systems.armamentIntegrity):null;
   return <article className={"combat-ship-card "+side} style={{"--combat-accent":side==="player"?"#69c4d9":"#cf6f78"} as CSSProperties}>
-    <div className="combat-ship-image"><img src={"/combat/"+ship.image} alt={ship.name}/></div>
+    <div className="combat-ship-image"><img src={"/"+ship.image} alt={ship.name}/></div>
     <div className="combat-ship-title"><div><span>{ship.role}</span><h3>{ship.name}</h3></div><b>{status}</b></div>
     <CombatStat label="Coque" {...ship.hull}/><CombatStat label="Boucliers" {...ship.shield}/><CombatStat label="Blindage" {...ship.armor}/>
     {systems&&prop&&arm?<div className="combat-observed-row exact"><div><span>Propulsion</span><b>{systems.propulsionIntegrity}%</b><small>Vitesse {Math.round(systems.baseSpeed*prop.speedMultiplier)} · Esquive {Math.round(systems.baseEvasion*prop.evasionMultiplier)}%</small></div><div><span>Armement</span><b>{systems.armamentIntegrity}%</b><small>Dégâts {Math.round(arm.damageMultiplier*100)}%</small></div></div>:<div className="combat-observed-row"><div><span>Vitesse estimée</span><b>{ship.estimatedSpeed===null?"???":"≈ "+ship.estimatedSpeed}</b><small>{ship.estimatedSpeed===null?"Non analysée":"Première estimation scanner"}</small></div><div><span>Équipements offensifs visibles</span><b>{ship.offensiveEquipmentCount}</b><small>Observation visuelle uniquement</small></div></div>}
@@ -135,7 +136,7 @@ function EventList({report,ownShip}:{report:Report;ownShip:string}){
 }
 function RpFeed({messages,ownShip}:{messages:Message[];ownShip:string}){
   if(!messages.length)return null;
-  return <div className="combat-rp-feed">{messages.map(m=><article key={m.id} className={"combat-message "+(m.shipId===ownShip?"ally":"enemy")}><img src={"/combat/"+(m.memberId==="lysa"?"lysa-dialogue-realistic.png":m.memberId==="nael"?"character-dialogue-avatar.png":"character-grand-avatar.png")} alt=""/><div className="combat-message-bubble"><header><b>{m.author}</b>{m.mention&&<span className={m.mention==="Canal externe"?"external":""}>&lt; {m.mention} &gt;</span>}</header><p>« {m.text} »</p></div></article>)}</div>;
+  return <div className="combat-rp-feed">{messages.map(m=><article key={m.id} className={"combat-message "+(m.shipId===ownShip?"ally":"enemy")}><img src={"/"+(m.memberId==="lysa"?"lysa-dialogue-realistic.png":m.memberId==="nael"?"character-dialogue-avatar.png":"character-grand-avatar.png")} alt=""/><div className="combat-message-bubble"><header><b>{m.author}</b>{m.mention&&<span className={m.mention==="Canal externe"?"external":""}>&lt; {m.mention} &gt;</span>}</header><p>« {m.text} »</p></div></article>)}</div>;
 }
 function GmPanel({gm}:{gm:GmView}){
   return <section className="combat-gm"><h2>Contrôle MJ</h2><p>{gm.result??phases[gm.phase]} · Révision {gm.revision}</p>

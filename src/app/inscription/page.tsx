@@ -1,3 +1,4 @@
+import "@/app/globals.css";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { localModeEnabled } from "@/server/auth/config";
@@ -8,7 +9,7 @@ export default async function RegisterPage({ searchParams }: { searchParams: Pro
   if (!localModeEnabled()) notFound();
   const { error } = await searchParams;
   return <main>
-    <Link href="/">Accueil</Link>
+    <a href="/">Accueil</a>
     <h1>Inscription locale</h1>
     <p className="notice">Simulation de développement. Utiliser uniquement une adresse fictive @example.test. Aucun mot de passe ni e-mail réel.</p>
     {error && <p role="alert">{error === "database" ? "Base locale indisponible. Vérifiez sa configuration." : "Adresse ou pseudo invalide ou déjà utilisé."}</p>}

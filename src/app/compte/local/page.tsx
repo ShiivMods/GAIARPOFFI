@@ -1,3 +1,4 @@
+import "@/app/globals.css";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { localModeEnabled } from "@/server/auth/config";
@@ -11,7 +12,7 @@ export default async function AccountPage() {
   if (!account) redirect("/connexion");
   const labels = { player: "Joueur", gm: "Maître du jeu", admin: "Administrateur" };
   return <main>
-    <Link href="/">Accueil</Link>
+    <a href="/">Accueil</a>
     <h1>Mon compte</h1>
     <dl>
       <dt>Pseudo</dt><dd>{account.username}</dd>

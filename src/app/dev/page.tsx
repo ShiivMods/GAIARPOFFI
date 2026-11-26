@@ -1,3 +1,4 @@
+import "@/app/globals.css";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { localModeEnabled } from "@/server/auth/config";
@@ -8,7 +9,7 @@ export const dynamic = "force-dynamic";
 export default function DevPage() {
   if (!localModeEnabled()) notFound();
   return <main>
-    <Link href="/">Accueil</Link>
+    <a href="/">Accueil</a>
     <h1>Outils de test</h1>
     <p className="notice">LOCAL uniquement. Chaque compte possède sa propre identité. Pour un combat multijoueur, ouvrir des profils de navigateur distincts.</p>
     <p><Link href="/dev/combat">Ouvrir le terrain d’essai : combat spatial</Link></p>

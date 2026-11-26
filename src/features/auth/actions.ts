@@ -18,7 +18,7 @@ export async function registerAction(data: FormData) {
     redirect("/inscription?error=database");
   }
   if (!session) redirect("/inscription?error=invalid");
-  redirect("/compte");
+  redirect("/compte/local");
 }
 export async function signInAction(data: FormData) {
   if (!localModeEnabled()) notFound();
@@ -30,7 +30,7 @@ export async function signInAction(data: FormData) {
     redirect("/connexion?error=database");
   }
   if (!session) redirect("/connexion?error=invalid");
-  redirect("/compte");
+  redirect("/compte/local");
 }
 export async function signOutAction() {
   if (!localModeEnabled()) notFound();
