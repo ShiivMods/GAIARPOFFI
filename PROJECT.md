@@ -1130,3 +1130,6 @@ Seuils 14/18/21 ans et diplôme en RP activé exclusivement par un MJ confirmés
 
 ## Règlement dev.11
 Page publique dans la navigation principale, deux rubriques : règlement général (rédaction à fournir) et informations spécifiques à GAIARP (texte fourni par la conception, sept thèmes). Contenu joueur dans src/legacy/features/rules. Routes /reglement et /reglement/gaia. Ne pas présenter les systèmes décrits comme techniquement terminés ; le combat terrestre et la résolution spatiale automatique restent à développer.
+
+## Administration dev.12
+Page réservée aux administrateurs et MJ, contrôle de session serveur, permissions explicites par outil. Aucun nouveau module de gestion défini. Accès historiques restreints ; données de carte de la maquette encore présentes côté client, à isoler avant publication. Voir [ADMINISTRATION.md](ADMINISTRATION.md).

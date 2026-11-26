@@ -1516,3 +1516,6 @@ Seuils 14/18/21 ans et diplôme en RP activé exclusivement par un MJ confirmés
 - [x] Texte spécifique fourni et structuré, sommaire navigable.
 - [ ] Rédaction du règlement général.
 - [ ] Recette visuelle et vérification des liens directs et du retour navigateur.
+
+## Administration dev.12
+Page réservée aux administrateurs et MJ, contrôle de session serveur, permissions explicites par outil. Aucun nouveau module de gestion défini. Accès historiques restreints ; données de carte de la maquette encore présentes côté client, à isoler avant publication. Voir [ADMINISTRATION.md](ADMINISTRATION.md).

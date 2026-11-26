@@ -1825,3 +1825,6 @@ Seuils 14/18/21 ans et diplôme en RP activé exclusivement par un MJ confirmés
 
 ## Règlement dev.11
 Navigation Règlement et page publique en deux sections, informations spécifiques rédigées : catégories RP, connaissances, combats, fil rouge, fin de l'histoire, ajouts et communauté. Règlement général à rédiger. Les règles de combat et de récompenses décrites sont des règles cibles, pas de nouvelles fonctionnalités implémentées.
+
+## Administration dev.12
+Page réservée aux administrateurs et MJ, contrôle de session serveur, permissions explicites par outil. Aucun nouveau module de gestion défini. Accès historiques restreints ; données de carte de la maquette encore présentes côté client, à isoler avant publication. Voir [ADMINISTRATION.md](ADMINISTRATION.md).

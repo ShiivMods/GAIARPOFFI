@@ -4842,3 +4842,5 @@ html {
   .rules-document { padding: 22px 16px 36px; }
   .rules-tabs button { padding: 9px 6px; }
 }
+
+@media (min-width:981px) { .global-nav { min-width: 0; flex-wrap: wrap; } }

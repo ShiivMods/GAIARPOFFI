@@ -1,5 +1,11 @@
 # Changelog GAIA RP officiel
 
+## 0.1.0-dev.12 (26 novembre 2026)
+- Bouton Administration et espace réservé aux administrateurs et MJ, dans le thème du forum.
+- Permissions explicites, contrôle serveur et raccourcis vers outils existants selon rôle.
+- Restriction de l’aperçu Admin historique de la carte ; aucun nouveau module de gestion.
+- Tests de permissions et documentation.
+
 ## 0.1.0-dev.11 (26 novembre 2026)
 - Bouton Règlement dans la navigation, deux sections et sommaire des informations spécifiques.
 - Relecture et intégration du texte fourni, règlement général en attente de rédaction.

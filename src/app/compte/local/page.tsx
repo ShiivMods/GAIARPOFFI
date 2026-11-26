@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { localModeEnabled } from "@/server/auth/config";
 import { currentAccount } from "@/server/auth/session";
+import {hasStaffPermission} from "@/features/administration/permissions";
 import {acquiredSpecialization,educationProgressionRate} from "@/game/characters/education";
 import type {Academy} from "@/game/characters/education";
 import {getRegisteredCharacter} from "@/server/auth/registration";
@@ -38,6 +39,7 @@ export default async function AccountPage() {
       {character.history&&<><dt>Histoire</dt><dd style={{whiteSpace:"pre-wrap"}}>{character.history}</dd></>}
       <dt>Caractère &amp; traits physiques</dt><dd style={{whiteSpace:"pre-wrap"}}>{character.traits||"Non renseigné"}</dd>
     </dl></section>}
+    {hasStaffPermission(account.role,"administration:access")&&<p><Link href="/administration">Administration</Link></p>}
     <form action={signOutAction}><button type="submit">Se déconnecter</button></form>
     <p><Link href="/dev/combat">Terrain d’essai : combat spatial</Link></p>
     <p><Link href="/dev">Changer de compte de test</Link></p>

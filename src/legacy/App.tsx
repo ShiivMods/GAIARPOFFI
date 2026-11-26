@@ -126,7 +126,7 @@ const galaxyStars = makeGalaxyStars(300, 98437)
 
 
 
-function App() {
+function App({ canOpenAdministration = false, canPreviewAdminMap = false }: { canOpenAdministration?: boolean; canPreviewAdminMap?: boolean }) {
   const [screen, setScreen] = useState<ScreenMode>('home')
   const [homeView, setHomeView] = useState<'visitor' | 'bridge'>('visitor')
   const [level, setLevel] = useState<'galaxy' | 'sector' | 'system' | 'planet' | 'zone' | 'interior'>('galaxy')
@@ -157,6 +157,7 @@ function App() {
   const [gameMonth, setGameMonth] = useState(1)
 
   const advanceGameMonth = () => {
+    if (!canPreviewAdminMap) return
     setGameMonth((month) => {
       if (month >= 12) {
         setGameYear((year) => year + 1)
@@ -337,6 +338,7 @@ function App() {
     }
 
     if (parts[0] === 'admin') {
+      if (!canPreviewAdminMap) return false
       setMapViewMode('admin')
       setScreen('map')
       setLevel('galaxy')
@@ -754,12 +756,14 @@ function App() {
         </div>
 
         <button type="button" className="rules-mobile-link" aria-current={screen === 'rules' ? 'page' : undefined} onClick={() => openRules()}>Règlement</button>
+        {canOpenAdministration && <button type="button" className="rules-mobile-link administration-mobile-link" onClick={() => window.location.assign('/administration')}>Administration</button>}
         <nav className="global-nav" aria-label="Navigation principale">
           <button className={screen === 'home' ? 'active' : ''} onClick={goHome}>Accueil</button>
           <button className={screen === 'events' ? 'active' : ''} onClick={openEvents}>Évènements</button>
           <button className={screen === 'rules' ? 'active' : ''} onClick={() => openRules()}>Règlement</button>
           <button className={screen === 'lore' ? 'active' : ''} onClick={() => openLore('history')}>Lore</button>
           <button className={screen === 'members' ? 'active' : ''} onClick={openMembers}>Membres</button>
+          {canOpenAdministration && <button className="quiet" onClick={() => window.location.assign('/administration')}>Administration</button>}
           <button className={screen === 'account' ? 'active quiet' : 'quiet'} onClick={openAccount}>Compte</button>
           <button className="quiet" onClick={() => window.location.assign('/connexion')}>Se connecter</button>
           <button className="signup" onClick={() => window.location.assign('/inscription')}>S’inscrire <span className="signup-ship">➤</span></button>
@@ -1001,7 +1005,7 @@ function App() {
               <div className="map-view-toggle" role="group" aria-label="Mode d’affichage de la carte">
                 <span>VUE CARTE</span>
                 <button className={mapViewMode === 'player' ? 'active' : ''} onClick={() => setMapViewMode('player')}>Joueur</button>
-                <button className={mapViewMode === 'admin' ? 'active admin' : ''} onClick={() => setMapViewMode('admin')}>Admin</button>
+                {canPreviewAdminMap && <button className={mapViewMode === 'admin' ? 'active admin' : ''} onClick={() => setMapViewMode('admin')}>Admin</button>}
               </div>
               {mapViewMode === 'admin' && <div className="admin-mode-badge">APERÇU ADMIN · FRONTIÈRES SOUS BROUILLARD VISIBLES</div>}
               <div className="map-help galaxy-help">{mapViewMode === 'admin' ? 'Vue admin : survole/click les zones pour inspecter les secteurs' : 'Sélectionne un secteur accessible'}</div>

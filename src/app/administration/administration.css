@@ -1,0 +1,25 @@
+.administration-app{height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+.administration-app .topbar{flex-shrink:0;height:auto;min-height:84px;padding-block:14px}
+.administration-global-nav{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:8px}
+.administration-global-nav a{border:1px solid rgba(151,180,198,.12);border-radius:8px;padding:8px 11px;text-decoration:none;font-size:13px;color:#aebdca;background:rgba(255,255,255,.025)}
+.administration-global-nav a[aria-current="page"],.administration-global-nav a:hover{color:#e8f7fb;border-color:rgba(112,207,230,.36);background:rgba(76,161,184,.12)}
+.administration-page{height:auto;min-height:0;flex:1}
+.administration-shell{display:grid;grid-template-rows:auto minmax(0,1fr);overflow:hidden}
+.administration-layout{display:flex;min-height:0;overflow:hidden}
+.administration-sidebar{flex:0 0 245px;padding:24px 16px;border-right:1px solid rgba(125,169,192,.13);background:rgba(7,12,17,.65);overflow:auto}
+.administration-sidebar .eyebrow{font-size:11px;display:block;margin:0 8px 16px}
+.administration-sidebar nav{display:grid;gap:6px}
+.administration-sidebar a{color:#a6bbc8;font-size:13px;line-height:1.5;text-decoration:none;padding:10px 12px;border:1px solid transparent;border-radius:7px}
+.administration-sidebar a[aria-current="page"],.administration-sidebar a:hover{color:#e8f7fb;border-color:rgba(112,207,230,.23);background:rgba(76,161,184,.09)}
+.administration-content{flex:1;min-width:0;padding:clamp(20px,4vw,48px);color:#b5c5cf;font-size:14px;line-height:1.6}
+.administration-content h2,.administration-content h3{color:#dcebf2}
+.administration-role{display:grid;gap:5px;margin:24px 0;padding:18px;border:1px solid rgba(125,169,192,.19);border-radius:10px;background:rgba(80,128,149,.045)}
+.administration-role span{color:#8299ab;font-size:12px}
+.administration-role strong{font-size:18px;color:#c6e0ea}
+.administration-role p{margin:0}
+.administration-tools{display:grid;gap:10px}
+.administration-tools a{display:grid;gap:3px;border:1px solid rgba(125,169,192,.19);border-radius:8px;padding:14px;color:#b9d7e4;text-decoration:none}
+.administration-tools a span{color:#95aab8;font-size:13px}
+.administration-tools a:hover{border-color:#689eb5}
+.administration-note{margin-top:26px;color:#95aab8}
+@media(max-width:760px){.administration-layout{flex-direction:column}.administration-sidebar{flex:0 0 auto;border-right:0;border-bottom:1px solid rgba(125,169,192,.13);padding:12px}.administration-sidebar nav{display:flex;flex-wrap:wrap}.administration-content{min-height:0;overflow:auto}.administration-app .topbar{gap:12px;flex-wrap:wrap}.administration-global-nav{justify-content:flex-start}.administration-page{padding:10px}}
