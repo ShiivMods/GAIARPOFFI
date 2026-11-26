@@ -35,7 +35,8 @@ export async function getGmExperience(id:string,accountId:string){
     if(db.prepare("SELECT role FROM app_accounts WHERE id=?").get(accountId)?.role!=="gm")return null;
     const state=readTurn(db,id);
     const data=readExperience(db,id);
-    return {revision:state.revision,...summarizeTurn(state),ships:data.ships.map(s=>({id:s.id,name:s.name})),result:data.result,turn:state.turn};
+    const summary=summarizeTurn(state);
+    return {revision:state.revision,...summary,ships:data.ships.map(s=>({id:s.id,name:s.name})),result:data.result,turn:state.turn,orders:summary.phase==='ready-for-resolution'?state.members.map(m=>({name:m.name,shipId:m.shipId,orders:[...m.orders]})):[]};
   });
 }
 export async function postCombatMessage(id:string,accountId:string,mention:string,text:string){

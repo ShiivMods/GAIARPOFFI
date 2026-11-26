@@ -1,5 +1,11 @@
 # Changelog GAIA RP officiel
 
+## 0.1.0-dev.5 (26 novembre 2026)
+- Restauration de l’interface de combat historique et de ses styles, récupération vérifiée des illustrations d’origine au lancement.
+- Caractéristiques persistantes, communications RP, scanner initial, rapports et archives, décision de reddition.
+- Arbitrage MJ manuel provisoire, sans inventer de formule automatique de tir.
+- Correction du lint des tests SQLite ; nouveaux tests de parcours. Recette navigateur et CI à confirmer.
+
 ## 0.1.0-dev.4 (26 novembre 2026)
 - Remplacement de PostgreSQL/Docker par SQLite intégré à Node.js 22.13+.
 - Initialisation automatique des comptes et du scénario au premier accès, aucune commande DB nécessaire.

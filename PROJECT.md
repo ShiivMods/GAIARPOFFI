@@ -1112,3 +1112,6 @@ RP SF doit progressivement devenir un projet :
 - repris facilement sans dépendre d’informations présentes uniquement dans d’anciennes conversations.
 
 Le projet doit pouvoir continuer à grandir sans que chaque nouvelle fonctionnalité fragilise les systèmes déjà établis.
+
+## Règle de reprise de la maquette
+La maquette GaiaRP est la référence fonctionnelle ET visuelle. Tout module repris doit conserver ses écrans, ses règles et ses parcours existants ; les simulations sont remplacées progressivement par des systèmes réels. Une simplification technique ne justifie pas une régression du parcours utilisateur. Documenter toute fonctionnalité manquante avant d’annoncer la parité.

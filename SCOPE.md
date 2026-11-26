@@ -1807,3 +1807,6 @@ Le choix :
 sera effectué plus tard, une fois les besoins suffisamment documentés.
 
 Aucune technologie ne doit être choisie uniquement pour « commencer le backend » sans avoir d’abord défini ces besoins.
+
+## Combat dev.5
+Retour à la présentation historique. Cartes de vaisseaux, commandes, équipages, communications persistantes, scanner première estimation, reddition et rapports réels. Résolution manuelle MJ uniquement pour les tests ; automatisation complète et intégration RP non terminées.

@@ -1473,3 +1473,11 @@ La création doit suivre les besoins réels du développement et non l’ordre d
 - `WORLD_MAP.md`
 - `LORE.md`
 - documentation backend / base / API lorsque leur conception commence
+
+## Rattrapage combat historique (dev.5)
+- [~] Restaurer interface, styles et illustrations d’origine ; recette navigateur à effectuer.
+- [~] Caractéristiques des vaisseaux, intégrité, Ready et actions reliés au moteur.
+- [~] Communications RP et rapports persistants ; tests à valider.
+- [~] Reddition par majorité, décision du capitaine adverse, résolution manuelle MJ et passage au tour suivant.
+- [ ] Formules d’armes/toucher/esquive, avaries et ciblage, effets exacts et scan progressif complet.
+- [ ] Intégration dans le RP et parité visuelle vérifiée par recette.
