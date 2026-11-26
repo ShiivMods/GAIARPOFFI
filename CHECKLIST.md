@@ -9,7 +9,7 @@
 - [~] Socle Next.js / React / TypeScript écrit.
 - [ ] Générer et versionner package-lock.json.
 - [ ] Installer et vérifier les dépendances, lint, types, tests et build.
-- [x] PostgreSQL local et migrations SQL préparés et testés en CI.
+- [~] SQLite local intégré et auto-initialisé ; nouvelle CI à valider (Docker supprimé).
 - [ ] Intégration Supabase/Auth/Vercel différée à la phase de préproduction.
 - [ ] Vérifier configuration et environnement de développement.
 
@@ -25,7 +25,7 @@
 - [~] Règles présentes dans la maquette extraites et documentées (COMBAT.md) ; règles manquantes à définir.
 - [x] Moteur indépendant : dégâts, seuils, PA, commandes et projection ; CI 45769088467 réussie.
 - [~] Participants, équipages, planification et synchronisation locale écrits ; validation en cours.
-- [~] Persistance locale et verrou de révision écrits ; résolution et idempotence de résolution à faire.
+- [~] Persistance locale et verrou de révision SQLite écrits ; résolution et idempotence de résolution à faire.
 - [~] Interface de test locale et tests DB de concurrence / accès écrits ; recette navigateur à faire.
 
 ## Phase 3 : RP
@@ -40,7 +40,9 @@ La checklist historique ci-dessous conserve toutes les exigences détaillées ; 
 
 ## Validation Local First
 - [x] Socle initial : GitHub Actions 45714478561 réussi (lint, typecheck, build, audit).
-- [x] CI PostgreSQL et tests de la couche comptes réussis (45768821948).
+- [x] Ancienne CI PostgreSQL comptes réussie (45768821948, historique).
+- [!] CI dev.3 PostgreSQL échouée sur le test DB (45769929807, historique).
+- [ ] CI SQLite dev.4 et recette locale.
 - [ ] Parcours navigateur à valider.
 - [ ] Recette multi-profils dans des navigateurs distincts.
 - [ ] Vérification du blocage du mode local en production.

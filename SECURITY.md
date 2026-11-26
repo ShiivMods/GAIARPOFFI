@@ -1,7 +1,7 @@
 # SECURITY.md : sécurité officielle
 
 **Référence :** `ShiivMods/GAIARPOFFI/main`.
-**État :** comptes fictifs locaux et sessions de développement écrits ; validation en attente. Aucun service déployé.
+**État :** comptes fictifs et sessions locales, persistance SQLite ; validation de la nouvelle couche en attente. Aucun service déployé.
 
 ## Mesures et exigences de la nouvelle architecture
 - Dépôt public : secrets, fichiers d'environnement locaux, clés privilégiées et données privées exclus du Git.
@@ -17,10 +17,12 @@
 Les mesures ci-dessus sont des exigences, non des garanties déjà implémentées.
 
 ## Dérogation strictement locale
-L’inscription simulée n’est pas une authentification réelle. La connexion par adresse fictive permet l’impersonation volontaire pour les tests. Aucun mot de passe ni donnée personnelle. L’application exige NODE_ENV=development et GAIA_LOCAL_AUTH=1 ; routes et actions désactivées sinon. Serveur Next et port PostgreSQL liés à 127.0.0.1. Cookies HttpOnly / SameSite Strict, sans Secure pour HTTP localhost ; jetons aléatoires hachés en base, expiration 8 h, révocation serveur. Le rôle est lu depuis la base et jamais accepté depuis un formulaire. Les cinq comptes privilégiés ou non sont des fixtures SQL uniquement locales. Ne pas exposer ce mode, ne pas transférer ses sessions/fixtures en production. RLS, MFA, confirmation e-mail, anti-abus et fournisseur réel restent des exigences de production. Les tests locaux ne prouvent pas la sécurité de production.
+L’inscription simulée n’est pas une authentification réelle. La connexion par adresse fictive permet l’impersonation volontaire pour les tests. Aucun mot de passe ni donnée personnelle. L’application exige NODE_ENV=development et GAIA_LOCAL_AUTH différent de 0 ; routes et actions désactivées sinon. Serveur Next lié à 127.0.0.1. Le fichier SQLite est hors des répertoires publics et ignoré par Git. Cookies HttpOnly / SameSite Strict, sans Secure pour HTTP localhost ; jetons aléatoires hachés en base, expiration 8 h, révocation serveur. Le rôle est lu depuis la base et jamais accepté depuis un formulaire. Les cinq comptes privilégiés ou non sont des fixtures uniquement locales. Ne pas exposer ce mode, ne pas transférer ses sessions/fixtures en production. RLS, MFA, confirmation e-mail, anti-abus et fournisseur réel restent des exigences de production. Les tests locaux ne prouvent pas la sécurité de production.
 
 ## Combat : première brique
-Les commandes pures vérifient propriété du participant, budget, engagement et révision. La projection masque les ordres ennemis et les identifiants des comptes. Le terrain local /dev/combat exige une session, ne reçoit aucun identifiant de compte client, vérifie l’appartenance au scénario et verrouille les modifications avec SELECT FOR UPDATE. La révision est contrôlée sous verrou, y compris pour le reset MJ. L’état brut reste serveur. Le MJ ne dispose que des compteurs et du reset ; l’administrateur ne dispose pas de droits de jeu implicites. Tests de concurrence et accès croisés écrits ; CI et recette navigateur à confirmer. Aucune résolution serveur complète ni exposition en production.
+Les commandes pures vérifient propriété du participant, budget, engagement et révision. La projection masque les ordres ennemis et les identifiants des comptes. Le terrain local /dev/combat exige une session, ne reçoit aucun identifiant de compte client, vérifie l’appartenance au scénario et verrouille les modifications avec BEGIN IMMEDIATE et contrôle de révision. La révision est contrôlée sous verrou, y compris pour le reset MJ. L’état brut reste serveur. Le MJ ne dispose que des compteurs et du reset ; l’administrateur ne dispose pas de droits de jeu implicites. Tests de concurrence et accès croisés écrits ; CI et recette navigateur à confirmer. Aucune résolution serveur complète ni exposition en production.
+
+SQLite est réservé au développement. Requêtes paramétrées, clés étrangères activées et sessions hachées ; tests isolés dans des dossiers temporaires. Les anciennes variables PostgreSQL sont ignorées. Aucun import automatique des données de test ni des sessions vers l’hébergement.
 
 ---
 

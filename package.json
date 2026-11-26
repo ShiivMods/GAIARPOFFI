@@ -1,6 +1,6 @@
 {
   "name": "gaiarp",
-  "version": "0.1.0-dev.3",
+  "version": "0.1.0-dev.4",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -12,18 +12,15 @@
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
     "check": "npm run lint && npm run typecheck && npm run build",
-    "db:up": "docker compose up -d --wait",
-    "db:down": "docker compose down",
-    "db:setup": "node --env-file-if-exists=.env.local scripts/db-setup.mjs",
-    "test:auth": "node --env-file-if-exists=.env.local --experimental-strip-types --test tests/local-auth.test.ts",
+    "test:auth": "node --experimental-strip-types --test tests/local-auth.test.ts",
     "test:combat": "node --experimental-strip-types --test tests/combat.test.ts",
-    "test:combat:db": "node --env-file-if-exists=.env.local --experimental-strip-types --test tests/combat-db.test.ts"
+    "test:combat:db": "node --experimental-strip-types --test tests/combat-db.test.ts",
+    "test": "npm run test:auth && npm run test:combat && npm run test:combat:db"
   },
   "dependencies": {
     "next": "16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "postgres": "3.4.7",
     "server-only": "0.0.1"
   },
   "devDependencies": {

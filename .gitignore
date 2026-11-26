@@ -16,3 +16,6 @@ npm-debug.log*
 /.vercel/
 /.supabase/
 .DS_Store
+
+# Local SQLite state
+/.gaia/

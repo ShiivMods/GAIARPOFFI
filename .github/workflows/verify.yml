@@ -10,20 +10,6 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    services:
-      postgres:
-        image: postgres:17-alpine
-        env:
-          POSTGRES_DB: gaiarp_dev
-          POSTGRES_USER: gaiarp
-          POSTGRES_PASSWORD: gaia_local_only
-        ports:
-          - 54329:5432
-        options: >-
-          --health-cmd "pg_isready -U gaiarp -d gaiarp_dev"
-          --health-interval 3s
-          --health-timeout 3s
-          --health-retries 20
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020e
@@ -31,24 +17,10 @@ jobs:
           node-version: '22'
       - name: Install dependencies
         run: |
-          if test -f package-lock.json; then
-            npm ci
-          else
-            npm install
-          fi
+          if test -f package-lock.json; then npm ci; else npm install; fi
       - name: Lint, typecheck and build
         run: npm run check
-      - name: Combat unit tests
-        run: npm run test:combat
-      - name: Test database setup and local auth
-        env:
-          NODE_ENV: development
-          GAIA_LOCAL_AUTH: '1'
-          DATABASE_URL: postgresql://gaiarp:gaia_local_only@127.0.0.1:54329/gaiarp_dev
-        run: |
-          npm run db:setup
-          npm run db:setup
-          npm run test:auth
-          npm run test:combat:db
+      - name: Local auth and combat tests
+        run: npm test
       - name: Dependency audit
         run: npm audit --audit-level=moderate

@@ -1,19 +1,18 @@
 import assert from "node:assert/strict";
-import { test, after } from "node:test";
+import { test } from "node:test";
 import { randomBytes } from "node:crypto";
-import postgres from "postgres";
-import { localDatabaseUrl } from "../src/server/auth/config.ts";
-import { closeCombatConnection, getCombatView, getResetView, resetCombat, submitCombatCommand } from "../src/server/combat/local-repository.ts";
+import { withLocalDb } from "../src/server/db/local.ts";
+import { useIsolatedLocalDb } from "./local-fixture.ts";
+import { getCombatView, getResetView, resetCombat, submitCombatCommand } from "../src/server/combat/local-repository.ts";
 
-after(closeCombatConnection);
+useIsolatedLocalDb();
 test("persistent shared planning, permissions, concurrency and reset", async () => {
-  const sql = postgres(localDatabaseUrl(), {max: 1});
   const id = "test-" + randomBytes(8).toString("hex");
   try {
-    const rows = await sql<{id:string;email:string}[]>`select id, email from app_accounts where email in ('joueur1@example.test','joueur2@example.test','joueur3@example.test','mj@example.test','admin@example.test')`;
+    const rows = withLocalDb(db=>db.prepare("SELECT id,email FROM app_accounts").all()).map(row=>({id:String(row.id),email:String(row.email)}));
     const account = (email: string) => { const row = rows.find(r => r.email === email + "@example.test"); assert.ok(row); return row.id; };
     const a = account("joueur1"), b = account("joueur2"), c = account("joueur3"), gm = account("mj"), admin = account("admin");
-    await sql`insert into local_combat_scenarios(id,state) select ${id}, state from local_combat_scenarios where id='starlight'`;
+    withLocalDb(db=>db.prepare("INSERT INTO local_combat_scenarios(id,state,updated_at) SELECT ?,state,updated_at FROM local_combat_scenarios WHERE id=\'starlight\'").run(id));
     const initial = await getCombatView(id,a);
     assert.ok(initial);
     await resetCombat(id,gm,initial.revision);
@@ -52,7 +51,6 @@ test("persistent shared planning, permissions, concurrency and reset", async () 
     const enemyView = await getCombatView(id,c);
     assert.ok(enemyView);
     assert.equal(Object.hasOwn(enemyView.members.find(m=>m.id==="lysa")!,"orders"),false);
-    await closeCombatConnection();
     const persisted = await getCombatView(id,a);
     assert.deepEqual(persisted,current);
     await resetCombat(id,gm,current.revision);
@@ -64,7 +62,6 @@ test("persistent shared planning, permissions, concurrency and reset", async () 
     assert.deepEqual(reset.members.find(m=>m.id==="lysa")?.orders,[]);
     await assert.rejects(submitCombatCommand(id,a,current.revision,{kind:"orders",orders:["fire"]}), /Stale revision/);
   } finally {
-    await sql`delete from local_combat_scenarios where id=${id}`;
-    await sql.end();
+    withLocalDb(db=>db.prepare("DELETE FROM local_combat_scenarios WHERE id=?").run(id));
   }
 });

@@ -1,5 +1,12 @@
 # Changelog GAIA RP officiel
 
+## 0.1.0-dev.4 (26 novembre 2026)
+- Remplacement de PostgreSQL/Docker par SQLite intégré à Node.js 22.13+.
+- Initialisation automatique des comptes et du scénario au premier accès, aucune commande DB nécessaire.
+- Conservation des sessions, permissions, ordres et transactions de combat.
+- Tests DB isolés sans conteneurs, documentation et CI mises à jour. Ancienne CI dev.3 échouée sur le test DB ; nouvelle validation à confirmer.
+- Pas d'import automatique des anciennes données PostgreSQL ; aucun hébergement activé.
+
 ## 0.1.0-dev.3 (26 novembre 2026)
 - Scénario Starlight persistant PostgreSQL, trois joueurs et contrôle MJ.
 - Interface de planification, synchronisation périodique, ordres, Ready et reddition.

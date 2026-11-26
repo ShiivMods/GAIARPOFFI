@@ -1,68 +1,60 @@
-import postgres from "postgres";
-import { localDatabaseUrl } from "../auth/config.ts";
+import { withLocalDb, transaction } from "../db/local.ts";
+import type { DatabaseSync } from "node:sqlite";
 import { applyCommand, createTurn, projectTurn, summarizeTurn } from "../../game/combat/turn.ts";
 import type { Command, TurnState } from "../../game/combat/turn.ts";
 
 export const TEST_SCENARIO_ID = "starlight";
-let connection: ReturnType<typeof postgres> | undefined;
-function db() {
-  const url = localDatabaseUrl();
-  connection ??= postgres(url, { max: 5, connect_timeout: 5 });
-  return connection;
-}
 function validId(id: string) {
   if (!/^[a-z0-9-]{1,80}$/.test(id)) throw new Error("Invalid scenario");
 }
-export async function getCombatView(id: string, accountId: string) {
-  validId(id);
-  const sql = db();
-  const [row] = await sql<{state: TurnState}[]>`select state from local_combat_scenarios where id = ${id}`;
-  if (!row) return null;
-  const member = row.state.members.find(m => m.accountId === accountId);
-  if (!member) return null;
-  return { ...projectTurn(row.state, accountId, member.id), ownMemberId: member.id };
+function readState(db: DatabaseSync, id: string): TurnState | null {
+  const row=db.prepare("SELECT state FROM local_combat_scenarios WHERE id=?").get(id);
+  return row ? JSON.parse(String(row.state)) as TurnState : null;
 }
-
-export async function submitCombatCommand(id: string, accountId: string, expectedRevision: number, command: Command) {
+function writeState(db: DatabaseSync,id:string,state:TurnState) {
+  db.prepare("UPDATE local_combat_scenarios SET state=?,updated_at=? WHERE id=?")
+    .run(JSON.stringify(state),Date.now(),id);
+}
+export async function getCombatView(id:string,accountId:string) {
   validId(id);
-  if (!Number.isSafeInteger(expectedRevision) || expectedRevision < 0) throw new Error("Invalid revision");
-  const sql = db();
-  return sql.begin(async tx => {
-    const [row] = await tx<{state: TurnState}[]>`select state from local_combat_scenarios where id = ${id} for update`;
-    if (!row) throw new Error("Unknown scenario");
-    const member = row.state.members.find(m => m.accountId === accountId);
-    if (!member) throw new Error("Forbidden participant");
-    const next = applyCommand(row.state, accountId, member.id, expectedRevision, command);
-    await tx`update local_combat_scenarios set state = ${JSON.stringify(next)}::jsonb, updated_at = now() where id = ${id}`;
-    return projectTurn(next, accountId, member.id);
+  return withLocalDb(db=>{
+    const state=readState(db,id);
+    const member=state?.members.find(m=>m.accountId===accountId);
+    if(!state || !member) return null;
+    return {...projectTurn(state,accountId,member.id),ownMemberId:member.id};
   });
 }
-
-// MJ and administrator have separate account roles. Only MJ resets this local fixture.
-export async function getResetView(id: string, accountId: string) {
+export async function submitCombatCommand(id:string,accountId:string,expectedRevision:number,command:Command) {
   validId(id);
-  const sql = db();
-  const [actor] = await sql<{role: string}[]>`select role from app_accounts where id = ${accountId}`;
-  if (actor?.role !== "gm") return null;
-  const [row] = await sql<{state: TurnState}[]>`select state from local_combat_scenarios where id = ${id}`;
-  if (!row) return null;
-  return { revision: row.state.revision, ...summarizeTurn(row.state) };
+  if(!Number.isSafeInteger(expectedRevision)||expectedRevision<0) throw new Error("Invalid revision");
+  return withLocalDb(db=>transaction(db,()=>{
+    const state=readState(db,id);
+    if(!state) throw new Error("Unknown scenario");
+    const member=state.members.find(m=>m.accountId===accountId);
+    if(!member) throw new Error("Forbidden participant");
+    const next=applyCommand(state,accountId,member.id,expectedRevision,command);
+    writeState(db,id,next);
+    return projectTurn(next,accountId,member.id);
+  }));
 }
-export async function resetCombat(id: string, accountId: string, expectedRevision: number) {
+export async function getResetView(id:string,accountId:string) {
   validId(id);
-  const sql = db();
-  return sql.begin(async tx => {
-    const [actor] = await tx<{role: string}[]>`select role from app_accounts where id = ${accountId} for share`;
-    if (actor?.role !== "gm") throw new Error("Forbidden reset");
-    const [row] = await tx<{state: TurnState}[]>`select state from local_combat_scenarios where id = ${id} for update`;
-    if (!row) throw new Error("Unknown scenario");
-    if (row.state.revision !== expectedRevision) throw new Error("Stale revision");
-    const participants = row.state.members.map(({ id, accountId, shipId, name, station }) => ({ id, accountId, shipId, name, station }));
-    const next = { ...createTurn(participants), revision: row.state.revision + 1 };
-    await tx`update local_combat_scenarios set state = ${JSON.stringify(next)}::jsonb, updated_at = now() where id = ${id}`;
+  return withLocalDb(db=>{
+    const actor=db.prepare("SELECT role FROM app_accounts WHERE id=?").get(accountId);
+    if(actor?.role!=="gm") return null;
+    const state=readState(db,id);
+    return state ? {revision:state.revision,...summarizeTurn(state)} : null;
   });
 }
-export async function closeCombatConnection() {
-  await connection?.end();
-  connection = undefined;
+export async function resetCombat(id:string,accountId:string,expectedRevision:number) {
+  validId(id);
+  return withLocalDb(db=>transaction(db,()=>{
+    const actor=db.prepare("SELECT role FROM app_accounts WHERE id=?").get(accountId);
+    if(actor?.role!=="gm") throw new Error("Forbidden reset");
+    const state=readState(db,id);
+    if(!state) throw new Error("Unknown scenario");
+    if(state.revision!==expectedRevision) throw new Error("Stale revision");
+    const participants=state.members.map(({id,accountId,shipId,name,station})=>({id,accountId,shipId,name,station}));
+    writeState(db,id,{...createTurn(participants),revision:state.revision+1});
+  }));
 }

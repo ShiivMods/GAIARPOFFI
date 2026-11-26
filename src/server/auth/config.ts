@@ -1,14 +1,12 @@
+import { join } from "node:path";
+
 export function localModeEnabled(): boolean {
-  return process.env.NODE_ENV === "development" && process.env.GAIA_LOCAL_AUTH === "1";
+  return process.env.NODE_ENV === "development" && process.env.GAIA_LOCAL_AUTH !== "0";
 }
 
-export function localDatabaseUrl(): string {
+export function localDatabasePath(): string {
   if (!localModeEnabled()) throw new Error("Authentification locale désactivée.");
-  const url = new URL(process.env.DATABASE_URL ?? "");
-  if (url.protocol !== "postgresql:" || !["127.0.0.1", "localhost"].includes(url.hostname) || url.port !== "54329" || url.pathname !== "/gaiarp_dev") {
-    throw new Error("Base locale GAIA RP non configurée.");
-  }
-  return url.toString();
+  return join(process.cwd(), ".gaia", "local.sqlite");
 }
 
 export function normalizeEmail(input: string): string | null {

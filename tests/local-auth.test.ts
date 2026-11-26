@@ -1,10 +1,11 @@
 import assert from "node:assert/strict";
-import { after, test } from "node:test";
+import { test } from "node:test";
 import { randomBytes } from "node:crypto";
-import { normalizeEmail, normalizeUsername, localDatabaseUrl } from "../src/server/auth/config.ts";
-import { localAuth, closeLocalAuthConnection } from "../src/server/auth/local-provider.ts";
+import { normalizeEmail, normalizeUsername, localDatabasePath } from "../src/server/auth/config.ts";
+import { localAuth } from "../src/server/auth/local-provider.ts";
 
-after(closeLocalAuthConnection);
+import { useIsolatedLocalDb } from "./local-fixture.ts";
+useIsolatedLocalDb();
 test("validation et isolation du mode local", () => {
   assert.equal(normalizeEmail(" Test@EXAMPLE.TEST "), "test@example.test");
   assert.equal(normalizeEmail("person@example.com"), null);
@@ -12,7 +13,10 @@ test("validation et isolation du mode local", () => {
   const original = process.env.GAIA_LOCAL_AUTH;
   try {
     process.env.GAIA_LOCAL_AUTH = "0";
-    assert.throws(localDatabaseUrl);
+    assert.throws(localDatabasePath);
+    process.env.GAIA_LOCAL_AUTH = "1";
+    process.env.NODE_ENV = "production";
+    try { assert.throws(localDatabasePath); } finally { process.env.NODE_ENV = "development"; }
   } finally {
     if (original === undefined) delete process.env.GAIA_LOCAL_AUTH;
     else process.env.GAIA_LOCAL_AUTH = original;

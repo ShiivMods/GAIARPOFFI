@@ -17,6 +17,9 @@ L'inscription est ouverte et requiert un e-mail ; la création du premier person
 ## Parcours local
 Inscription avec pseudo unique et adresse fictive @example.test, rôle joueur attribué serveur, connexion simulée sans mot de passe, compte et déconnexion. Cinq comptes de test (trois joueurs, MJ, administrateur). Pas de confirmation e-mail, de récupération ou de création de personnage dans cette brique. Le fournisseur réel reste à intégrer.
 
+## Développement simplifié
+SQLite local auto-initialisé, sans service externe. Les fonctionnalités restent testables localement. La mise en ligne future est une étape de développement, pas un critère de fin du projet.
+
 ---
 
 > **Archive de la maquette (ShiivMods/GaiaRP).** Le texte qui suit est conservé pour les règles métier et les décisions de conception. Les mentions d'implémentation, de versions, de routes, de GitHub Pages, de Vite, de dépendances et les cases cochées décrivent uniquement l'ancien dépôt. Elles ne prouvent rien sur GAIARPOFFI. En cas de conflit technique, la section officielle ci-dessus prévaut. Les règles métier non remplacées restent applicables.

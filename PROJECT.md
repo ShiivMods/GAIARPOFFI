@@ -6,7 +6,7 @@
 
 ## Architecture officielle
 - Next.js App Router, React, TypeScript strict, Node.js 22 (minimum 22.13).
-- Stratégie Local First : PostgreSQL 17 via Docker, authentification simulée et sessions persistantes en développement. Supabase/Auth/Vercel différés ; test d’intégration réel avant la recette finale.
+- Stratégie Local First simplifiée : SQLite intégré à Node.js, initialisation automatique, aucun Docker ni service externe. Supabase/Auth/Vercel différés à l’hébergement ; mise en ligne ne signifie pas fin du développement.
 - Application serveur, non destinée à l'export statique GitHub Pages. Hébergement non choisi.
 - `src/app/` : routes et interface ; `src/features/` : modules fonctionnels ; `src/game/` : règles métier indépendantes ; `src/server/` : accès et opérations exclusivement serveur.
 - Le serveur est autoritaire ; aucune mutation d'économie, progression ou combat ne repose sur une valeur déclarée par un client. L'IA peut narrer, mais ne décide pas des conséquences mécaniques.
@@ -19,12 +19,14 @@
 4. Progression et boucle complète RP > combat > progression > RP.
 5. Autres modules du forum.
 
-Comptes locaux validés en CI (run 45768821948). Première brique pure de combat validée en CI (45769088467). Terrain de planification persistant local écrit ; validation en cours. Aucun combat résolu, RP, progression ou authentification réelle. Les règles de développement, d'UX, de sécurité et de conception historiques restent applicables sauf adaptation explicitement documentée.
+Comptes locaux validés en CI (run 45768821948). Première brique pure de combat validée en CI (45769088467). Terrain de planification persistant local écrit. Stockage porté vers SQLite ; nouvelle validation en cours. Aucun combat résolu, RP, progression ou authentification réelle. Les règles de développement, d'UX, de sécurité et de conception historiques restent applicables sauf adaptation explicitement documentée.
 
 ## Identité et stockage
-Les comptes métier utilisent des UUID indépendants du fournisseur. Une interface AuthProvider sépare la session du moteur. Le mode local ne fonctionne qu’avec NODE_ENV=development et GAIA_LOCAL_AUTH=1 ; serveur et base liés à localhost. Les comptes locaux sont jetables. La future intégration doit associer des identités vérifiées aux comptes et ne doit pas importer les sessions simulées. Les contrôles métier sont réels dès le développement.
+Les comptes métier utilisent des UUID indépendants du fournisseur. Une interface AuthProvider sépare la session du moteur. Le mode local ne fonctionne qu’avec NODE_ENV=development et GAIA_LOCAL_AUTH différent de 0 ; serveur lié à localhost, fichier SQLite privé. Les comptes locaux sont jetables. La future intégration doit associer des identités vérifiées aux comptes et ne doit pas importer les sessions simulées. Les contrôles métier sont réels dès le développement.
 
 Les règles de combat et les décisions encore ouvertes sont documentées dans [COMBAT.md](COMBAT.md).
+
+Le stockage PostgreSQL local et Docker sont abandonnés. L’adaptation à PostgreSQL hébergé et les tests associés seront réalisés lors de l’intégration cloud.
 
 ---
 
